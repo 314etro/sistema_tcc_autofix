@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist AutoFix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            max-width: auto;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #000000;
+            margin-top: 30px;
+            background-color: #c7c7c7;
+            border-radius: 5px;
+        }
+
+        h4 {
+            margin-right: 30px;
+            color: #ffffff;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 60px;
+            margin-left: 20px;
+        }
+
+        .welcome {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .checklist {
+            margin-bottom: 20px;
+        }
+
+        .item-group {
+            margin-bottom: 10px;
+        }
+
+        .item-group h3 {
+            margin-top: 0;
+        }
+
+        .item-list {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+
+        .item-name {
+            flex: 1;
+        }
+
+        .item-status {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 150px;
+        }
+
+        .item-status select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            appearance: none;
+            background-color: #fff;
+        }
+
+        .legends {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .legend-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        .legend-group input {
+            margin-right: 5px;
+        }
+
+        .legend-group label {
+            margin-right: 10px;
+        }
+
+        .button {
+          
+            color: white;
+            padding: 10px 30px;
+            border: none;
+            border-radius: 3px;
+            text-align: center;
+            text-decoration: none;
+            display: flex;
+            font-size: 16px;
+            margin: 0 auto;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    
+
+        <div class="header">
+            <div class="logo">
+                <img src="Logo.png" alt="Logo AutoFix">
+            </div>
+            <div class="welcome">
+                <h4>Bem-vindo, Mecânico Luiz</h4>
+            </div>
+        </div>
+
+    <div class="container">
+            <h1>Checklist</h1>
+
+        <div class="checklist">
+            <h2>Itens Internos</h2>
+            <div class="item-group">
+                <div class="item-list">
+                    <div class="item-name">Kit Multimídia/ Rádio AM/FM</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Extintor de incêndio</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Tag - sem parar</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Cinto de segurança</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="rasgado">Rasgado</option>
+                            <option value="quebrado">Quebrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Triângulo de segurança</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>                       
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Estepe</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="rasgado">Rasgado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="amassado">Amassado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Macaco</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Chave de Roda</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Extintor</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Estofamento</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="rasgado">Rasgado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Certificado ANTT</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Tacógrafo</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Tacógrafo</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Quilometragem</div>
+                    <div class="item-status">
+                        <input type="text" style="max-width: 150px; height: 30px;">
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Nível de Combustível</div>
+                    <div class="item-status">
+                        <input type="text" style="max-width: 150px; height: 30px;">
+                    </div>
+                </div>
+    
+            </div>
+<!---------------------------------------------------------------------------------------------------------------------> 
+
+
+            <h2>Itens Externos</h2>
+            <div class="item-group">
+                <div class="item-list">
+                    <div class="item-name">Para-Lama Dianteiro Direito</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Lama Traseiro Direito</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Lama Dianteiro Esquerdo</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Lama Traseiro Esquerdo</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Teto</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Capô do Motor</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Choque Dianteiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Choque Traseiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Brisa Dianteiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Para-Brisa Traseiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Vidros Laterais Direito</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Vidros Laterais Esquerdo</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Porta Dianteira Direita</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Porta Traseira Direita</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Porta Dianteira Esquerda</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Porta Traseira Esquerda</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Pintura Padrão</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Engate Rápido</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Limpador de Para-Brisa Dianteiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Limpador de Para-Brisa Traseiro</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Lentes do Farol</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Lentes da Lanterna</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="item-list">
+                    <div class="item-name">Luz de Freio</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Luz de Direção (Seta)</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Luz de Ré</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Nível de Água no Limpador de Para-Brisa</div>
+                    <div class="item-status">
+                       
+                            <input type="text" style="max-width: 150px; height: 30px;">
+                        
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Nível de Óleo</div>
+                    <div class="item-status">
+                        
+                            <input type="text" style="max-width: 150px; height: 30px;">
+                       
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Bateria</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="nao_funciona">Não Funciona</option>
+                            <option value="quebrado">Quebrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Placa</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="falta">Falta</option>
+                            <option value="descascado">Descascado</option>
+                            <option value="enferrujado">Enferrujado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                            <option value="quebrado">Quebrado</option>
+                            <option value="amassado">Amassado</option>
+                            <option value="riscado">Riscado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Marcação dos Pneus</div>
+                    <div class="item-status">
+                       
+                            <input type="text" style="max-width: 150px; height: 30px;">
+                    
+                    </div>
+                </div>
+                <div class="item-list">
+                    <div class="item-name">Estado dos Pneus</div>
+                    <div class="item-status">
+                        <select>
+                            <option value="ok">OK</option>
+                            <option value="rasgado">Rasgado</option>
+                            <option value="vazio">Vazio (Não Tem)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="button">
+                    <button type="button" class="btn btn-success btn-lg">Enviar</button>
+                </div>
+        </div>

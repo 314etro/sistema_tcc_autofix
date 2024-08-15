@@ -309,8 +309,7 @@ footer {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1; /* Garante que as opções fiquem por cima do botão */
-    width: 150px; /* Define a largura das opções */
-    
+    width: 200px; /* Aumente a largura para garantir que os botões sejam visíveis */
 }
 
 .login-options button {
@@ -323,8 +322,8 @@ footer {
     margin-bottom: 5px;
     background-color: #333;
     color: #fff;
-    opacity: 0; /* Inicialmente invisível */
-    transition: opacity 0.3s ease; /* Transição suave para a visibilidade */
+    opacity: 1; /* Torna os botões visíveis */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
 }
 
 .login-options button:hover {

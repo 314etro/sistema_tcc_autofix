@@ -86,16 +86,40 @@
 
     <script>
         const loginButton = document.getElementById("loginButton");
-        const loginOptions = document.getElementById("loginOptions");
-        const loginDropdown = document.getElementById("loginDropdown");
+const loginOptions = document.getElementById("loginOptions");
+let timeoutId; // Variável para armazenar o ID do timeout
 
-        loginButton.addEventListener("click", function() {
-            loginOptions.style.display = "block";
-        });
+loginButton.addEventListener("click", function() {
+    // Verifica se o timeout já está ativo, e se estiver, limpa-o
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
 
-        loginOptions.addEventListener("click", function() {
-            loginOptions.style.display = "none";
-        });
+    // Mostra as opções de login
+    loginOptions.style.display = "block";
+
+    // Define um timeout para esconder as opções após 6 segundos
+    timeoutId = setTimeout(function() {
+        loginOptions.style.display = "none";
+    }, 6000); // 6000 milissegundos = 6 segundos
+});
+
+loginOptions.addEventListener("click", function(event) {
+    // Evita que o clique dentro das opções de login feche o menu imediatamente
+    event.stopPropagation();
+});
+    
+document.addEventListener("click", function(event) {
+    // Fecha o menu se o clique for fora do botão ou do menu
+    if (!loginButton.contains(event.target) && !loginOptions.contains(event.target)) {
+        loginOptions.style.display = "none";
+
+        // Limpa o timeout se o menu for fechado manualmente
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+    }
+});
     </script>
 </body>
 </html>

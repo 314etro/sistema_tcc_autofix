@@ -63,24 +63,25 @@
             justify-content: space-between;
             align-items: flex-start; /* Alinha os itens no topo */
             margin: 20px;
-            gap: 100px; /* Espaçamento entre os boxes */
+            height: 400px;
+            gap: 00px; /* Espaçamento entre os boxes */
         }
 
         .mechanic-box {
-    padding: 50px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 50px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ccc;
-    width: 50%; /* Aumenta a largura do box */
-    height: 350px; /* Aumenta a altura do box */
-    box-sizing: border-box;
-    text-align: left; /* Alinha o texto à esquerda */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-    margin: 55px; /* Adiciona uma margem superior para o alinhamento */
-}
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 50px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            width: 50%; /* Aumenta a largura do box */
+            height: 220px; /* Aumenta a altura do box */
+            box-sizing: border-box;
+            text-align: left; /* Alinha o texto à esquerda */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centraliza o conteúdo verticalmente */
+            margin: 50px; /* Adiciona uma margem superior para o alinhamento */
+        }
 
         .mechanic-box h2 {
             font-size: 18px;
@@ -95,54 +96,57 @@
         }
 
         .cards-section {
-            width: 45%; /* Ajusta a largura da seção de cartões */
+            width: 50%; /* Ajusta a largura da seção de cartões */
+            
         }
 
         .cards-section h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    margin-left: 120px; /* Ajuste a margem esquerda aqui */
-}
-
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(2, 200px); /* Duas colunas com largura fixa */
-    gap: 60px; /* Aumenta o espaçamento entre os cartões */
-    box-sizing: border-box;
-    align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
-}
-
-
-        .card {
-    background-color: #E6F1F5; /* Cor de fundo similar à imagem */
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Bordas levemente arredondadas */
-    padding: 8px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 150px; /* Aumenta a altura dos cartões */
-    width: 220px; /* Ajusta a largura dos cartões */
-    font-size: 14px;
-    display: flex; /* Adiciona flexbox */
-    flex-direction: column; /* Direção da flexbox para vertical */
-    justify-content: flex-start; /* Alinha o conteúdo no topo */
-}
-
-        .card h3 {
-            margin: 0 0 5px 0;
-            font-size: 16px;
-            color: white; /* Cor do texto do título similar à imagem */
-            background-color: #005b71; /* Cor de fundo do título similar à imagem */
-            padding: 5px;
-            align-self: stretch; /* Faz o título ocupar toda a largura do card */
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            margin-left: 120px; /* Ajuste a margem esquerda aqui */
         }
 
-        .card p {
-            margin: 40px;
-            font-size: 18px;
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 250px); /* Duas colunas com largura fixa */
+            gap: 40px; /* Aumenta o espaçamento entre os cartões */
+            box-sizing: border-box;
+            align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
+        }
+
+        .card {
+            background-color: #ffffff; /* Cor de fundo similar à imagem */
+            border: 5px solid #000000; /* Adiciona borda de 4px */
+            border-radius: 10px; /* Bordas levemente arredondadas */
+           
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 130px; /* Aumenta a altura dos cartões */
+            width: 240px; /* Ajusta a largura dos cartões */
+            font-size: 20px;
+            display: flex; /* Adiciona flexbox */
+            flex-direction: column; /* Direção da flexbox para vertical */
+            justify-content: flex-start; /* Alinha o conteúdo no topo */
+        }
+
+        .card h3 {
+            margin: 0 0 0px 0;
+            font-size: 20px;
+            color: white; /* Cor do texto do título similar à imagem */
+            background-color: #003688; /* Cor de fundo do título similar à imagem */
+            padding: 5px;
+            align-self: stretch; /* Faz o título ocupar toda a largura do card */
+            border-radius: 3%;
+        }
+
+        .card h1 {
+            margin: 30px;
+            font-size: 40px;
+            font-style: bold;
             color: black; /* Cor do texto do conteúdo similar à imagem */
+            justify-content: center;
         }
 
         footer {
@@ -153,17 +157,27 @@
             margin-top: auto;
             font-weight: normal;
         }
+
+        .mechanic-info {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .mechanic-info strong {
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <img src="logo.png" alt="Logo Autofix">
+        <img src="../img/logo.png" alt="Logo Autofix">
     </header>
 
     <div class="title-container">
         <button class="back-button">
-            <img src="seta.png" alt="Voltar">
+            <img src="../img/seta.png" alt="Voltar">
         </button>
         <div class="title">
             Mecânico
@@ -186,19 +200,19 @@
             <div class="cards-container">
                 <div class="card">
                     <h3>Fusca</h3>
-                    <p>Placa: xxx-1111</p>
+                    <h1>GET9D89</h1>
                 </div>
                 <div class="card">
                     <h3>Civic</h3>
-                    <p>Placa: xxx-1111</p>
+                    <h1>xxx-1111</h1>
                 </div>
                 <div class="card">
                     <h3>HB-20</h3>
-                    <p>Placa: xxx-1111</p>
+                    <h1>xxx-1111</h1>
                 </div>
                 <div class="card">
                     <h3>Jetta</h3>
-                    <p>Placa: xxx-1111</p>
+                    <h1>xxx-1111</h1>
                 </div>
             </div>
         </div>

@@ -76,6 +76,7 @@
             display: flex;
             justify-content: center;
             /* Centraliza a container dos cards */
+            margin-top: 70px;
         }
 
         .card-container {
@@ -222,9 +223,9 @@
         }
 
         .card-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex: 1;
+            min-width: 150px;
+            max-width: 200px;
         }
 
         .card {
@@ -255,3 +256,23 @@
             margin-top: 10px;
             text-align: center;
         }
+
+        @media (max-width: 768px) {
+            .card-item {
+                min-width: 120px;
+            }
+        
+            .card {
+                padding: 15px;
+            }
+        
+            .card img {
+                width: 40px;
+                height: 40px;
+            }
+        
+            .card-title {
+                font-size: 14px;
+            }
+        }
+        

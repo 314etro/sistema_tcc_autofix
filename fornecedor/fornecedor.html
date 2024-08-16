@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fornecedor - Autofix</title>
+  <style>
+    /* Estilos do cabeçalho e rodapé */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      font-weight: normal;
+    }
+
+    header {
+      background-color: #860606;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+
+    header img {
+      width: 200px;
+      height: auto;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      margin-top: auto;
+      font-weight: normal;
+    }
+
+    /* Estilos do conteúdo */
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      position: relative; /* Ensure positioning for the arrow icon */
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      width: 80%;
+    }
+    .add-supplier {
+      padding: 10px 20px;
+      background-color: #0D6EFD;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-left: 1250px;
+      position: relative;
+      top: -55px;
+    }
+    .supplier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .supplier-item {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #fff;
+      position: relative;
+    }
+    .supplier-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .supplier-name {
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .supplier-details {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .supplier-action {
+      display: flex;
+      gap: 10px;
+    }
+    .edit-icon {
+      font-size: 20px;
+      color: #4285f4;
+      cursor: pointer;
+    }
+    .delete-icon {
+      font-size: 20px;
+      color: #f44336;
+      cursor: pointer;
+    }
+    .supplier-button {
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .search-bar img {
+      font-size: 20px;
+      color: #333;
+      cursor: pointer;
+      position: absolute;
+      right: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+    }
+    .supplier-icons {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .supplier-icons img {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    /* Novo estilo para o ícone de seta */
+    .arrow-icon {
+      position: absolute;
+      top: 205px; /* Ajuste conforme necessário */
+      left: 140px;
+      z-index: 10; /* Certifique-se de que o ícone esteja acima do conteúdo */
+    }
+    .arrow-icon img {
+      width: 30px; /* Ajuste o tamanho conforme necessário */
+      height: auto;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Logo Autofix">
+  </header>
+  <div class="arrow-icon">
+    <img src="seta.png" alt="Seta">
+  </div>
+  <div class="container">
+    <h1>Fornecedor</h1>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscar Fornecedor">
+      <img src="lupa.png" alt="Pesquisar">
+    </div>
+    <button class="add-supplier">Cadastrar Fornecedor</button>
+    <div class="supplier-list">
+      <div class="supplier-item">
+        <div class="supplier-info">
+          <div class="supplier-name">AutoTech Peças S.A.</div>
+        </div>
+        <div class="supplier-details">
+          <p>CNPJ: 12.345.678/0001-99</p>
+          <p>Telefone: (11) 4000-1234</p>
+          <p>E-mail: contato@autotechpecas.com.br</p>
+        </div>
+        <button class="supplier-button">Entrar em contato</button>
+        <div class="supplier-icons">
+          <img src="editar.png" alt="Editar">
+          <img src="excluir.png" alt="Excluir">
+        </div>
+      </div>
+      <div class="supplier-item">
+        <div class="supplier-info">
+          <div class="supplier-name">MaxAuto Componentes Ltda.</div>
+        </div>
+        <div class="supplier-details">
+          <p>CNPJ: 98.765.432/0001-11</p>
+          <p>Telefone: (21) 3000-5678</p>
+          <p>E-mail: atendimento@maxautocomponentes.com.br</p>
+        </div>
+        <button class="supplier-button">Entrar em contato</button>
+        <div class="supplier-icons">
+          <img src="editar.png" alt="Editar">
+          <img src="excluir.png" alt="Excluir">
+        </div>
+      </div>
+      <div class="supplier-item">
+        <div class="supplier-info">
+          <div class="supplier-name">TurboParts Indústria e Comércio Ltda.</div>
+        </div>
+        <div class="supplier-details">
+          <p>CNPJ: 45.678.910/0001-22</p>
+          <p>Telefone: (31) 2500-4321</p>
+          <p>E-mail: contato@turboparts.com.br</p>
+        </div>
+        <button class="supplier-button">Entrar em contato</button>
+        <div class="supplier-icons">
+          <img src="editar.png" alt="Editar">
+          <img src="excluir.png" alt="Excluir">
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2024 Autofix - Todos os direitos reservados
+  </footer>
+</body>
+</html>

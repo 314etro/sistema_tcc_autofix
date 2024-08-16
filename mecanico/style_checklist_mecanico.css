@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Adicione esta linha para garantir que o padding e margin sejam incluídos nas dimensões dos elementos */
+    font-family: 'Arvo', serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: relative;
+}
+
+header img {
+    width: 200px;
+    height: auto;
+}
+
+.container {
+    width: 90%;
+    max-width: 1800px; /* Ajuste a largura máxima para garantir que o layout fique bonito */
+    margin: 20px auto;
+    background-color: #fcfcfc;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+h2 {
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    background-color: #c7c7c7;
+    border-radius: 5px;
+}
+
+.item-group {
+    margin-bottom: 10px;
+}
+
+.item-list {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+.item-name {
+    flex: 1;
+    min-width: 200px; /* Ajuste a largura mínima para garantir que o nome do item tenha espaço suficiente */
+}
+
+.item-status {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Ajuste o alinhamento para que os itens fiquem alinhados à direita */
+    width: 200px; /* Aumente a largura para garantir que haja espaço suficiente para o conteúdo */
+}
+
+.item-status select, .item-status input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #fff;
+    box-sizing: border-box; /* Inclua o padding e a borda nas dimensões do elemento */
+    height: 30px; /* Garanta uma altura consistente para todos os elementos */
+}
+
+.item-status input {
+    width: 200px;
+}
+

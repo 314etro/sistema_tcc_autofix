@@ -1,0 +1,183 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+
+.header {
+    background-color: #505050;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    height: 40px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    font-size: 24px;
+    color: #505050;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu a {
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+}
+
+.menu a.active {
+    border-bottom: 2px solid #505050;
+    margin-left: 500px;
+    margin-right: 600px;
+}
+
+.approval-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    width: 300px;
+    border-radius: 5px;
+}
+
+.approval-card h2 {
+    color: #ff7f27;
+    font-size: 18px;
+}
+
+.approval-card p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.expired-card {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    width: 300px;
+    border-radius: 5px;
+}
+
+h1 {
+    font-size: medium;
+}
+
+h2 {
+    font-size: larger;
+    color:rgba(116, 9, 9, 0.795);
+}
+h3 {
+    text-decoration: none;
+    text-align: center;
+}
+
+.logo {
+ margin: 0 auto;
+}
+
+.veiculo {
+    display: flex;
+    margin-right: 20px;
+    margin-left: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+
+}
+
+.linha-divisoria {
+
+    display: flex;
+    margin-right: 20px;
+    margin-left: 20px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+h4 {
+    color:rgba(116, 9, 9, 0.795);
+}
+
+.icon-button {
+    margin-left: 20px;
+    margin-top: 10px;
+    border: none;
+    background: none;
+    
+}
+    .area-cliente {
+        margin-left: 20px;
+
+    }
+
+.vehicle-card {
+    width: 20%;
+    margin: 10px;
+    height: 150px;
+    margin-left: 60px;
+    padding: 10px;
+    background-color: #fff;
+    text-align: justify;
+    box-shadow: #505050;
+  }
+  
+  .vehicle-card h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .vehicle-card .vehicle-info {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .vehicle-card .vehicle-info span {
+    font-weight: bold;
+  }
+
+  .vehicle-container {
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+    margin-left: 5px;
+    
+
+  }
+
+  .button-icon {
+
+    border: none;
+    background: none;
+
+  }
+
+.icon-container {
+    position: fixed;
+    margin-top: 40px;
+    right: 10px;
+    z-index: 100; /* Define a ordem dos elementos */
+    display: flex;
+    align-items: center;
+    
+}

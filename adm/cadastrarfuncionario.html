@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Funcionários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Estilos do cabeçalho */
+        header {
+            background-color: #860606;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+        }
+
+        /* Estilos da barra de pesquisa e botão de cadastro */
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Alinhar ao centro */
+            margin: 20px auto;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            position: relative;
+        }
+
+        .search-bar input[type="text"] {
+            width: calc(100% - 50px); /* Ajustado para o ícone da lupa e botão */
+            padding: 10px 40px 10px 20px; /* Ajustado para o ícone da lupa */
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-bar .search-input-container img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .register-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-left: 10px;
+        }
+
+        .register-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos do título */
+        .title {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px auto;
+            color: #333;
+            width: 80%;
+        }
+
+        /* Estilos da lista de funcionários */
+        .employee-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .employee-card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: left;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra adicionada para destaque */
+        }
+
+        .employee-card .profile-btn {
+            background-color: #FF6600;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+        }
+
+        .employee-card .profile-btn:hover {
+            background-color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../cabecalho/img/Logo.png" alt="Logo">
+    </header>
+
+    <div class="title">
+        <h1>Funcionários</h1>
+    </div>
+
+    <div class="search-container">
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar funcionário">
+            <div class="search-input-container">
+                <img src="../cabecalho/img/lupa.png" alt="Pesquisar">
+            </div>
+        </div>
+        <button class="register-btn" onclick="window.location.href='#'">Cadastrar Funcionário</button>
+    </div>
+
+    <div class="employee-list">
+        <div class="employee-card">
+            <p>Maria Souza</p>
+            <p>Email: mariasouza@gmail.com</p>
+            <p>Número: (21) 99876-5432</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Pedro Almeida</p>
+            <p>Email: pedroalmeida@gmail.com</p>
+            <p>Número: (31) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Ana Oliveira</p>
+            <p>Email: anaoliveira@gmail.com</p>
+            <p>Número: (41) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Lucas Martins</p>
+            <p>Email: lucasmartins@gmail.com</p>
+            <p>Número: (51) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Juliana Santos</p>
+            <p>Email: julianasantos@gmail.com</p>
+            <p>Número: (61) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Ricardo Pereira</p>
+            <p>Email: ricardopereira@gmail.com</p>
+            <p>Número: (71) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Fernanda Lima</p>
+            <p>Email: fernandalima@gmail.com</p>
+            <p>Número: (81) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Ricardo Oliveira</p>
+            <p>Email: ricardooliveira@gmail.com</p>
+            <p>Número: (91) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+        <div class="employee-card">
+            <p>Beatriz Almeida</p>
+            <p>Email: beatrizalmeida@gmail.com</p>
+            <p>Número: (92) 91234-5678</p>
+            <button class="profile-btn">Perfil</button>
+        </div>
+    </div>
+</body>
+</html>

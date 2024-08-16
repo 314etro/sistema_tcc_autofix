@@ -1,0 +1,360 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 1rem 0 1rem 1rem; /* Adicione padding à direita */
+    display: flex; 
+    align-items: center; 
+    height: 80px; /* Define a altura do cabeçalho */
+    transition: background-color 0.3s ease;
+}
+
+header:hover {
+    background-color: #444; /* Muda a cor de fundo ao passar o mouse */
+}
+
+.logo-img {
+    height: 40px; /* Define a altura da imagem do logotipo */
+    margin-right: 20px; 
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.1); /* Aumenta o tamanho do logo ao passar o mouse */
+}
+
+nav {
+    margin-left: auto; /* Empurra o nav (menu) para o lado direito */
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.logo {
+    display: flex; /* Para alinhar o logo e manter sua posição */
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    width: 60px;
+}
+
+.login-button {
+    background-color: #333; 
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    display: inline-block; /* Torna o botão um bloco em linha */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Transição suave */
+}
+
+.login-button:hover {
+    background-color: #555; 
+    transform: scale(1.05); /* Aumenta ligeiramente o botão ao passar o mouse */
+}
+
+
+.login-button:hover {
+    background-color: #555; 
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block; /* Mantém os itens do menu na mesma linha */
+}
+
+nav li {
+    display: inline-block; 
+    margin-left: 1rem;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    
+}
+
+section {
+    padding: 2rem 0;
+}
+
+.hero {
+    background-color: #fff;
+    padding: 4rem 0;
+    text-align: center;
+    position: relative; /* Permite posicionar a imagem de fundo */
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+}
+
+.services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.service {
+    max-width: 1600px;
+    background-color: #000000;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service:hover {
+    transform: translateY(-10px); /* Eleva o card ao passar o mouse */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
+}
+
+.service p {
+    /* Remova o padding-top, ou ajuste para o valor desejado */
+    margin-top: 10px; /* Adiciona margem superior se precisar */
+    padding: 0;
+}
+
+.service2 {
+    background-color: #000000;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1 1 5%;
+}
+
+.service h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.service p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.service img {
+    width: 100%;
+    max-width: 40%;
+    height: auto;
+    border-radius: 5px;
+    margin-right: 0%;
+    
+}
+
+
+.texto-service {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%; /* O texto e título ocupam 50% do espaço */
+    padding-left: 20px; /* Adiciona espaçamento entre a imagem e o texto */
+}
+
+footer {
+    background-color: #000000;
+    color: #fff;
+    padding: 1rem 0; /* Reduzido o padding para diminuir a altura do rodapé */
+    text-align: center;
+    position: relative; /* Mantém o posicionamento relativo para o logo */
+    overflow: hidden;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 1rem; /* Opcional: Adiciona um padding horizontal menor */
+}
+
+.contact, 
+.links,
+.copyright {
+    flex: 1 1 30%; /* Mantém a largura das colunas, ajuste conforme necessário */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    margin-bottom: 1rem; /* Reduzido o espaço entre as colunas */
+}
+
+.contact h3,
+.links h3 {
+    font-size: 1rem; /* Reduzido o tamanho da fonte para diminuir a altura */
+    margin-bottom: 0.5rem;
+}
+
+.contact ul,
+.links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact li,
+.links li {
+    margin-bottom: 0.5rem;
+}
+
+.contact a,
+.links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem; /* Reduzido o tamanho da fonte dos links */
+    transition: text-decoration 0.3s ease; /* Transição suave */
+}
+
+.footer-logo {
+    position: absolute;
+    bottom: 0.5rem; /* Ajuste o espaçamento do logo em relação ao rodapé */
+    right: 0.5rem;
+    transition: transform 0.3s ease; /* Transição suave para o logo */
+}
+
+.footer-logo img {
+    height: 150px; /* Reduzido o tamanho do logo */
+    width: auto;
+}
+
+.footer-logo:hover img {
+    transform: scale(1.1); /* Aumenta o logo ao passar o mouse */
+}
+
+.contact a:hover,
+.links a:hover {
+    text-decoration: underline;
+}
+
+
+.titulo_service{
+    background-color: #C75353;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.titulo_service h2{
+    color: #fff;
+    margin: 0;
+}
+
+.img-service {
+ align-items: center;
+}
+
+.login-dropdown {
+    position: relative; /* Permite posicionar as opções de login */
+    padding: 20px;
+}
+
+.login-button {
+    position: relative; /* Altera para posicionamento absoluto */
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    
+}
+
+.login-button:hover {
+    background-color: #555;
+}
+
+.login-options {
+    display: none; /* Esconde as opções por padrão */
+    position: absolute; /* Posiciona as opções em relação ao botão */
+    top: 100%; /* Posiciona abaixo do botão */
+    right: 0; /* Posiciona à direita */
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Garante que as opções fiquem por cima do botão */
+    width: 200px; /* Aumente a largura para garantir que os botões sejam visíveis */
+}
+
+.login-options button {
+    display: block; /* Faz os botões ficarem um abaixo do outro */
+    width: 100%; /* Largura dos botões */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+    margin-bottom: 5px;
+    background-color: #333;
+    color: #fff;
+    opacity: 1; /* Torna os botões visíveis */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+.login-options button:hover {
+    background-color: #555; /* Muda a cor de fundo dos botões ao passar o mouse */
+}
+
+.hero {
+    background-image: url("img/img3-login.png"); /* Caminho para a imagem */
+    background-size: cover; /* Ajuste o tamanho da imagem */
+    background-position: center; /* Posicionamento da imagem */
+    background-repeat: no-repeat; /* Evita repetição da imagem */
+    padding: 4rem 0; /* Padding para o conteúdo */
+    text-align: center; /* Alinhamento de texto */
+    overflow: hidden;
+    color: #fff;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3); /* Adiciona uma sobreposição escura para o texto */
+    opacity: 0;
+    transition: opacity 0.3s ease; /* Transição suave para a sobreposição */
+}
+
+.hero:hover::before {
+    opacity: 1; /* Torna a sobreposição visível ao passar o mouse */
+}
+
+.hero h1, .hero p {
+    position: relative;
+    z-index: 1; /* Garante que o texto fique acima da sobreposição */
+}

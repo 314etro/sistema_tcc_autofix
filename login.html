@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFix - Reparos Automotivos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="text-white py-2" style="background-color: #000000; display: flex; align-items: center; justify-content: space-between; padding: 0 20px;">
+        <img src="img/logo-principal.png" alt="Logo Autofix" class="img-fluid" style="max-width: 200px;">
+        <div class="login-dropdown" id="loginDropdown">
+            <a href="#" class="login-button" id="loginButton">Fazer login</a>
+            <div class="login-options" id="loginOptions">
+                <button class="login-button" onclick="window.location.href='cliente.html'">Sou cliente</button>
+                <button class="login-button" onclick="window.location.href='mecanico.html'">Sou mecânico</button>
+                <button class="login-button" onclick="window.location.href='administrador.html'">Administrador</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Está procurando por reparos para seu automóvel?</h1>
+                <p>A confiança que você procura e a qualidade que seu carro merece.</p>
+            </div>
+        </section>
+
+        <section class="services">
+            <div class="container">
+                <div class="service">
+                    <img src="img/img1-login.png" alt="Imagem de um carro em manutenção preventiva">
+                    <div class="texto-service">
+                        <div class="titulo_service">
+                            <h2>Manutenção Preventiva</h2>
+                        </div>
+                        <p>Na AutoFix, entendemos que a manutenção preventiva é um pilar fundamental para a longevidade e o desempenho ideal do seu veículo. É por isso que nos dedicamos a implementar um processo de manutenção que vai muito além de uma simples revisão. Nossa abordagem é cuidadosamente planejada, sistemática e altamente especializada, garantindo que cada componente do seu veículo seja inspecionado com a máxima precisão.
+                            <br>
+                            <br>
+                            Nossa manutenção preventiva é realizada em intervalos regulares, de acordo com as especificações do fabricante e as necessidades específicas do seu carro. Durante cada visita, nossa equipe de técnicos altamente treinados executa uma série de procedimentos detalhados, que incluem a verificação minuciosa de todos os sistemas do veículo, desde o motor até a suspensão, freios, sistema elétrico, entre outros.
+                            <br>
+                            <br>
+                            A filosofia da AutoFix é baseada na prevenção de problemas antes que eles se manifestem, minimizando o risco de falhas inesperadas que podem resultar em custos elevados e até mesmo comprometer a sua segurança. Através de nosso rigoroso processo de controle e monitoramento, identificamos e corrigimos potenciais falhas em seus estágios iniciais, garantindo que seu veículo permaneça em perfeitas condições de funcionamento.</p>
+                    </div>
+                </div>
+                <div class="service">
+                    <img src="img/img2-login.png" alt="Imagem de um carro em manutenção específica">
+                    <div class="texto-service">
+                        <div class="titulo_service">
+                            <h2>Manutenção Específica</h2>
+                        </div>
+                        <p>Na AutoFix, compreendemos que cada veículo é único, com suas próprias características e necessidades específicas. Não existem soluções universais quando se trata de manutenção automotiva, e é por isso que adotamos uma abordagem personalizada para cada serviço que oferecemos. Cada carro, seja ele um modelo compacto, um sedã de luxo, um SUV robusto ou um veículo comercial, possui particularidades que exigem atenção cuidadosa e especializada.
+<br>
+<br>
+                            Nossa equipe de técnicos altamente qualificados está equipada para lidar com qualquer tipo de manutenção, desde as mais simples até as mais complexas. Entendemos que algumas situações exigem uma análise detalhada e um tratamento específico para garantir que seu veículo continue operando com segurança e eficiência. Esse cuidado personalizado pode envolver desde ajustes finos em componentes de alta precisão até reparos específicos em sistemas críticos que demandam um conhecimento técnico avançado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact">
+                    <h3>Entre em contato</h3>
+                    <ul>
+                        <li><a href="tel:+5511987641234"> (11) 98764-1234 </a></li>
+                        <li>Rua Ignácio Garcia, 321 - Jardim Suzano, São Paulo - SP</li>
+                    </ul>
+                </div>
+                <div class="links">
+                    <h3>Navegue</h3>
+                    <ul>
+                        <li><a href="#">Política de Privacidade</a></li>
+                        <li><a href="#">Sobre nós</a></li>
+                    </ul>
+
+                    <a href="#" class="logo footer-logo">
+                        <img src="img/logo-principal.png" alt="Logo AutoFix">
+                    </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const loginButton = document.getElementById("loginButton");
+const loginOptions = document.getElementById("loginOptions");
+let timeoutId; // Variável para armazenar o ID do timeout
+
+loginButton.addEventListener("click", function() {
+    // Verifica se o timeout já está ativo, e se estiver, limpa-o
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+
+    // Mostra as opções de login
+    loginOptions.style.display = "block";
+
+    // Define um timeout para esconder as opções após 6 segundos
+    timeoutId = setTimeout(function() {
+        loginOptions.style.display = "none";
+    }, 6000); // 6000 milissegundos = 6 segundos
+});
+
+loginOptions.addEventListener("click", function(event) {
+    // Evita que o clique dentro das opções de login feche o menu imediatamente
+    event.stopPropagation();
+});
+    
+document.addEventListener("click", function(event) {
+    // Fecha o menu se o clique for fora do botão ou do menu
+    if (!loginButton.contains(event.target) && !loginOptions.contains(event.target)) {
+        loginOptions.style.display = "none";
+
+        // Limpa o timeout se o menu for fechado manualmente
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+    }
+});
+    </script>
+</body>
+</html>

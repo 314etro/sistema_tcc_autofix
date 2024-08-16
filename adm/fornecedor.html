@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedor - Autofix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-weight: normal;
+        }
+
+        /* Estilos do cabeçalho */
+        header {
+            background-color: #860606;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+        }
+
+        /* Estilos da barra de pesquisa e botão de cadastrar fornecedor */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .search-bar .back-button {
+            margin-right: 15px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-bar .back-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .search-bar .search-input-container {
+            position: relative;
+            width: 50%;
+            margin-right: 20px; /* Espaço entre a barra de pesquisa e o botão */
+        }
+
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 10px 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-bar .search-input-container img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Estilo para o botão de cadastrar fornecedor */
+        .add-supplier {
+            padding: 10px 20px;
+            background-color: #005b71; /* Cor atualizada */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 20px; /* Espaço entre a barra de pesquisa e o botão */
+        }
+
+        /* Estilos do título */
+
+        .title {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px auto;
+            color: #333;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Estilos do conteúdo */
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure positioning for the arrow icon */
+        }
+        .supplier-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .supplier-item {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            position: relative;
+        }
+        .supplier-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .supplier-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .supplier-details {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .supplier-button {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .supplier-icons {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .supplier-icons img {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../cabecalho/img/Logo.png" alt="Logo">
+    </header>
+
+    <div class="title">
+        <h1>Fornecedor</h1>
+    </div>
+
+    <div class="search-bar">
+        <button class="back-button">
+            <img src="../cabecalho/img/voltar.png" alt="Voltar">
+        </button>
+        <div class="search-input-container">
+            <input type="text" placeholder="Buscar fornecedor">
+            <img src="../cabecalho/img/lupa.png" alt="Pesquisar">
+        </div>
+        <button class="add-supplier">Cadastrar Fornecedor</button>
+    </div>
+
+    <div class="container">
+        <div class="supplier-list">
+            <div class="supplier-item">
+                <div class="supplier-info">
+                    <div class="supplier-name">AutoTech Peças S.A.</div>
+                </div>
+                <div class="supplier-details">
+                    <p>CNPJ: 12.345.678/0001-99</p>
+                    <p>Telefone: (11) 4000-1234</p>
+                    <p>E-mail: contato@autotechpecas.com.br</p>
+                </div>
+                <button class="supplier-button">Entrar em contato</button>
+                <div class="supplier-icons">
+                    <img src="editar.png" alt="Editar">
+                    <img src="excluir.png" alt="Excluir">
+                </div>
+            </div>
+            <div class="supplier-item">
+                <div class="supplier-info">
+                    <div class="supplier-name">MaxAuto Componentes Ltda.</div>
+                </div>
+                <div class="supplier-details">
+                    <p>CNPJ: 98.765.432/0001-11</p>
+                    <p>Telefone: (21) 3000-5678</p>
+                    <p>E-mail: atendimento@maxautocomponentes.com.br</p>
+                </div>
+                <button class="supplier-button">Entrar em contato</button>
+                <div class="supplier-icons">
+                    <img src="editar.png" alt="Editar">
+                    <img src="excluir.png" alt="Excluir">
+                </div>
+            </div>
+            <div class="supplier-item">
+                <div class="supplier-info">
+                    <div class="supplier-name">TurboParts Indústria e Comércio Ltda.</div>
+                </div>
+                <div class="supplier-details">
+                    <p>CNPJ: 45.678.910/0001-22</p>
+                    <p>Telefone: (31) 2500-4321</p>
+                    <p>E-mail: contato@turboparts.com.br</p>
+                </div>
+                <button class="supplier-button">Entrar em contato</button>
+                <div class="supplier-icons">
+                    <img src="editar.png" alt="Editar">
+                    <img src="excluir.png" alt="Excluir">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2024 Autofix - Todos os direitos reservados
+    </footer>
+</body>
+</html>

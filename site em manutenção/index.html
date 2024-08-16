@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autofix</title>
+    <style>
+        /* Define o estilo para o body com a imagem de fundo */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('./site2.png'); /* Substitua pelo caminho da sua imagem de fundo */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff; /* Cor do texto, pode ser alterada conforme necessário */
+        }
+
+        /* Estilo para o cabeçalho */
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+            display: block;
+            margin: 0 auto; /* Centraliza a logo */
+        }
+
+        /* Estilo para o rodapé fixo na parte inferior */
+        footer {
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-weight: normal;
+        }
+
+        /* Ajusta o espaço do conteúdo principal para não sobrepor o cabeçalho e o rodapé */
+        .content {
+            flex: 1;
+            padding-top: 100px; /* Ajusta o espaçamento superior para evitar sobreposição com o cabeçalho */
+            padding-bottom: 50px; /* Ajusta o espaçamento inferior para evitar sobreposição com o rodapé */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../img/logo.png" alt="Logo">
+    </header>
+
+    <div class="content">
+        <!-- Conteúdo principal aqui -->
+    </div>
+
+    <footer>
+        © 2024 Autofix - Todos os direitos reservados
+    </footer>
+</body>
+</html>

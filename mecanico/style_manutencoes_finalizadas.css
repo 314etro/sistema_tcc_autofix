@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arvo', serif;
+    /* Use a fonte Arvo */
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: relative;
+}
+
+header img {
+    width: 200px;
+    height: auto;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.search-bar .back-button {
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar .back-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.search-bar .search-input-container {
+    position: relative;
+    width: 50%;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-bar .search-input-container img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px auto;
+    color: #333;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilos dos cards */
+.card {
+    margin: 10px;
+    cursor: pointer;
+    /* Adiciona cursor de mão para indicar que é um botão */
+    text-decoration: none;
+    /* Remove o sublinhado padrão de links */
+    color: inherit;
+    /* Mantém a cor do texto do card */
+    transition: transform 0.3s ease;
+    /* Adiciona transição para a animação */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    /* Aumenta o tamanho do card ao passar o mouse */
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.h5 {
+    color: #000000;
+}
+
+/* Estilos para o container de cards */
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+    justify-content: center; /* Centraliza os cards horizontalmente */
+}
+
+/* Estilos para os cards */
+.card {
+    flex: 0 0 300px; /* Ajusta a largura dos cards */
+    margin: 10px;
+    border-width: 3px;
+}
+
+/* Estilos para o título verde */
+.card.green .card-title {
+    font-size: 1.3rem;
+    /* Reduz o tamanho do título */
+}
+
+/* Estilos para card verde */
+.card.green {
+    border-color: green;
+}
+
+.card.green .card-body {
+    color: green;
+}
+
+/* Ajuste para responsividade */
+@media (max-width: 768px) {
+    .search-bar .search-input-container {
+        width: 80%;
+    }
+
+    .card {
+        flex: 0 0 90%; /* Ajusta a largura dos cards em dispositivos menores */
+    }
+}

@@ -108,6 +108,7 @@ header img {
     display: flex;
     flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
     justify-content: center; /* Centraliza os cards horizontalmente */
+    align-items: center; /* Centraliza os cards verticalmente se necessário */
 }
 
 /* Estilos para os cards */
@@ -115,21 +116,6 @@ header img {
     flex: 0 0 300px; /* Ajusta a largura dos cards */
     margin: 10px;
     border-width: 3px;
-}
-
-/* Estilos para o título verde */
-.card.green .card-title {
-    font-size: 1.3rem;
-    /* Reduz o tamanho do título */
-}
-
-/* Estilos para card verde */
-.card.green {
-    border-color: green;
-}
-
-.card.green .card-body {
-    color: green;
 }
 
 /* Ajuste para responsividade */

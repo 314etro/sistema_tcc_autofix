@@ -17,12 +17,12 @@
             font-weight: normal;
         }
 
+        /* Estilos do cabeçalho */
         header {
             background-color: #860606;
             color: white;
             padding: 10px;
             text-align: center;
-            position: relative;
         }
 
         header img {
@@ -30,57 +30,87 @@
             height: auto;
         }
 
-        .title-container {
+        /* Estilos da barra de pesquisa */
+        .search-bar {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center; /* Centraliza ao meio */
-            margin: 20px auto;
-            width: 80%;
-            position: relative;
+            margin: 20px 0;
         }
 
-        .back-button {
+        .search-bar .back-button {
+            margin-right: 15px;
             background-color: transparent;
             border: none;
             cursor: pointer;
-            position: absolute;
-            left: -120px; /* Move a seta mais para a esquerda */
         }
 
-        .back-button img {
-            width: 16px; /* Ajuste o tamanho da seta */
-            height: 16px;
+        .search-bar .back-button img {
+            width: 24px;
+            height: 24px;
         }
+
+        .search-bar .search-input-container {
+            position: relative;
+            width: 50%;
+            margin-right: 20px; /* Espaço entre a barra de pesquisa e o botão */
+        }
+
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 10px 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-bar .search-input-container img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+     
 
         .title {
-            font-size: 24px;
+            text-align: center;
+            font-size: 18px; /* Tamanho do título ajustado para 18px */
+            margin: 10px auto;
             color: #333;
-            font-weight: bold; /* Título em negrito */
+            width: 80%;
+            display: flex;
+            justify-content: center;
         }
 
+        /* Estilos do conteúdo */
         .main-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Alinha os itens no topo */
+            align-items: flex-start;
             margin: 20px;
-            gap: 100px; /* Espaçamento entre os boxes */
+            gap: 100px;
         }
 
         .mechanic-box {
-    padding: 50px;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 50px rgba(0, 0, 0, 0.1);
-    border: 2px solid #ccc;
-    width: 50%; /* Aumenta a largura do box */
-    height: 350px; /* Aumenta a altura do box */
-    box-sizing: border-box;
-    text-align: left; /* Alinha o texto à esquerda */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
-    margin: 55px; /* Adiciona uma margem superior para o alinhamento */
-}
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            width: 50%;
+            height: 350px;
+            box-sizing: border-box;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 55px;
+        }
 
         .mechanic-box h2 {
             font-size: 18px;
@@ -95,54 +125,53 @@
         }
 
         .cards-section {
-            width: 45%; /* Ajusta a largura da seção de cartões */
+            width: 45%;
         }
 
         .cards-section h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-    margin-left: 120px; /* Ajuste a margem esquerda aqui */
-}
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+            margin-left: 120px;
+        }
 
-.cards-container {
-    display: grid;
-    grid-template-columns: repeat(2, 200px); /* Duas colunas com largura fixa */
-    gap: 60px; /* Aumenta o espaçamento entre os cartões */
-    box-sizing: border-box;
-    align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
-}
-
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(2, 200px);
+            gap: 60px;
+            box-sizing: border-box;
+            align-items: start;
+        }
 
         .card {
-    background-color: #E6F1F5; /* Cor de fundo similar à imagem */
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Bordas levemente arredondadas */
-    padding: 8px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 150px; /* Aumenta a altura dos cartões */
-    width: 220px; /* Ajusta a largura dos cartões */
-    font-size: 14px;
-    display: flex; /* Adiciona flexbox */
-    flex-direction: column; /* Direção da flexbox para vertical */
-    justify-content: flex-start; /* Alinha o conteúdo no topo */
-}
+            background-color: #E6F1F5;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 8px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: 150px;
+            width: 220px;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
         .card h3 {
             margin: 0 0 5px 0;
             font-size: 16px;
-            color: white; /* Cor do texto do título similar à imagem */
-            background-color: #005b71; /* Cor de fundo do título similar à imagem */
+            color: white;
+            background-color: #005b71;
             padding: 5px;
-            align-self: stretch; /* Faz o título ocupar toda a largura do card */
+            align-self: stretch;
         }
 
         .card p {
             margin: 40px;
             font-size: 18px;
-            color: black; /* Cor do texto do conteúdo similar à imagem */
+            color: black;
         }
 
         footer {
@@ -158,15 +187,21 @@
 
 <body>
     <header>
-        <img src="logo.png" alt="Logo Autofix">
+        <img src="../cabecalho/img/Logo.png" alt="Logo">
     </header>
 
-    <div class="title-container">
-        <button class="back-button">
-            <img src="seta.png" alt="Voltar">
-        </button>
         <div class="title">
-            Mecânico
+           <h1> Mecânico</h1>
+        </div>
+    </div>
+
+    <div class="search-bar">
+        <button class="back-button">
+            <img src="../cabecalho/img/voltar.png" alt="Voltar">
+        </button>
+        <div class="search-input-container">
+            <input type="text" placeholder="Buscar funcionário">
+            <img src="../cabecalho/img/lupa.png" alt="Pesquisar">
         </div>
     </div>
 

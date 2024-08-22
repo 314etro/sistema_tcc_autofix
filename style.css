@@ -467,3 +467,10 @@ footer {
     justify-content: center;
 }
 
+
+
+footer .footer-content img {
+    width: 230px; /* Ajuste o valor conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+    
+}

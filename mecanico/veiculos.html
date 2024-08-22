@@ -4,349 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mecânico - Autofix</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-weight: normal;
-        }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-        header {
-            background-color: #000000;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        header img {
-            width: 200px;
-            height: auto;
-        }
-
-        .welcome-message {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            font-size: 16px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-            width: 80%;
-            position: relative;
-        }
-
-        .back-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            left: -120px;
-        }
-
-        .back-button img {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 10px;
-        }
-
-        .title {
-            font-size: 24px;
-            color: #333;
-            font-weight: bold;
-            padding-top: 90px;
-            margin-left: 315px;
-        }
-
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 0;
-            height: 400px;
-            margin-top: 20px;
-            margin-left: 0px;
-        }
-
-        .mechanic-box {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 50px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ccc;
-            width: 50%;
-            height: 220px;
-            box-sizing: border-box;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin: 50px;
-            margin-left: 150px;
-            margin-bottom: 220px;
-        }
-
-        .mechanic-box h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #000000;
-        }
-
-        .mechanic-info p {
-            margin: 5px 0;
-            font-size: 16px;
-        }
-
-        .cards-section {
-            width: 50%;
-        }
-
-        .cards-section h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-            margin-left: 120px;
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(2, 250px);
-            gap: 40px;
-            box-sizing: border-box;
-            align-items: start;
-        }
-
-        .card {
-            background-color: #ffffff;
-            border: 5px solid #000000;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: 130px;
-            width: 240px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-        }
-
-        .card h3 {
-            margin: 0;
-            font-size: 20px;
-            color: white;
-            background-color: #003688;
-            padding: 5px;
-            align-self: stretch;
-            border-radius: 3%;
-        }
-
-        .card h1 {
-            margin: 30px;
-            font-size: 40px;
-            font-style: bold;
-            color: black;
-            justify-content: center;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: auto;
-            font-weight: normal;
-        }
-
-        .mechanic-info {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mechanic-info strong {
-            font-weight: bold;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 523px; /* Reduced width */
-        }
-
-        .search-bar input {
-            border: none;
-            padding: 10px;
-            flex-grow: 1;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            background-color: #003688; /* Blue color for the button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-weight: bold;
-        }
-
-        .search-bar .search-button {
-            background-color: transparent;
-            padding: 0;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .search-bar .search-button img {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Modal CSS */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* Fundo escurecido */
-            padding-top: 60px;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto; /* Centraliza horizontalmente */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: #9e0505; /* Cor do título */
-            text-align: center;
-        }
-
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .modal-body input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .modal-footer button {
-            background-color: #003688;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .modal-footer button:hover {
-            background-color: #005bb5;
-        }
-
-        /* Estilos para os campos do modal */
-        .modal-body label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .modal-body input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            box-sizing: border-box; /* Inclui padding e border na largura total */
-        }
-
-        .modal-body input:focus {
-            outline: none;
-            border-color: #003688; /* Cor da borda ao focar */
-        }
-
-        .modal-footer button {
-            background-color: #138132; /* Cor de fundo do botão */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s; /* Transição suave para o hover */
-        }
-
-        .modal-footer button:hover {
-            background-color: #1fb349; /* Cor de fundo do botão ao passar o mouse */
-        }
-    </style>
+    <link rel="stylesheet" href="veiculos_mecanico.css">
+    <title>Veículos</title>
 </head>
-
 <body>
     <header>
         <p class="welcome-message">Bem Vindo, Mecânico João</p>
@@ -364,7 +31,7 @@
 
     <div class="main-content">
         <div class="mechanic-box">
-            <h2>Dados do Mecânico:</h2>
+            <h2>Dados do Cliente:</h2>
             <div class="mechanic-info">
                 <p><strong>Nome:</strong> João Aparecido</p>
                 <p><strong>Número:</strong> (11) 91234-5689</p>
@@ -374,6 +41,8 @@
         </div>
 
         <div class="cards-section">
+
+
             <div class="search-bar">
                 <input type="text" placeholder="Pesquisar veículos...">
                 <button class="search-button">
@@ -381,6 +50,7 @@
                 </button>
                 <button id="openModalBtn">Adicionar Carro</button>
             </div>
+
 
             <div class="cards-container">
                 <div class="card">
@@ -397,7 +67,7 @@
                 </div>
                 <div class="card">
                     <h3>Jetta</h3>
-                    <h1>xxx-1111</h1>
+                    <h1>xxx-ssss1111</h1>
                 </div>
             </div>
         </div>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="manutencoes.css">
+    <title>Manutenções</title>
+</head>
+
+<body>
+    <header>
+        <img src="../img/logo.png" alt="Logo">
+        <div class="header-content">
+            <div class="welcome">Bem-vindo, Mecânico Luiz</div>
+        </div>
+    </header>
+
+    <div class="title">
+        Manutenções
+    </div>
+    
+    <div class="search-bar">
+        <button class="back-button">
+            <img src="../img/seta.png" alt="Voltar">
+        </button>
+    </div>
+
+    <div class="main-container">
+        <div class="card-info">
+            <div class="card-nome">
+                <h4>Nome:</h4>
+                <p>Geovana Vale</p>
+            </div>
+            <div class="card-modelo">
+                <h4>Modelo:</h4>
+                <p>Tracker</p>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card-wrapper">
+                <input type="checkbox" id="check1">
+                <div class="card-content">
+                    <p>Trocar Disco de freio dianteiro esquerdo</p>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <input type="checkbox" id="check2">
+                <div class="card-content">
+                    <p>Trocar Pastilha de freio dianteira esquerda</p>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <input type="checkbox" id="check3">
+                <div class="card-content">
+                    <p>Trocar Velas queimadas</p>
+                </div>
+            </div>
+            <div class="card-wrapper">
+                <input type="checkbox" id="check4">
+                <div class="card-content">
+                    <p>Trocar roda dianteira esquerda</p>
+                </div>
+            </div>
+            <button class="button">Finalizar manutenção</button>
+        </div>
+    </div>
+
+    <script>
+        // Função para salvar as informações (implemente a lógica de salvamento)
+        function saveInfo(checkboxId, isChecked) {
+            // Aqui você implementaria a lógica para salvar as informações
+            // no banco de dados ou em um arquivo local.
+            console.log("Checkbox " + checkboxId + " está " + (isChecked ? "marcado" : "desmarcado"));
+        }
+
+        // Adiciona um evento de clique para cada checkbox
+        const checkboxes = document.querySelectorAll('.card-wrapper input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', () => {
+                saveInfo(checkbox.id, checkbox.checked);
+            });
+        });
+    </script>
+</body>
+</html>

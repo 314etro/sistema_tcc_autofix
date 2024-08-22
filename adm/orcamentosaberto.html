@@ -50,7 +50,7 @@
 
         .search-bar .search-input-container {
             position: relative;
-            width: 50%;
+            width: 50%; /* Ajustado para 50% */
         }
 
         .search-bar input[type="text"] {
@@ -64,12 +64,24 @@
 
         .search-bar .search-input-container img {
             position: absolute;
-            right: 10px;
+            right: -10px; /* Ajustado para 40px */
             top: 50%;
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
             cursor: pointer;
+        }
+
+        .search-bar .filter-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin-left: 60px; /* Espaçamento entre a busca e o filtro */
+        }
+
+        .search-bar .filter-button img {
+            width: 24px;
+            height: 24px;
         }
 
         .title {
@@ -78,27 +90,29 @@
             margin: 20px auto;
             color: #333;
             width: 80%;
-            display: flex;
-            justify-content: center;
         }
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 colunas */
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
-            margin-bottom: 40px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 90%;
+            box-sizing: border-box;
         }
 
         .card {
             background-color: white;
             border: 1px solid #ccc;
             border-radius: 12px;
-            padding: 10px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
             box-sizing: border-box;
+            height: 150px;
         }
 
         .card h3 {
@@ -125,7 +139,7 @@
             background-color: #FFA600;
             border: none;
             color: white;
-            padding: 8px 12px;
+            padding: 10px 15px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -145,6 +159,12 @@
             padding: 10px;
             margin-top: auto;
             font-weight: normal;
+            width: 100%;
+            position: relative;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
 </head>
@@ -167,32 +187,12 @@
             <input type="text" id="searchInput" placeholder="Buscar funcionário">
             <img src="../img/lupa.png" alt="Pesquisar">
         </div>
+        <button class="filter-button">
+            <img src="filtrar.png" alt="Filtrar">
+        </button>
     </div>
 
     <div class="cards-container" id="cardsContainer">
-        <!-- Linha 1 -->
-        <div class="card" data-name="Evaristo Silva">
-            <div class="card-content">
-                <h3>Evaristo Silva</h3>
-                <p>3 orçamentos em aberto</p>
-            </div>
-            <button class="card-button">Ver orçamentos</button>
-        </div>
-        <div class="card" data-name="Maria Oliveira">
-            <div class="card-content">
-                <h3>Maria Oliveira</h3>
-                <p>2 orçamentos em aberto</p>
-            </div>
-            <button class="card-button">Ver orçamentos</button>
-        </div>
-        <div class="card" data-name="Lucas Santos">
-            <div class="card-content">
-                <h3>Lucas Santos</h3>
-                <p>5 orçamentos em aberto</p>
-            </div>
-            <button class="card-button">Ver orçamentos</button>
-        </div>
-
         <!-- Linha 2 -->
         <div class="card" data-name="Ana Costa">
             <div class="card-content">

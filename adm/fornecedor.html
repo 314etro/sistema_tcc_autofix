@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fornecedor - Autofix</title>
     <style>
+        
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -161,6 +162,192 @@
             margin-top: auto;
             font-weight: normal;
         }
+
+        /* Estilos do Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-body label {
+            font-weight: bold;
+        }
+
+        .modal-body input[type="text"],
+        .modal-body input[type="email"],
+        .modal-body input[type="tel"],
+        .modal-body input[type="number"],
+        .modal-body textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-footer button.cancel {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .modal-footer button.save {
+            background-color: #005b71;
+            color: #fff;
+        }
+
+        /* Estilos do Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-body label {
+            font-weight: bold;
+        }
+
+        .modal-body input[type="text"],
+        .modal-body input[type="email"],
+        .modal-body input[type="tel"],
+        .modal-body input[type="number"],
+        .modal-body textarea {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-footer button.cancel {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .modal-footer button.save {
+            background-color: #005b71;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -180,7 +367,7 @@
             <input type="text" placeholder="Buscar fornecedor">
             <img src="../cabecalho/img/lupa.png" alt="Pesquisar">
         </div>
-        <button class="add-supplier">Cadastrar Fornecedor</button>
+        <button class="add-supplier" onclick="document.getElementById('myModal').style.display = 'block'">Cadastrar Fornecedor</button>
     </div>
 
     <div class="container">
@@ -196,7 +383,7 @@
                 </div>
                 <button class="supplier-button">Entrar em contato</button>
                 <div class="supplier-icons">
-                    <img src="editar.png" alt="Editar">
+                    <img src="editar.png" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
                     <img src="excluir.png" alt="Excluir">
                 </div>
             </div>
@@ -211,7 +398,7 @@
                 </div>
                 <button class="supplier-button">Entrar em contato</button>
                 <div class="supplier-icons">
-                    <img src="editar.png" alt="Editar">
+                    <img src="editar.png" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
                     <img src="excluir.png" alt="Excluir">
                 </div>
             </div>
@@ -226,7 +413,7 @@
                 </div>
                 <button class="supplier-button">Entrar em contato</button>
                 <div class="supplier-icons">
-                    <img src="editar.png" alt="Editar">
+                    <img src="editar.png" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
                     <img src="excluir.png" alt="Excluir">
                 </div>
             </div>
@@ -236,5 +423,66 @@
     <footer>
         © 2024 Autofix - Todos os direitos reservados
     </footer>
+
+    <!-- Modal para Cadastrar Fornecedor -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Novo Fornecedor</h2>
+                <span class="close" onclick="document.getElementById('myModal').style.display = 'none'">×</span>
+            </div>
+            <div class="modal-body">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome">
+
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj">
+
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone">
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email">
+
+                <label for="endereco">Endereço:</label>
+                <textarea id="endereco" name="endereco"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel" onclick="document.getElementById('myModal').style.display = 'none'">Cancelar</button>
+                <button class="save" onclick="document.getElementById('myModal').style.display = 'none'">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Fornecedor -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Fornecedor</h2>
+                <span class="close" onclick="document.getElementById('editModal').style.display = 'none'">×</span>
+            </div>
+            <div class="modal-body">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="AutoTech Peças S.A.">
+
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" name="cnpj" value="12.345.678/0001-99">
+
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" value="(11) 4000-1234">
+
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" value="contato@autotechpecas.com.br">
+
+                <label for="endereco">Endereço:</label>
+                <textarea id="endereco" name="endereco">Endereço do fornecedor</textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel" onclick="document.getElementById('editModal').style.display = 'none'">Cancelar</button>
+                <button class="save" onclick="document.getElementById('editModal').style.display = 'none'">Salvar</button>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

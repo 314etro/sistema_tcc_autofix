@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabeçalho coringa</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Arvo', serif;
+            margin: 0;
+            padding: 0;
+        }
+        /* Estilos do cabeçalho */
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+        }
+
+        /* Estilos da barra de pesquisa */
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .search-bar .back-button {
+            margin-right: 10px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-bar .back-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .search-bar .search-input-container {
+            position: relative;
+            width: 50%;
+        }
+
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 10px 10px 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .search-bar .search-input-container img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Estilos do título */
+        .title {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px auto;
+            color: #333;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+    <header>
+        <img src="../sistema_tcc_autofix/img/logo.png" alt="Logo">
+    </header>
+
+    <div class="title">
+        <h1>Titulo da Pagina</h1>
+    </div>
+
+    <div class="search-bar">
+        <button class="back-button">
+            <img src="../sistema_tcc_autofix/img/seta.png" alt="Voltar">
+        </button>
+        <div class="search-input-container">
+            <input type="text" placeholder="Buscar funcionário">
+            <img src="../sistema_tcc_autofix/img/lupa.png" alt="Pesquisar">
+        </div>
+    </div>
+
+    
+</body>
+</html>

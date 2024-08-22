@@ -20,7 +20,7 @@
         header {
             background-color: #000000;
             color: white;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             position: relative;
         }
@@ -33,17 +33,16 @@
         .welcome-message {
             position: absolute;
             top: 30px;
-            right: 10px; /* Ajuste a posição para o canto superior direito */
+            right: 10px;
             font-size: 16px;
             color: white;
             font-weight: bold;
-            
         }
 
         .title-container {
             display: flex;
             align-items: center;
-            justify-content: center; /* Centraliza ao meio */
+            justify-content: center;
             margin: 20px auto;
             width: 80%;
             position: relative;
@@ -54,18 +53,19 @@
             border: none;
             cursor: pointer;
             position: absolute;
-            left: -120px; /* Move a seta mais para a esquerda */
+            left: -120px;
         }
 
         .back-button img {
-            width: 16px; /* Ajuste o tamanho da seta */
-            height: 16px;
+            width: 24px;
+            height: 24px;
+            margin-bottom: 10px;
         }
 
         .title {
             font-size: 24px;
             color: #333;
-            font-weight: bold; /* Título em negrito */
+            font-weight: bold;
             padding-top: 90px;
             margin-left: 315px;
         }
@@ -73,12 +73,11 @@
         .main-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Alinha os itens no topo */
-            margin: 20px;
+            align-items: center;
+            margin: 0;
             height: 400px;
             margin-top: 20px;
-            margin-left: 130px;
-            gap: 00px; /* Espaçamento entre os boxes */
+            margin-left: 0px;
         }
 
         .mechanic-box {
@@ -87,14 +86,16 @@
             border-radius: 10px;
             box-shadow: 50px rgba(0, 0, 0, 0.1);
             border: 2px solid #ccc;
-            width: 50%; /* Aumenta a largura do box */
-            height: 220px; /* Aumenta a altura do box */
+            width: 50%;
+            height: 220px;
             box-sizing: border-box;
-            text-align: left; /* Alinha o texto à esquerda */
+            text-align: left;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Centraliza o conteúdo verticalmente */
-            margin: 50px; /* Adiciona uma margem superior para o alinhamento */
+            justify-content: center;
+            margin: 50px;
+            margin-left: 150px;
+            margin-bottom: 220px;
         }
 
         .mechanic-box h2 {
@@ -110,8 +111,7 @@
         }
 
         .cards-section {
-            width: 50%; /* Ajusta a largura da seção de cartões */
-            
+            width: 50%;
         }
 
         .cards-section h2 {
@@ -119,39 +119,38 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
-            margin-left: 120px; /* Ajuste a margem esquerda aqui */
+            margin-left: 120px;
         }
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(2, 250px); /* Duas colunas com largura fixa */
-            gap: 40px; /* Aumenta o espaçamento entre os cartões */
+            grid-template-columns: repeat(2, 250px);
+            gap: 40px;
             box-sizing: border-box;
-            align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
+            align-items: start;
         }
 
         .card {
-            background-color: #ffffff; /* Cor de fundo similar à imagem */
-            border: 5px solid #000000; /* Adiciona borda de 4px */
-            border-radius: 10px; /* Bordas levemente arredondadas */
-           
+            background-color: #ffffff;
+            border: 5px solid #000000;
+            border-radius: 10px;
             text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: 130px; /* Aumenta a altura dos cartões */
-            width: 240px; /* Ajusta a largura dos cartões */
+            height: 130px;
+            width: 240px;
             font-size: 20px;
-            display: flex; /* Adiciona flexbox */
-            flex-direction: column; /* Direção da flexbox para vertical */
-            justify-content: flex-start; /* Alinha o conteúdo no topo */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
 
         .card h3 {
-            margin: 0 0 0px 0;
+            margin: 0;
             font-size: 20px;
-            color: white; /* Cor do texto do título similar à imagem */
-            background-color: #003688; /* Cor de fundo do título similar à imagem */
+            color: white;
+            background-color: #003688;
             padding: 5px;
-            align-self: stretch; /* Faz o título ocupar toda a largura do card */
+            align-self: stretch;
             border-radius: 3%;
         }
 
@@ -159,7 +158,7 @@
             margin: 30px;
             font-size: 40px;
             font-style: bold;
-            color: black; /* Cor do texto do conteúdo similar à imagem */
+            color: black;
             justify-content: center;
         }
 
@@ -190,7 +189,7 @@
             border-radius: 5px;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 525px;
+            width: 523px; /* Reduced width */
         }
 
         .search-bar input {
@@ -201,22 +200,149 @@
         }
 
         .search-bar button {
-            background-color: #003688;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .add-car-button {
-            background-color: #003688;
+            background-color: #003688; /* Blue color for the button */
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+
+        .search-bar .search-button {
+            background-color: transparent;
+            padding: 0;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .search-bar .search-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Modal CSS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4); /* Fundo escurecido */
+            padding-top: 60px;
+            box-sizing: border-box;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto; /* Centraliza horizontalmente */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #9e0505; /* Cor do título */
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .modal-body input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
             margin-top: 20px;
+        }
+
+        .modal-footer button {
+            background-color: #003688;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .modal-footer button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Estilos para os campos do modal */
+        .modal-body label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .modal-body input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box; /* Inclui padding e border na largura total */
+        }
+
+        .modal-body input:focus {
+            outline: none;
+            border-color: #003688; /* Cor da borda ao focar */
+        }
+
+        .modal-footer button {
+            background-color: #138132; /* Cor de fundo do botão */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s; /* Transição suave para o hover */
+        }
+
+        .modal-footer button:hover {
+            background-color: #1fb349; /* Cor de fundo do botão ao passar o mouse */
         }
     </style>
 </head>
@@ -250,7 +376,10 @@
         <div class="cards-section">
             <div class="search-bar">
                 <input type="text" placeholder="Pesquisar veículos...">
-                <button>Pesquisar</button>
+                <button class="search-button">
+                    <img src="../img/lupa.png" alt="Pesquisar">
+                </button>
+                <button id="openModalBtn">Adicionar Carro</button>
             </div>
 
             <div class="cards-container">
@@ -271,11 +400,62 @@
                     <h1>xxx-1111</h1>
                 </div>
             </div>
-
-            <button class="add-car-button">Adicionar Carro</button>
         </div>
     </div>
 
+    <!-- Modal Structure -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cadastrar Veículo</h2>
+                <span class="close">×</span>
+            </div>
+            <p>Preencha os campos abaixo de acordo com o veículo do cliente</p>
+            <div class="modal-body">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" placeholder="Modelo" required>
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" placeholder="Placa" required>
+                <label for="cor">Cor:</label>
+                <input type="text" id="cor" placeholder="Cor" required>
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" placeholder="Marca" required>
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" placeholder="Ano" required>
+            </div>
+            <div class="modal-footer">
+                <button>Finalizar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

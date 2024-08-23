@@ -52,10 +52,18 @@ body {
 
   .botao-veiculo {
     background-color: transparent;
+    width: 20px;
+    
   }
 
   .botao-servico {
     background-color: transparent;
+    width: 20px;
 
+  }
+
+  .botao-perfil {
+    background-color: transparent;
+    width: 20px;
   }
 

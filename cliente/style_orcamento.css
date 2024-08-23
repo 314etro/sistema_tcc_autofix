@@ -51,5 +51,11 @@ body {
   }
 
   .botao-veiculo {
-    
+    background-color: transparent;
   }
+
+  .botao-servico {
+    background-color: transparent;
+
+  }
+

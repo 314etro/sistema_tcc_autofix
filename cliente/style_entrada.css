@@ -68,48 +68,41 @@ h1{
 }
 
 .cards {
-    display: flex;            /* Usa Flexbox para alinhar os cards lado a lado */
-    justify-content: space-between; /* Espaça os cards uniformemente */
-    gap: 20px;                /* Espaço entre os cards */
-    margin-top: 20px;         /* Espaço no topo dos cards */
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+    margin-left: 5px;
+         /* Espaço no topo dos cards */
   }
   
   .approval-card, .expired-card {
     flex: 1;                  /* Faz com que os cards ocupem o mesmo espaço */
-    padding: 20px;
+    padding: 10px;
+    margin: 10px;
     background-color: white;
     border-radius: 5px;
     margin-top: 10px;
-    min-width: 48%;           /* Garante que cada card ocupe aproximadamente metade do espaço disponível */
+    min-width: 30%;           /* Garante que cada card ocupe aproximadamente metade do espaço disponível */
     box-sizing: border-box; 
-    border: 1px solid #7c1b1b;  
-    width: 300px;
+    margin-left: 5px;
+    justify-content: left;
+    
   }
 
 .approval-card h2 {
     color: #ff7f27;
-    font-size: 18px;
+    font-size: 14px;
 }
 
 .approval-card p {
     margin: 10px 0;
     font-size: 14px;
-    color: #7c1b1b;
+    color: #333;
 }
 
-.expired-card {
-    border: 1px solid #7c1b1b;
-    padding: 20px;
-    background-color: white;
-    width: 300px;
-    border-radius: 5px;
-    margin-top: 10px;
-  
-    justify-content: space-between;
-}
 .expired-card h2 {
     color: #7c1b1b;
-    font-size: 18px;
+    font-size: 14px;
 }
 .expired-card p {
     margin: 10px 0;

@@ -17,19 +17,24 @@
 
         /* Estilos do cabeçalho */
         header {
-            background-color: #860606;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-        }
+    background-color: #860606;
+    color: white;
+    padding: 8px;
+    /* Reduzido o padding do cabeçalho */
+    text-align: center;
+    position: relative;
+}
 
-        header img {
-            width: 239px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-        }
+header img {
+    max-width: 200px;
+    /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    /* Mantém a proporção da imagem */
+    margin-left: 50px;
+    /* arrumar a diferença de posicionamento da logo, por causa da barra de rolagem (caso precise) */
+    margin: 0 auto;
+    display: block;
+}
 
         /* Estilos do título */
         .title {
@@ -155,12 +160,12 @@
 <body>
     <!-- Cabeçalho -->
     <header>
-        <img src="Logo.png" alt="Logo Autofix">
+        <img src="../img/logo.png" alt="Logo Autofix">
     </header>
 
     <!-- Conteúdo da página -->
     <div class="container">
-        <h1 class="title">Civic - Type R <img src="whatsapp-logo-png-0.png" alt="WhatsApp" class="whatsapp-icon"></h1>
+        <h1 class="title">Civic - Type R <img src="../img/whatsapp-logo-png-0.png" alt="WhatsApp" class="whatsapp-icon"></h1>
         <form id="service-form">
             <div class="form-group">
                 <label for="disco-freio">Disco de freio desgastado</label>

@@ -76,15 +76,21 @@ header img {
 .card {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    
     width: 100%; /* Ajuste a largura para preencher a coluna */
     height: auto; /* Alterado para auto, para ajustar a altura conforme o conteúdo */
     margin-top: 30px;
     box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura e altura do elemento */
+
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+
+    border-radius: 8px;
 }
 
 .card:hover {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .card-title {
@@ -102,7 +108,7 @@ header img {
     background-color: #007bff;
     border-color: #007bff;
     transition: background-color 0.3s ease;
-    width: 130px; /* Faz o botão preencher a largura disponível */
+    width: 160px; /* Faz o botão preencher a largura disponível */
     padding: 10px; /* Adiciona padding interno para melhor aparência */
     text-align: center; /* Centraliza o texto dentro do botão */
 }
@@ -110,4 +116,14 @@ header img {
 .btn-primary:hover {
     background-color: #0056b3;
     border-color: #004085;
+}
+
+.card .btn-primary:hover {
+    background-color: #0050a7;
+    transform: translateY(-2px);
+}
+
+.button:hover {
+    background-color: #0726af;
+    transform: translateY(-2px);
 }

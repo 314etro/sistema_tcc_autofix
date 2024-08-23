@@ -1,194 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autofix - Mecânico Luiz</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arvo', serif; /* Use a fonte Arvo */
-        }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-        header {
-            background-color: #000000;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            position: relative;
-        }
-
-        header img {
-            width: 200px;
-            height: auto;
-        }
-
-        .header-content {
-            position: relative;
-        }
-
-        .header-content .welcome {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-        }
-
-        .search-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .search-bar .back-button {
-            position: absolute;
-            left: 0;
-            margin-left: 10px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-
-        .search-bar .back-button img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .search-bar .search-input-container {
-            margin-left: 40px; /* Espaço para o botão de voltar */
-            width: 60%;
-        }
-
-        .search-bar input[type="text"] {
-            width: 100%;
-            padding: 10px 10px 10px 20px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            outline: none;
-        }
-
-        .search-bar .search-input-container img {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
-
-        .title {
-            text-align: center;
-            font-size: 24px;
-            margin: 20px auto;
-            color: #333;
-            width: 80%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .main-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .card-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 100px; /* Espaço entre os cards de informação */
-            width: 100%; /* Largura total para os cards de informação */
-            margin-bottom: 20px; /* Espaço entre os cards de informação e os cards principais */
-        }
-
-        .card-nome, .card-modelo {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            text-align: center; /* Alinha o texto */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            height: auto; /* Ajusta a altura automaticamente */
-        }
-
-        .card-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px; /* Define o espaço entre os cards */
-            width: 100%;
-        }
-
-        .card-wrapper {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            max-width: 600px; /* Define uma largura máxima para os cards */
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            position: relative; /* Adiciona posição relativa ao card-wrapper */
-        }
-
-        .card-content {
-            flex: 1;
-            padding-left: 10px; /* Espaço para separar o checkbox do texto */
-        }
-
-        .card-wrapper input[type="checkbox"] {
-            -webkit-appearance: none; /* Remove o estilo padrão do checkbox */
-            appearance: none; /* Remove o estilo padrão do checkbox */
-            width: 30px; /* Aumenta a largura do checkbox */
-            height: 30px; /* Aumenta a altura do checkbox */
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            background-color: #fff;
-            cursor: pointer;
-            position: absolute; /* Posiciona o checkbox */
-            right: 20px; /* Ajusta a posição do checkbox */
-            top: 50%;
-            transform: translateY(-50%); /* Centraliza verticalmente */
-        }
-
-        .card-wrapper input[type="checkbox"]:checked {
-            background-color: green; /* Define a cor do check marcado */
-        }
-
-        .card-wrapper input[type="checkbox"]:checked::before {
-            content: '\2713'; /* Adiciona o símbolo de check */
-            display: block;
-            position: absolute;
-            top: 3px; /* Ajusta a posição vertical do símbolo */
-            left: 8px; /* Ajusta a posição horizontal do símbolo */
-            color: white;
-            font-size: 15px; /* Aumenta o tamanho do símbolo de check */
-        }
-
-        .button {
-            background-color: #4267B2;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            text-decoration: none; /* Remove o sublinhado do link */
-            display: inline-block; /* Permite o uso de padding e margin */
-            transition: background-color 0.3s ease; /* Adiciona transição para a cor */
-        }
-
-        .button:hover {
-            background-color: #333; /* Muda a cor ao passar o mouse */
-        }
-    </style>
+    <link rel="stylesheet" href="manutencoes.css">
+    <title>Manutenções</title>
 </head>
+
 <body>
     <header>
         <img src="../img/logo.png" alt="Logo">
@@ -198,7 +24,7 @@
     </header>
 
     <div class="title">
-        Manutenções em andamento
+        Manutenções
     </div>
     
     <div class="search-bar">
@@ -244,7 +70,7 @@
                     <p>Trocar roda dianteira esquerda</p>
                 </div>
             </div>
-            <button class="button">Manutenção Finalizada</button>
+            <button class="button">Finalizar manutenção</button>
         </div>
     </div>
 

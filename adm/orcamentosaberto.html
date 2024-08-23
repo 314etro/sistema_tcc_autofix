@@ -6,18 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orçamentos - Autofix</title>
     <style>
-        header {
-            background-color: #860606;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            position: relative;
-        }
+     
+     header {
+    background-color: #860606;
+    color: white;
+    padding: 8px;
+    /* Reduzido o padding do cabeçalho */
+    text-align: center;
+    position: relative;
+}
 
-        header img {
-            width: 200px;
-            height: auto;
-        }
+header img {
+    width: 200px;
+    /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    /* Mantém a proporção da imagem */
+    margin-left: 17px;
+    /* arrumar a diferença de posicionamento da logo, por causa da barra de rolagem */
+}
 
         body {
             font-family: Arial, sans-serif;
@@ -161,9 +167,11 @@
     </div>
     
     <div class="search-bar">
+        <a href="home_adm.html">
         <button class="back-button">
             <img src="../img/seta.png" alt="Voltar">
         </button>
+        </a>
         <div class="search-input-container">
             <input type="text" id="searchInput" placeholder="Buscar funcionário">
             <img src="../img/lupa.png" alt="Pesquisar">

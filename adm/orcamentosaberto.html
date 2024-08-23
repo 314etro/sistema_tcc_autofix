@@ -6,18 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orçamentos - Autofix</title>
     <style>
-        header {
-            background-color: #860606;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            position: relative;
-        }
+     
+     header {
+    background-color: #860606;
+    color: white;
+    padding: 8px;
+    /* Reduzido o padding do cabeçalho */
+    text-align: center;
+    position: relative;
+}
 
-        header img {
-            width: 200px;
-            height: auto;
-        }
+header img {
+    max-width: 200px;
+    /* Ajuste o tamanho da logo conforme necessário */
+    height: auto;
+    /* Mantém a proporção da imagem */
+    margin-left: 50px;
+    /* arrumar a diferença de posicionamento da logo, por causa da barra de rolagem (caso precise) */
+    margin: 0 auto;
+    display: block;
+}
 
         body {
             font-family: Arial, sans-serif;
@@ -50,7 +58,7 @@
 
         .search-bar .search-input-container {
             position: relative;
-            width: 50%; /* Ajustado para 50% */
+            width: 50%;
         }
 
         .search-bar input[type="text"] {
@@ -64,7 +72,7 @@
 
         .search-bar .search-input-container img {
             position: absolute;
-            right: -10px; /* Ajustado para 40px */
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             width: 20px;
@@ -72,47 +80,34 @@
             cursor: pointer;
         }
 
-        .search-bar .filter-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            margin-left: 60px; /* Espaçamento entre a busca e o filtro */
-        }
-
-        .search-bar .filter-button img {
-            width: 24px;
-            height: 24px;
-        }
-
         .title {
             text-align: center;
-            font-size: 18px;
+            font-size: 24px;
             margin: 20px auto;
             color: #333;
             width: 80%;
+            display: flex;
+            justify-content: center;
         }
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 1fr); /* 3 colunas */
             gap: 20px;
-            margin: 0 auto;
-            padding: 20px;
-            width: 90%;
-            box-sizing: border-box;
+            margin-bottom: 40px;
+            padding: 30px;
         }
 
         .card {
             background-color: white;
             border: 1px solid #ccc;
             border-radius: 12px;
-            padding: 20px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             width: 100%;
             box-sizing: border-box;
-            height: 150px;
         }
 
         .card h3 {
@@ -139,7 +134,7 @@
             background-color: #FFA600;
             border: none;
             color: white;
-            padding: 10px 15px;
+            padding: 8px 12px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -159,12 +154,6 @@
             padding: 10px;
             margin-top: auto;
             font-weight: normal;
-            width: 100%;
-            position: relative;
-            bottom: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
     </style>
 </head>
@@ -176,23 +165,45 @@
     </header>
 
     <div class="title">
-        <h1>Orçamentos</h1>
+        Orçamentos
     </div>
     
     <div class="search-bar">
+        <a href="home_adm.html">
         <button class="back-button">
             <img src="../img/seta.png" alt="Voltar">
         </button>
+        </a>
         <div class="search-input-container">
             <input type="text" id="searchInput" placeholder="Buscar funcionário">
             <img src="../img/lupa.png" alt="Pesquisar">
         </div>
-        <button class="filter-button">
-            <img src="filtrar.png" alt="Filtrar">
-        </button>
     </div>
 
     <div class="cards-container" id="cardsContainer">
+        <!-- Linha 1 -->
+        <div class="card" data-name="Evaristo Silva">
+            <div class="card-content">
+                <h3>Evaristo Silva</h3>
+                <p>3 orçamentos em aberto</p>
+            </div>
+            <button class="card-button">Ver orçamentos</button>
+        </div>
+        <div class="card" data-name="Maria Oliveira">
+            <div class="card-content">
+                <h3>Maria Oliveira</h3>
+                <p>2 orçamentos em aberto</p>
+            </div>
+            <button class="card-button">Ver orçamentos</button>
+        </div>
+        <div class="card" data-name="Lucas Santos">
+            <div class="card-content">
+                <h3>Lucas Santos</h3>
+                <p>5 orçamentos em aberto</p>
+            </div>
+            <button class="card-button">Ver orçamentos</button>
+        </div>
+
         <!-- Linha 2 -->
         <div class="card" data-name="Ana Costa">
             <div class="card-content">

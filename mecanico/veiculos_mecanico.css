@@ -46,20 +46,71 @@
             width: 80%;
             position: relative;
         }
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
 
-        .back-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            left: -120px;
-        }
+.search-bar .back-button {
+    margin-right: 30px; /* Ajuste o valor conforme necessário */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
 
-        .back-button img {
-            width: 24px;
-            height: 24px;
-            margin-bottom: 10px;
-        }
+.search-bar .back-button img {
+    width: 24px; /* Tamanho original da imagem da setinha */
+    height: 24px; /* Tamanho original da imagem da setinha */
+}
+
+.search-bar .search-input-container {
+    position: relative;
+    width: 50%;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-bar .search-input-container img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* Tamanho da lupa */
+    height: 20px; /* Tamanho da lupa */
+    cursor: pointer;
+}
+
+.search-bar .new-car-button {
+    margin-left: 20px; /* Ajuste o valor conforme necessário */
+}
+
+.new-car-button,.button {
+    display: inline-block;
+    padding: 10px 10px;
+    border-radius: 15px;
+    background-color: #0D6EFD;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.new-car-button:hover,
+.button:hover {
+    background-color: #0726af;
+    transform: translateY(-2px);
+}
 
         .title {
             font-size: 24px;
@@ -71,12 +122,9 @@
 
         .main-content {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin: 0;
             height: 400px;
-            margin-top: 20px;
-            margin-left: 0px;
+            margin-left: 350px;
         }
 
         .mechanic-box {
@@ -85,21 +133,21 @@
             border-radius: 10px;
             box-shadow: 50px rgba(0, 0, 0, 0.1);
             border: 2px solid #ccc;
-            width: 50%;
-            height: 220px;
+            width: 600px;
+            height: 200px;
             box-sizing: border-box;
             text-align: left;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin: 50px;
-            margin-left: 150px;
-            margin-bottom: 220px;
+            margin: 70px;
+            margin-bottom: 150px;
+            margin-right: 200px;
+            
         }
 
         .mechanic-box h2 {
             font-size: 18px;
-            margin-bottom: 10px;
             font-weight: bold;
             color: #000000;
         }
@@ -110,7 +158,7 @@
         }
 
         .cards-section {
-            width: 50%;
+            width: 100%;
         }
 
         .cards-section h2 {
@@ -118,7 +166,6 @@
             font-weight: bold;
             margin-bottom: 10px;
             color: #333;
-            margin-left: 120px;
         }
 
         .cards-container {
@@ -127,6 +174,8 @@
             gap: 40px;
             box-sizing: border-box;
             align-items: start;
+            white-space: nowrap;
+            
         }
 
         .card {
@@ -141,6 +190,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
+           
         }
 
         .card h3 {
@@ -173,54 +223,14 @@
         .mechanic-info {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 0px;
         }
 
         .mechanic-info strong {
             font-weight: bold;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 523px; /* Reduced width */
-        }
-
-        .search-bar input {
-            border: none;
-            padding: 10px;
-            flex-grow: 1;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            background-color: #003688; /* Blue color for the button */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            white-space: nowrap;
-            font-weight: bold;
-        }
-
-        .search-bar .search-button {
-            background-color: transparent;
-            padding: 0;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .search-bar .search-button img {
-            width: 24px;
-            height: 24px;
-        }
-
+        
         /* Modal CSS */
         .modal {
             display: none;

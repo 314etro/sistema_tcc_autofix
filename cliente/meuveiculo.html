@@ -1,85 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autofix - Área do Cliente </title>
+    <title>AUTOFIX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.meuveiculo.css">
-
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .header {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-        }
-
-        .user-info i {
-            margin-right: 10px;
-        }
-
-        .content {
-            padding: 20px;
-        }
-
-        .vehicle-card {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .vehicle-info {
-            margin-top: 10px;
-        }
-
-        .vehicle-info p {
-            margin-bottom: 5px;
-        }
-    </style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style_meuveiculo.css">
 </head>
 <body>
-    <header class="header">
-    <img src="../img/logo.png" alt="Autofix Logo" class="logo" width="200px" height="auto">
-    
+    <div class="header">
+        <div  class="logo">
+        <img src="img/Logo.png" alt="Autofix Logo"> 
         </div>
-    </header>
+    </div>
 
-  
-      
-        <button class="icon-button">
-            <img src="../img/seta.png" alt="Ícone" width="24 px" height="24 px" href="voltar.html">
-          </button>
-
-          <div class="icon-container">
-            <button class="button-icon"> <img src="img/carroicon.png" alt="Ícone" width="24 px" height="24 px" href="perfil.html">
-            <button class="button-icon"> <img src="img/ampulhetaicon.png" alt="Ícone" width="24 px" height="24 px" href="servico.html">
-            <button class="button-icon"> <img src="img/perfilicon.png" alt="Ícone" width="24 px" height="24 px" href="veiculo.html">
-            </button>
-    
+    <div class="content">
+       <div class="title">
+            <h1>Área do Cliente</h1>
             </div>
 
           <div class="area-cliente">
@@ -91,18 +30,15 @@
   
         
         
-        <div class="linha-divisoria"></div>
-
-        <h3>Meus Veículos</h3>
-
-        <div class="veiculo">    
-            
-
-</div>
+        <div class="menu">
+        <a class="active">
+            Meus Veículos
+        </a>
+        </div>
 
         <div class="vehicle-container">
         <div class="vehicle-card">
-        <h4>Tracker Prata</h4>
+        <h2>Tracker Prata</h2>
         <div class="vehicle-info">
           <span>Carro:</span> Tracker <br>
           <span>Marca:</span> Chevrolet <br>
@@ -113,7 +49,7 @@
          </div>
       
         <div class="vehicle-card">
-        <h4>Astra Preto</h4>
+        <h2>Astra Preto</h2>
         <div class="vehicle-info">
 
           <span>Carro:</span> Astra <br>
@@ -129,5 +65,8 @@
 
 
     <script src="https://kit.fontawesome.com/your-fontawesome-kit-id.js" crossorigin="anonymous"></script>
+
+
 </body>
+
 </html>

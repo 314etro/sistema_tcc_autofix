@@ -27,7 +27,7 @@ header img {
 }
 
 .search-bar .back-button {
-    margin-right: 50px; /* Ajuste o valor conforme necessário */
+    margin-right: 30px; /* Ajuste o valor conforme necessário */
     background-color: transparent;
     border: none;
     cursor: pointer;

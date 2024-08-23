@@ -4,223 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mecânico - Autofix</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-weight: normal;
-        }
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
 
-        header {
-            background-color: #000000;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: relative;
-        }
-
-        header img {
-            width: 200px;
-            height: auto;
-        }
-
-        .welcome-message {
-            position: absolute;
-            top: 30px;
-            right: 10px; /* Ajuste a posição para o canto superior direito */
-            font-size: 16px;
-            color: white;
-            font-weight: bold;
-            
-        }
-
-        .title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center; /* Centraliza ao meio */
-            margin: 20px auto;
-            width: 80%;
-            position: relative;
-        }
-
-        .back-button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            position: absolute;
-            left: -120px; /* Move a seta mais para a esquerda */
-        }
-
-        .back-button img {
-            width: 16px; /* Ajuste o tamanho da seta */
-            height: 16px;
-        }
-
-        .title {
-            font-size: 24px;
-            color: #333;
-            font-weight: bold; /* Título em negrito */
-            padding-top: 90px;
-            margin-left: 315px;
-        }
-
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start; /* Alinha os itens no topo */
-            margin: 20px;
-            height: 400px;
-            margin-top: 20px;
-            margin-left: 130px;
-            gap: 00px; /* Espaçamento entre os boxes */
-        }
-
-        .mechanic-box {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 50px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ccc;
-            width: 50%; /* Aumenta a largura do box */
-            height: 220px; /* Aumenta a altura do box */
-            box-sizing: border-box;
-            text-align: left; /* Alinha o texto à esquerda */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Centraliza o conteúdo verticalmente */
-            margin: 50px; /* Adiciona uma margem superior para o alinhamento */
-        }
-
-        .mechanic-box h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #000000;
-        }
-
-        .mechanic-info p {
-            margin: 5px 0;
-            font-size: 16px;
-        }
-
-        .cards-section {
-            width: 50%; /* Ajusta a largura da seção de cartões */
-            
-        }
-
-        .cards-section h2 {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-            margin-left: 120px; /* Ajuste a margem esquerda aqui */
-        }
-
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(2, 250px); /* Duas colunas com largura fixa */
-            gap: 40px; /* Aumenta o espaçamento entre os cartões */
-            box-sizing: border-box;
-            align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
-        }
-
-        .card {
-            background-color: #ffffff; /* Cor de fundo similar à imagem */
-            border: 5px solid #000000; /* Adiciona borda de 4px */
-            border-radius: 10px; /* Bordas levemente arredondadas */
-           
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: 130px; /* Aumenta a altura dos cartões */
-            width: 240px; /* Ajusta a largura dos cartões */
-            font-size: 20px;
-            display: flex; /* Adiciona flexbox */
-            flex-direction: column; /* Direção da flexbox para vertical */
-            justify-content: flex-start; /* Alinha o conteúdo no topo */
-        }
-
-        .card h3 {
-            margin: 0 0 0px 0;
-            font-size: 20px;
-            color: white; /* Cor do texto do título similar à imagem */
-            background-color: #003688; /* Cor de fundo do título similar à imagem */
-            padding: 5px;
-            align-self: stretch; /* Faz o título ocupar toda a largura do card */
-            border-radius: 3%;
-        }
-
-        .card h1 {
-            margin: 30px;
-            font-size: 40px;
-            font-style: bold;
-            color: black; /* Cor do texto do conteúdo similar à imagem */
-            justify-content: center;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: auto;
-            font-weight: normal;
-        }
-
-        .mechanic-info {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .mechanic-info strong {
-            font-weight: bold;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 525px;
-        }
-
-        .search-bar input {
-            border: none;
-            padding: 10px;
-            flex-grow: 1;
-            font-size: 16px;
-        }
-
-        .search-bar button {
-            background-color: #003688;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .add-car-button {
-            background-color: #003688;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="veiculos_mecanico.css">
+    <title>Veículos</title>
 </head>
-
 <body>
     <header>
         <p class="welcome-message">Bem Vindo, Mecânico João</p>
@@ -238,7 +31,7 @@
 
     <div class="main-content">
         <div class="mechanic-box">
-            <h2>Dados do Mecânico:</h2>
+            <h2>Dados do Cliente:</h2>
             <div class="mechanic-info">
                 <p><strong>Nome:</strong> João Aparecido</p>
                 <p><strong>Número:</strong> (11) 91234-5689</p>
@@ -248,10 +41,16 @@
         </div>
 
         <div class="cards-section">
+
+
             <div class="search-bar">
                 <input type="text" placeholder="Pesquisar veículos...">
-                <button>Pesquisar</button>
+                <button class="search-button">
+                    <img src="../img/lupa.png" alt="Pesquisar">
+                </button>
+                <button id="openModalBtn">Adicionar Carro</button>
             </div>
+
 
             <div class="cards-container">
                 <div class="card">
@@ -268,14 +67,65 @@
                 </div>
                 <div class="card">
                     <h3>Jetta</h3>
-                    <h1>xxx-1111</h1>
+                    <h1>xxx-ssss1111</h1>
                 </div>
             </div>
-
-            <button class="add-car-button">Adicionar Carro</button>
         </div>
     </div>
 
+    <!-- Modal Structure -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cadastrar Veículo</h2>
+                <span class="close">×</span>
+            </div>
+            <p>Preencha os campos abaixo de acordo com o veículo do cliente</p>
+            <div class="modal-body">
+                <label for="modelo">Modelo:</label>
+                <input type="text" id="modelo" placeholder="Modelo" required>
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" placeholder="Placa" required>
+                <label for="cor">Cor:</label>
+                <input type="text" id="cor" placeholder="Cor" required>
+                <label for="marca">Marca:</label>
+                <input type="text" id="marca" placeholder="Marca" required>
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" placeholder="Ano" required>
+            </div>
+            <div class="modal-footer">
+                <button>Finalizar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("openModalBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal 
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>

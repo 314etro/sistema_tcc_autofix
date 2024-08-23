@@ -72,7 +72,9 @@ h2 {
     width: 200px; /* Aumente a largura para garantir que haja espaço suficiente para o conteúdo */
 }
 
-.item-status select, .item-status input {
+
+
+ .item-status input {
     width: 100%;
     padding: 5px;
     border: 1px solid #ddd;
@@ -82,7 +84,33 @@ h2 {
     height: 30px; /* Garanta uma altura consistente para todos os elementos */
 }
 
+.item-status select {
+    width: 100%; 
+    max-width: 200px; 
+    padding: 5px; 
+    box-sizing: border-box; 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;     
+
+  }
+
 .item-status input {
     width: 200px;
 }
 
+
+.botao-enviar {
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+.botao-enviar button {
+    background-color: #138132;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

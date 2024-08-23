@@ -119,8 +119,8 @@ h4 {
     box-shadow: #505050;
   }
   
-  .vehicle-card h2 {
-    font-size: 14px;
+  .vehicle-card h4 {
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
   }
@@ -142,12 +142,13 @@ h4 {
     
 
   }
-  .icon {
-    display: flex;           /* Usa Flexbox para o layout dos ícones */
-  justify-content: flex-end; /* Alinha os ícones à direita */
-  gap: 10px;                 /* Espaço entre os ícones (opcional) */
-  padding-right: 20px;       /* Espaço adicional à direita (opcional) */
-}
+
+  .button-icon {
+
+    border: none;
+    background: none;
+
+  }
 
 .icon-container {
     position: fixed;

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/style_inspecao_manutencao_pendente.css">
+    <title>Inspeção de manutenção</title>
+</head>
+
+<body>
+    <header>
+        <img src="../public/img/logo.png" alt="Logo">
+    </header>
+
+    <div class="title">
+        Inspeção de manutenção
+    </div>
+
+    <div class="search-bar">
+        <button class="back-button">
+            <a href="home_mecanico.html">  <img src="../public/img/seta.png" alt="Voltar"></a>
+        </button>
+        <div class="search-input-container">
+            <input type="text" placeholder="Buscar funcionário">
+            <img src="../public/img/lupa.png" alt="Pesquisar">
+        </div>
+    </div>
+    <!--cabecalho acima-->
+
+    <main class="container">
+        <div class="row" id="clientCards">
+            <!-- Cards de clientes serão adicionados aqui -->
+        </div>
+    </main>
+
+    <script>
+        // Adiciona um cartão de cliente
+        function addClientCard(nome, modelo, placa) {
+            const cardHtml = `
+            <div class="col-md-4 mb-3 mb-md-0">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${nome}</h5>
+                        <p class="card-text">${modelo}</p>
+                        <p class="card-text">${placa}</p>
+                        <button class="btn btn-primary">Realizar inspeção</button>
+                    </div>
+                </div>
+            </div>
+            `;
+            document.getElementById('clientCards').insertAdjacentHTML('beforeend', cardHtml);
+        }
+
+        // Dados dos clientes
+        const clientes = [
+            { nome: "João Aparecido", modelo: "Honda - Civic type R", placa: "XXX-0000" },
+            { nome: "Maria Silva", modelo: "Toyota - Corolla", placa: "YYY-1111" },
+            { nome: "Julia Santos", modelo: "Ford - Focus", placa: "ZZZ-2222" },
+            { nome: "Estela Clara", modelo: "Chevrolet - Onix", placa: "AAA-3333" },
+            { nome: "Estela Clara", modelo: "Chevrolet - Onix", placa: "AAA-3333" }
+        ];
+
+        // Adiciona os cartões dos clientes existentes
+        clientes.forEach(cliente => {
+            addClientCard(cliente.nome, cliente.modelo, cliente.placa);
+        });
+    </script>
+</body>
+<style>* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arvo', serif;
+}
+
+header {
+    background-color: #000000;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: relative;
+}
+
+header img {
+    width: 200px;
+    height: auto;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.search-bar .back-button {
+    margin-right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar .back-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.search-bar .search-input-container {
+    position: relative;
+    width: 50%;
+}
+
+.search-bar input[type="text"] {
+    width: 100%;
+    padding: 10px 10px 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+}
+
+.search-bar .search-input-container img {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin: 20px auto;
+    color: #333;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+}
+
+/* cabecalho acima */
+
+.card {
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    width: 100%; /* Ajuste a largura para preencher a coluna */
+    height: auto; /* Alterado para auto, para ajustar a altura conforme o conteúdo */
+    margin-top: 30px;
+    box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura e altura do elemento */
+
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+
+    border-radius: 8px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold; /* Adiciona negrito ao título */
+}
+
+.card-text {
+    margin-bottom: 10px;
+}
+
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+    width: 160px; /* Faz o botão preencher a largura disponível */
+    padding: 10px; /* Adiciona padding interno para melhor aparência */
+    text-align: center; /* Centraliza o texto dentro do botão */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.card .btn-primary:hover {
+    background-color: #0050a7;
+    transform: translateY(-2px);
+}
+
+.button:hover {
+    background-color: #0726af;
+    transform: translateY(-2px);
+}</style>
+
+</html>

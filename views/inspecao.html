@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="adm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <title>Inspeção</title>
+</head>
+<body>
+    <header>
+        <img src="../public/img/logo.png" alt="Logo Autofix">
+    </header>
+
+    <div class="container mt-5">
+        <div class="title-container">
+            <button class="back-button" id="backButton">
+                <img src="../public/img/seta.png" alt="Voltar">
+            </button>
+            <h2 class="text-center mt-3">Revisão de Manutenção</h2> 
+        </div>
+
+        <h3 class="text-center">Civic - Type R</h3>
+
+        <div class="inputs" id="inputs">
+            <div class="form-group mt-4">
+                <input type="text" class="form-control" placeholder="Disco de freio desgastado">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Pastilha de freio gasta">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Vela queimada">
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button id="addInput" class="btn btn-primary">+</button>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn-btn-success">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <h4>Deseja sair sem salvar?</h4>
+            <button class="btn-exit" id="confirmExit">Sair mesmo assim</button>
+            <button class="btn-cancel" id="cancelExit">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        // Função para adicionar novo input
+        document.getElementById('addInput').addEventListener('click', function() {
+            const newInput = document.createElement('div');
+            newInput.classList.add('form-group', 'mt-4');
+            newInput.innerHTML = '<input type="text" class="form-control" placeholder="Digite um novo item...">';
+            document.getElementById('inputs').appendChild(newInput);
+        });
+
+        // Abrir o modal ao clicar na seta de voltar
+        document.getElementById('backButton').addEventListener('click', function(event) {
+            event.preventDefault(); // Impede a navegação imediata
+            document.getElementById('modalOverlay').style.display = 'flex';
+        });
+
+        // Fechar o modal e sair da página
+        document.getElementById('confirmExit').addEventListener('click', function() {
+            window.location.href = 'inspecao_manutencao_pendente.html'; // Redireciona para a página de manutenção pendente
+        });
+
+        // Fechar o modal e cancelar a ação
+        document.getElementById('cancelExit').addEventListener('click', function() {
+            document.getElementById('modalOverlay').style.display = 'none';
+        });
+    </script>
+</body>
+<style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+                font-weight: normal;
+            }
+    
+            header {
+                background-color: #000000;
+                color: white;
+                padding: 8px;
+                text-align: center;
+                position: relative;
+            }
+    
+            header img {
+                width: 200px;
+                height: auto;
+            }
+    
+            .welcome-message {
+                position: absolute;
+                top: 30px;
+                right: 10px;
+                font-size: 16px;
+                color: white;
+                font-weight: bold;
+            }
+    
+            .text-center {
+                margin-top: 70px;
+            }
+    
+            .inputs {
+                border-radius: 5px;
+                width: 500px;
+                align-items: center;
+                margin-left: 300px;
+            }
+    
+            .btn-btn-success {
+                margin-top: 50px;
+                width: 100px;
+                height: 30px;
+                background-color: #138132;
+                color: aliceblue;
+                border-radius: 5px;
+                border: #f4f4f4;
+            }
+    
+            .back-button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-right: 15px;
+                margin-top: 10px;
+                padding: 0;
+                display: flex;
+                align-items: center;
+            }
+    
+            .back-button img {
+                width: 24px;
+                height: 24px;
+            }
+    
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+    
+            /* Estilos para o modal */
+            .modal-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .modal-content {
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+                width: 300px;
+            }
+    
+            .modal-content h4 {
+                margin-bottom: 20px;
+            }
+    
+            .modal-content button {
+                margin: 5px;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+    
+            .btn-cancel {
+                background-color: #f0f0f0;
+                color: #000;
+            }
+    
+            .btn-exit {
+                background-color: #d9534f;
+                color: #fff;
+            }
+    </style>
+</html>

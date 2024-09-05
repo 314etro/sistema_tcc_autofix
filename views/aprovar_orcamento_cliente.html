@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOFIX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/style_aprovar_entrada.css">
+</head>
+<body>
+    <div class="header">
+        <div  class="logo">
+        <img src="/img/Logo.png" alt="Autofix Logo"> 
+        </div>
+    </div>
+
+    <div class="content">
+       <div class="title">
+            <h1>Área do Cliente</h1>
+            </div>
+
+        <div class="icon">
+            <a href="meu_veiculo_cliente.html">
+                <img src="/img/carroicon.png" alt="Meus Veículos" > </a>
+    
+                <a href="">
+                <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço" > </a>
+    
+                <a href="">
+                <img src="/img/perfilicon.png" alt="Perfil"></a>
+        </div>
+ 
+        <div class="welcome">
+            <h2>Bem Vindo, Gustavo</h2>
+        </div>  
+
+        <div class="menu">
+            <a href="aprovar_entrada_cliente.html" class="active" >Aprovar Entrada</a>
+            <a href="aprovar_orcamento_cliente.html" class="active"  >Aprovar Orçamento</a>
+        </div>
+
+        <div class="cards">
+           <a href="orcamento_cliente.html">
+            <div class="expired-card">
+            <h2>Orçamento expirado</h2>
+                <p>Carro: </p>
+                <p>Marca: </p>
+                <p>Cor: </p>
+                <p>Placa: </p>
+                <p>Data de entrada:</p>
+    </div>
+</a> 
+
+        <a href="orcamento_cliente.html">
+            <div class="approval-card">
+            <h2>Orçamento em aberto</h2>
+            <p>Carro: </p>
+            <p>Marca: </p>
+            <p>Cor: </p>
+            <p>Placa: </p>
+            <p>Data de entrada:</p>
+        </div>
+    </a>
+    </div>
+        
+    </div>
+    <!-- Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Perfil do Usuário</h2>
+            <p>Nome: Gustavo</p>
+            <p>Email: gustavo@email.com</p>
+            <p>Outra informação relevante</p>
+        </div>
+    </div>
+
+    <script>
+        // Obtém os elementos do DOM
+        const modal = document.getElementById("profileModal");
+        const profileIcon = document.getElementById("profileIcon");
+        const closeModalSpan = document.getElementsByClassName("close")[0];
+
+        // Quando o usuário clica na imagem de perfil, abre o modal
+        profileIcon.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Quando o usuário clica no <span> (x), fecha o modal
+        closeModalSpan.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Quando o usuário clica fora do modal, fecha o modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+<style>body {
+    font-family: 'Arvo', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    font-size: 16px;
+}
+
+.header {
+    background-color: #505050;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+   
+    
+}
+
+.logo {
+    display: flex;
+    margin: 0 auto;
+
+}
+
+.logo img {
+    height: 60px;
+
+}
+
+.content {
+    padding: 20px;
+}
+
+h1{
+    font-size: 16px;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome h2 {
+    font-size: 20px;
+    color: #505050;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu a {
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+}
+
+.menu a.active {
+   margin: 0 auto;
+   
+   
+}
+
+.cards {
+    display: flex;
+    justify-content: left;
+    margin-top: 10px;
+    margin-left: 5px;
+         /* Espaço no topo dos cards */
+  }
+  
+  .approval-card, .expired-card {
+    flex: 1;                  /* Faz com que os cards ocupem o mesmo espaço */
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+    min-width: 30%;           /* Garante que cada card ocupe aproximadamente metade do espaço disponível */
+    box-sizing: border-box; 
+    margin-left: 5px;
+    justify-content: left;
+    
+  }
+
+.approval-card h2 {
+    color: #ff7f27;
+    font-size: 14px;
+}
+
+.approval-card p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.expired-card h2 {
+    color: #7c1b1b;
+    font-size: 14px;
+}
+.expired-card p {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #333;
+}
+.icon {
+    display: flex;           /* Usa Flexbox para o layout dos ícones */
+  justify-content: flex-end; /* Alinha os ícones à direita */
+  gap: 10px;                 /* Espaço entre os ícones (opcional) */
+  padding-right: 20px;       /* Espaço adicional à direita (opcional) */
+}
+
+.reject {
+    background-color: red;
+    border-radius: 5px;
+    border: none;
+
+}
+
+.confirm {
+    background-color: rgb(9, 189, 9);
+    border-radius: 5px;
+    border: none;
+
+}
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica em cima da tela */
+    z-index: 1; /* Fica na frente */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita scroll se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo com opacidade */
+}
+
+/* Estilo para o conteúdo do modal */
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; /* Centrado verticalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Largura do modal */
+    max-width: 400px; /* Largura máxima */
+    border-radius: 10px; /* Cantos arredondados */
+}
+
+/* Estilo para o botão de fechar */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}</style>
+</html>

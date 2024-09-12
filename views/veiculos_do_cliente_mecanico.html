@@ -11,8 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
 
+    <link rel="stylesheet" href="veiculos_mecanico.css">
     <title>Veículos</title>
 </head>
+
 <body>
     <header>
         <img src="../public/img/logo.png" alt="Logo Autofix">
@@ -20,13 +22,13 @@
 
     <div class="search-bar">
         <button class="back-button">
-            <a href="home_mecanico.html">  <img src="../public/img/seta.png" alt="Voltar"></a>
+            <a href="home_mecanico.html"> <img src="../public/img/seta.png" alt="Voltar"></a>
         </button>
         <div class="search-input-container">
             <input type="text" placeholder="Buscar funcionário">
             <img src="../public/img/lupa.png" alt="Pesquisar">
         </div>
-        <button class="new-car-button"id="openModalBtn">Adicionar Carro</button>
+        <button class="new-car-button" id="openModalBtn">Adicionar Carro</button>
     </div>
 
     <div class="main-content">
@@ -41,22 +43,10 @@
         </div>
 
         <div class="cards-section">
-            <div class="cards-container">
+            <div class="cards-container" id="cardsContainer">
                 <div class="card">
                     <h3>Fusca</h3>
                     <h1>GET9D89</h1>
-                </div>
-                <div class="card">
-                    <h3>Civic</h3>
-                    <h1>GET9D87</h1>
-                </div>
-                <div class="card">
-                    <h3>HB-20</h3>
-                    <h1>GET9D88</h1>
-                </div>
-                <div class="card">
-                    <h3>Jetta</h3>
-                    <h1>GET9D86</h1>
                 </div>
             </div>
         </div>
@@ -83,7 +73,7 @@
                 <input type="number" id="ano" placeholder="Ano" required>
             </div>
             <div class="modal-footer">
-                <button>Finalizar</button>
+                <button id="submitCarBtn">Finalizar</button>
             </div>
         </div>
     </div>
@@ -114,6 +104,39 @@
                 modal.style.display = "none";
             }
         }
+
+        // Add event listener to the finalize button
+        document.getElementById("submitCarBtn").addEventListener("click", function () {
+            // Get the values from the modal inputs
+            var modelo = document.getElementById("modelo").value;
+            var placa = document.getElementById("placa").value;
+            var cor = document.getElementById("cor").value;
+            var marca = document.getElementById("marca").value;
+            var ano = document.getElementById("ano").value;
+
+            // Create a new card
+            var newCard = document.createElement("div");
+            newCard.classList.add("card");
+
+            // Add the content to the card
+            newCard.innerHTML = `
+                <h3>${modelo}</h3>
+                <h1>${placa}</h1>
+            `;
+
+            // Append the new card to the container
+            document.getElementById("cardsContainer").appendChild(newCard);
+
+            // Close the modal
+            modal.style.display = "none";
+
+            // Clear the input fields for future use
+            document.getElementById("modelo").value = '';
+            document.getElementById("placa").value = '';
+            document.getElementById("cor").value = '';
+            document.getElementById("marca").value = '';
+            document.getElementById("ano").value = '';
+        });
     </script>
 </body>
 <style>* {
@@ -322,7 +345,7 @@
         }
 
         .card h1 {
-            margin: 30px;
+            margin: 20px;
             font-size: 40px;
             font-style: bold;
             color: black;
@@ -472,4 +495,5 @@
             background-color: #1fb349; /* Cor de fundo do botão ao passar o mouse */
         }</style>
 
+</html>
 </html>

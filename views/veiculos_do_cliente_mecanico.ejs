@@ -17,39 +17,45 @@
 
 <body>
     <header>
-        <img src="../public/img/logo.png" alt="Logo Autofix">
+        <img src="/img/logo.png" alt="Logo">
     </header>
 
     <div class="search-bar">
         <button class="back-button">
-            <a href="home_mecanico.html"> <img src="../public/img/seta.png" alt="Voltar"></a>
+            <a href="/home_mecanico">  <img src="/img/seta.png" alt="Voltar"></a>
         </button>
         <div class="search-input-container">
             <input type="text" placeholder="Buscar funcionário">
-            <img src="../public/img/lupa.png" alt="Pesquisar">
+            <img src="/img/lupa.png" alt="Pesquisar">
         </div>
         <button class="new-car-button" id="openModalBtn">Adicionar Carro</button>
     </div>
 
     <div class="main-content">
+       
+        
         <div class="mechanic-box">
             <h2>Dados do Cliente:</h2>
             <div class="mechanic-info">
-                <p><strong>Nome:</strong> João Aparecido</p>
-                <p><strong>Número:</strong> (11) 91234-5689</p>
-                <p><strong>E-mail:</strong> joaoap@gmail.com</p>
-                <p><strong>CPF:</strong> 234.543.867-78</p>
+                <p><strong>Nome:</strong></p>
+                <p><strong>Número:</strong> </p>
+                <p><strong>E-mail:</strong>  </p>
+                <p><strong>CPF:</strong></p>
             </div>
         </div>
-
-        <div class="cards-section">
-            <div class="cards-container" id="cardsContainer">
-                <div class="card">
-                    <h3>Fusca</h3>
-                    <h1>GET9D89</h1>
+      
+  
+        <% veiculos.forEach((veiculo) => { %>
+            <div class="cards-section">
+                <div class="cards-container" id="cardsContainer">
+                    <div class="card">
+                        <h3><%= veiculo.modelo %></h3>
+                        <h1><%= veiculo.placa %></h1>
+                    </div>
                 </div>
             </div>
-        </div>
+        <% }) %>
+      
     </div>
 
     <!-- Modal Structure -->

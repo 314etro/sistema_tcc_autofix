@@ -36,41 +36,31 @@
     <main class="container">
         <div class="row" id="clientCards">
             <!-- Cards de clientes serão adicionados aqui -->
+
+                 <!-- Cards de clientes serão adicionados aqui -->
+                 <% inspecao_manutencao.forEach((inspecao_manutencao) => { %>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- trocar os nomes "cliente" -->
+                                <h5 class="card-title"><%= cliente.nome_cliente %></h5>   
+                                <p class="card-text">Email: <%= cliente.email %></p>
+                                <p class="card-text">Telefone: <%= cliente.telefone %></p>
+                                <button class="btn btn-primary">Veículos</button>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+                
         </div>
     </main>
 
-    <script>
-        // Adiciona um cartão de cliente
-        function addClientCard(nome, modelo, placa) {
-            const cardHtml = `
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${nome}</h5>
-                        <p class="card-text">${modelo}</p>
-                        <p class="card-text">${placa}</p>
-                        <button class="btn btn-primary">Realizar inspeção</button>
-                    </div>
-                </div>
-            </div>
-            `;
-            document.getElementById('clientCards').insertAdjacentHTML('beforeend', cardHtml);
-        }
-
-        // Dados dos clientes
-        const clientes = [
-            { nome: "João Aparecido", modelo: "Honda - Civic type R", placa: "XXX-0000" },
-            { nome: "Maria Silva", modelo: "Toyota - Corolla", placa: "YYY-1111" },
-            { nome: "Julia Santos", modelo: "Ford - Focus", placa: "ZZZ-2222" },
-            { nome: "Estela Clara", modelo: "Chevrolet - Onix", placa: "AAA-3333" },
-            { nome: "Estela Clara", modelo: "Chevrolet - Onix", placa: "AAA-3333" }
-        ];
-
-        // Adiciona os cartões dos clientes existentes
-        clientes.forEach(cliente => {
-            addClientCard(cliente.nome, cliente.modelo, cliente.placa);
-        });
-    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQS"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
 </body>
 <style>* {
     margin: 0;

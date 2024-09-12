@@ -42,10 +42,10 @@
                 <div class="col-md-4 mb-3 mb-md-0">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><%= cliente.nome %></h5>
+                            <h5 class="card-title"><%= cliente.nome_cliente %></h5>
                             <p class="card-text">Email: <%= cliente.email %></p>
                             <p class="card-text">Telefone: <%= cliente.telefone %></p>
-                            <button class="btn btn-primary">Veículos</button>
+                            <a href="/veiculos_do_cliente_mecanico/<%= cliente.cpf_cliente %>"><button class="btn btn-primary"> Veículos</button>  </a> 
                         </div>
                     </div>
                 </div>

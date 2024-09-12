@@ -47,10 +47,6 @@ app.get('/home_mecanico', (req, res) => {
 });
 
 
-app.get('/inspecao_manutencao_pendente', (req, res) => {
-    res.render('inspecao_manutencao_pendente');
-});
-
 app.get('/manutencoes_andamento', (req, res) => {
     res.render('manutencoes_andamento');
 });
@@ -82,9 +78,6 @@ app.get('/orcamentos_adm', (req, res) => {
 app.get('/fornecedor_adm', (req, res) => {
     res.render('fornecedor_adm');
 });
-
-
-
 
 // Login
 app.post('/loginMecanico', (req,res)=>{
@@ -171,28 +164,27 @@ app.post('/loginCliente', (req,res)=>{
     })
 }); 
 
-app.get('/inspecao_manutencao', (req, res) => {
-    const clientes = [
-        { nome: "João Aparecido", modelo: "Honda - Civic type R", placa: "XXX-0000" },
-        { nome: "Maria Silva", modelo: "Toyota - Corolla", placa: "YYY-1111" },
-        { nome: "Julia Santos", modelo: "Ford - Focus", placa: "ZZZ-2222" },
-        { nome: "Estela Clara", modelo: "Chevrolet - Onix", placa: "AAA-3333" }
-    ];
-
-    res.render('inspecao_manutencao', { clientes });
-});
 
 
 app.get('/clientes_mecanico', (req,res)=>{
     db.query('SELECT c.nome AS nome_cliente, c.telefone AS telefone, c.email AS email, c.cpf_cliente AS cpf_cliente, v.placa AS placa_veículo FROM cliente c JOIN veiculo v ON c.cpf_cliente = v.cpfcliente;', (error,results) =>{
         if(error){
             console.log('nao foi possivel ver os clientes', error);
-  
-            
         }else{
-
             res.render('clientes_mecanico', {clientes: results})
         }
     })
 });
 
+app.get('/veiculos_do_cliente_mecanico/:cpf_cliente', (req, res) => {
+    const cpfCliente = req.params.cpf_cliente;
+    
+    // Consulta no banco para buscar os veículos do cliente
+    db.query('SELECT * FROM veiculo WHERE cpfcliente = ?', [cpfCliente], (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar veículos do cliente', error);
+        } else {
+            res.render('veiculos_do_cliente_mecanico', { veiculos: results });
+        }
+    });
+});

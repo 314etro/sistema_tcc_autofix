@@ -25,11 +25,10 @@
             <a href="/meu_veiculo_cliente">
                 <img src="/img/carroicon.png" alt="Meus Veículos">
             </a>
-            <a href="">
+            <a href="/acompanhar_cliente">
                 <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
-            <!-- Removi o <a> ao redor do ícone de perfil para evitar problemas -->
-            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer;">
+            <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width: 30px; height: auto;">
         </div>
 
         <div class="welcome">
@@ -42,7 +41,6 @@
         </div>
 
         <div class="cards">
-            <a href="entrada.html">
                 <div class="approval-card">
                     <h2>Entrada em aberto</h2>
                     <p>Carro:</p>
@@ -51,18 +49,6 @@
                     <p>Placa:</p>
                     <p>Data de entrada:</p>
                 </div>
-            </a> 
-
-            <a href="entrada.html">
-                <div class="expired-card">
-                    <h2>Entrada expirada</h2>
-                    <p>Carro:</p>
-                    <p>Marca:</p>
-                    <p>Cor:</p>
-                    <p>Placa:</p>
-                    <p>Data de entrada:</p>
-                </div>
-            </a> 
         </div>
     </div>
 
@@ -70,11 +56,10 @@
     <div id="profileModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <img src="/img/perfilicon.png">
             <h2>Perfil do Usuário</h2>
             <p>Nome: Gustavo</p>
             <p>Email: gustavo@email.com</p>
-            <p>Outra informação relevante</p>
+            <a href="/index1"><button id="logoutButton" class="logout-btn">Sair</button></a>
         </div>
     </div>
 
@@ -117,9 +102,23 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
 
-   
-    
+.logout-btn {
+    background-color: #e74c3c; /* Cor vermelha */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px; /* Espaço no topo */
+    width: 100%; /* Largura total do botão */
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b; /* Cor mais escura no hover */
 }
 
 .logo {
@@ -173,46 +172,53 @@ h1{
 
 .cards {
     display: flex;
-    justify-content: left;
-    margin-top: 10px;
-    margin-left: 5px;
-         /* Espaço no topo dos cards */
-  }
-  
-  .approval-card, .expired-card {
-    flex: 1;                  /* Faz com que os cards ocupem o mesmo espaço */
-    padding: 10px;
+    justify-content: center; /* Centraliza os cards horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    gap: 20px; /* Adiciona espaço entre os cards */
+    margin-top: 20px; /* Espaço no topo */
+}
+
+.approval-card, .expired-card {
+    flex: 1; /* Cards ocupam o mesmo espaço */
+    padding: 20px;
     margin: 10px;
     background-color: white;
-    border-radius: 5px;
-    margin-top: 10px;
-    min-width: 30%;           /* Garante que cada card ocupe aproximadamente metade do espaço disponível */
-    box-sizing: border-box; 
-    margin-left: 5px;
-    justify-content: left;
-    
-  }
+    border-radius: 10px; /* Arredondando os cantos dos cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
+    max-width: 300px; /* Limita o tamanho máximo dos cards */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    box-sizing: border-box;
+    transition: transform 0.3s ease; /* Efeito de transição ao passar o mouse */
+}
+
+.approval-card:hover, .expired-card:hover {
+    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
+}
 
 .approval-card h2 {
     color: #ff7f27;
-    font-size: 14px;
+    font-size: 18px;
+    margin-bottom: 10px; /* Espaço entre o título e o conteúdo */
 }
 
 .approval-card p {
-    margin: 10px 0;
-    font-size: 14px;
+    margin: 5px 0;
+    font-size: 16px;
     color: #333;
 }
 
 .expired-card h2 {
     color: #7c1b1b;
-    font-size: 14px;
+    font-size: 18px;
+    margin-bottom: 10px;
 }
+
 .expired-card p {
-    margin: 10px 0;
-    font-size: 14px;
+    margin: 5px 0;
+    font-size: 16px;
     color: #333;
 }
+
 .icon {
     display: flex;           /* Usa Flexbox para o layout dos ícones */
   justify-content: flex-end; /* Alinha os ícones à direita */
@@ -271,8 +277,10 @@ h1{
     cursor: pointer;
 }
 
-
-
+.icon img {
+   width: 30px;   /* Define o tamanho padrão para todos os ícones */
+   height: auto;  /* Mantém a proporção da imagem */
+}
 
 
 </style>

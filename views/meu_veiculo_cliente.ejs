@@ -12,7 +12,7 @@
 <body>
     <div class="header">
         <div  class="logo">
-        <img src="../public/img/Logo.png" alt="Autofix Logo"> 
+        <img src="/img/Logo.png" alt="Autofix Logo"> 
         </div>
     </div>
 
@@ -21,16 +21,15 @@
             <h1>Área do Cliente</h1>
             </div>
 
-        <div class="icon">
-           <a href="meu_veiculo_cliente.html">
-            <img src="../public/img/carroicon.png" alt="Meus Veículos" > </a>
-
-            <a href="">
-            <img src="../public/img/ampulhetaicon.png" alt="Acompanhar Serviço" href=""> </a>
-
-            <a href="">
-            <img src="../public/img/perfilicon.png" alt="Perfil" href="" ></a>
-        </div>
+            <div class="icon">
+                <a href="/meu_veiculo_cliente">
+                    <img src="/img/carroicon.png" alt="Meus Veículos">
+                </a>
+                <a href="/acompanhar_cliente">
+                    <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
+                </a>
+                <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer;">
+            </div>
  
         <div class="welcome">
             <h2>Bem Vindo, Gustavo</h2>
@@ -69,15 +68,15 @@
         </div>
         </div>
         <!-- Modal -->
-    <div id="profileModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Perfil do Usuário</h2>
-            <p>Nome: Gustavo</p>
-            <p>Email: gustavo@email.com</p>
-            <p>Outra informação relevante</p>
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Perfil do Usuário</h2>
+                <p>Nome: Gustavo</p>
+                <p>Email: gustavo@email.com</p>
+                <a href="/index1"><button id="logoutButton" class="logout-btn">Sair</button></a>
+            </div>
         </div>
-    </div>
 
     <script>
         // Obtém os elementos do DOM
@@ -112,9 +111,30 @@
     padding: 0;
     background-color: #f8f8f8;
     font-size: 16px;
-
 }
 
+.icon img {
+   width: 30px;   /* Define o tamanho padrão para todos os ícones */
+   height: auto;  /* Mantém a proporção da imagem */
+}
+
+
+.logout-btn {
+    background-color: #e74c3c; /* Cor vermelha */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px; /* Espaço no topo */
+    width: 100%; /* Largura total do botão */
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background-color: #c0392b; /* Cor mais escura no hover */
+}
 .header {
     background-color: #505050;
     color: white;

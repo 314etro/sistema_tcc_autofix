@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -16,19 +16,21 @@
         </div>
     </div>
 
+    
+
     <div class="content">
         <div class="title">
             <h1>Área do Cliente</h1>
-        </div>
-
-        <div class="icon">
-            <a href="/meu_veiculo_cliente">
-                <img src="/img/carroicon.png" alt="Meus Veículos">
-            </a>
-            <a href="/acompanhar_cliente">
-                <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
-            </a>
-            <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer;">
+            
+            <div class="icon">
+                <a href="/meu_veiculo_cliente">
+                    <img src="/img/carroicon.png" alt="Meus Veículos">
+                </a>
+                <a href="/acompanhar_cliente">
+                    <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
+                </a>
+                <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width: 30px; height: auto;">
+            </div>
         </div>
 
         <div class="welcome">
@@ -36,22 +38,49 @@
         </div>  
         
         <div class="menu">
-            <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
-            <a href="" class="active">Aprovar Orçamento</a>
+            <a href="" class="active">Aprovar Entrada</a>
+            <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
         </div>
 
-        <div class="cards">
-            <a href="/checklist_aprovar_entrada" class="card-link">
-                <div class="approval-card">
-                    <h2>Orçamento em aberto</h2>
-                    <p>Carro:</p>
-                    <p>Marca:</p>
-                    <p>Cor:</p>
-                    <p>Placa:</p>
-                    <p>Data de entrada:</p>
-                </div>
-            </a>
-        </div>
+        <div class="progress-container">  
+            <div class="progress-step" id="step-entrada">  
+                <div class="circle" id="circle-entrada">  
+                    <img src="//img/agurdando-aprovacao.jpeg" alt="Ícone Entrada">  
+                </div>  
+                <p>Entrada Aprovada</p>  
+            </div>  
+            <div class="progress-step" id="step-orcamento">  
+                <div class="circle" id="circle-orcamento">  
+                    <img src="img/aprovada.jpeg" alt="Ícone Orçamento">  
+                </div>  
+                <p>Orçamento Aprovado</p>  
+            </div>  
+            <div class="progress-step" id="step-manutencao">  
+                <div class="circle" id="circle-manutencao">  
+                    <img src="img/manutencao-em-andamento.jpeg" alt="Ícone Manutenção">  
+                </div>  
+                <p>Manutenção em Andamento</p>  
+            </div>  
+            <div class="progress-step" id="step-finalizada">  
+                <div class="circle" id="circle-finalizada">  
+                    <img src="/img/servico-finalizado.jpeg" alt="Ícone Finalizada">  
+                </div>  
+                <p>Manutenção Finalizada</p>  
+            </div>  
+            <div class="progress-step" id="step-retirada">  
+                <div class="circle" id="circle-retirada">  
+                    <img src="/img/aguardando-retirada.jpeg" alt="Ícone Retirada">  
+                </div>  
+                <p>Aguardando Retirada</p>  
+            </div>  
+        </div>  
+        
+        <div class="progress-bar-wrapper">  
+            <div class="progress-bar">  
+                <div class="progress-bar-value" id="progress-bar-value"></div>  
+            </div>  
+        </div>  
+    </div> 
 
     <!-- Modal -->
     <div id="profileModal" class="modal">
@@ -65,6 +94,36 @@
     </div>
 
     <script>
+        // Simulação de status  
+        const steps = [  
+            { id: 'step-entrada', circleId: 'circle-entrada' },  
+            { id: 'step-orcamento', circleId: 'circle-orcamento' },  
+            { id: 'step-manutencao', circleId: 'circle-manutencao' },  
+            { id: 'step-finalizada', circleId: 'circle-finalizada' },  
+            { id: 'step-retirada', circleId: 'circle-retirada' }  
+        ];  
+
+        let currentStepIndex = 0;  
+
+        function updateProgress() {  
+            if (currentStepIndex < steps.length) {  
+                const currentStep = steps[currentStepIndex];  
+                document.getElementById(currentStep.id).classList.add('complete');  
+                document.getElementById(currentStep.circleId).classList.add('complete');  
+                
+                // Atualiza a largura da barra de progresso  
+                const progressBarValue = document.getElementById('progress-bar-value');  
+                const totalSteps = steps.length;  
+                const newWidth = ((currentStepIndex + 1) / totalSteps) * 100; // Converte para porcentagem  
+                progressBarValue.style.width = ${newWidth};
+                
+                currentStepIndex++;  
+            }  
+        }  
+
+        // Atualiza o status a cada 3 segundos (simulação)  
+        setInterval(updateProgress, 3000); 
+
         // Obtém os elementos do DOM
         const modal = document.getElementById("profileModal");
         const profileIcon = document.getElementById("profileIcon");
@@ -88,19 +147,76 @@
         }
     </script>
 </body>
-<style>body {
+<style>
+.progress-container {  
+            display: flex;  
+            justify-content: space-between;  
+            align-items: center;  
+            margin-top: 50px;   
+            padding-bottom: 20px;  
+            width: 80%;  
+            margin-left: auto;  
+            margin-right: auto;  
+        }  
+
+        .progress-step {  
+            text-align: center;  
+            position: relative;  
+        }  
+
+        .circle {  
+            width: 60px;  
+            height: 60px;  
+            border-radius: 50%;  
+            border: 2px solid #4caf50; /* Cor do círculo */  
+            display: flex;  
+            align-items: center;  
+            justify-content: center;  
+            margin: 0 auto;  
+            transition: background-color 0.3s;  
+            position: relative;  
+        }  
+
+        .circle.complete {  
+            background-color: #4caf50; /* Círculo verde quando completo */  
+        }  
+
+        .circle img {  
+            width: 24px; /* Tamanho do ícone */  
+            height: 24px;  
+            display: block; /* Mostra o ícone inicialmente */  
+        }  
+
+        .progress-bar-wrapper {  
+            margin: 0 auto;  
+            width: calc(80% - 50px);  
+            margin-top: 20px;  
+            position: relative;  
+        }  
+
+        .progress-bar {  
+            position: relative;  
+            height: 4px;  
+            background-color: #ccc;  
+        }  
+
+        .progress-bar-value {  
+            content: '';  
+            position: absolute;  
+            top: 0;  
+            height: 100%;  
+            background-color: #4caf50; /* Cor verde */  
+            transition: width 0.3s;  
+            width: 0%; /* Inicializa com 0% */  
+        }
+
+body {
     font-family: 'Arvo', serif;
     margin: 0;
     padding: 0;
     background-color: #f8f8f8;
     font-size: 16px;
 }
-
-.icon img {
-   width: 30px;   /* Define o tamanho padrão para todos os ícones */
-   height: auto;  /* Mantém a proporção da imagem */
-}
-
 
 .header {
     background-color: #505050;
@@ -203,7 +319,7 @@ h1{
 }
 
 .approval-card h2 {
-    color: #1624e2;
+    color: #ff7f27;
     font-size: 18px;
     margin-bottom: 10px; /* Espaço entre o título e o conteúdo */
 }
@@ -225,17 +341,6 @@ h1{
     font-size: 16px;
     color: #333;
 }
-
-.card-link {
-    text-decoration: none; /* Remove o sublinhado do link */
-    color: inherit; /* Garante que a cor do texto seja herdada e não fique azul */
-}
-
-.card-link:hover {
-    text-decoration: none; /* Remove o sublinhado do link no hover */
-}
-
-
 
 .icon {
     display: flex;           /* Usa Flexbox para o layout dos ícones */
@@ -295,8 +400,10 @@ h1{
     cursor: pointer;
 }
 
-
-
+.icon img {
+   width: 30px;   /* Define o tamanho padrão para todos os ícones */
+   height: auto;  /* Mantém a proporção da imagem */
+}
 
 
 </style>

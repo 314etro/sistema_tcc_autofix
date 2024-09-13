@@ -1,505 +1,500 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+    <!DOCTYPE html>
+    <html lang="pt-BR">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="adm.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="adm.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+            rel="stylesheet">
+        <link rel="stylesheet" href="veiculos_mecanico.css">
+        <title>Veículos</title>
+    </head>
 
-    <link rel="stylesheet" href="veiculos_mecanico.css">
-    <title>Veículos</title>
-</head>
+    <body>
+        <header>
+            <img src="/img/logo.png" alt="Logo">
+        </header>
 
-<body>
-    <header>
-        <img src="/img/logo.png" alt="Logo">
-    </header>
-
-    <div class="search-bar">
-        <button class="back-button">
-            <a href="/home_mecanico">  <img src="/img/seta.png" alt="Voltar"></a>
-        </button>
-        <div class="search-input-container">
-            <input type="text" placeholder="Buscar funcionário">
-            <img src="/img/lupa.png" alt="Pesquisar">
-        </div>
-        <button class="new-car-button" id="openModalBtn">Adicionar Carro</button>
-    </div>
-
-    <div class="main-content">
-       
-        
-        <div class="mechanic-box">
-            <h2>Dados do Cliente:</h2>
-            <div class="mechanic-info">
-                <p><strong>Nome:</strong></p>
-                <p><strong>Número:</strong> </p>
-                <p><strong>E-mail:</strong>  </p>
-                <p><strong>CPF:</strong></p>
+        <div class="search-bar">
+            <button class="back-button">
+                <a href="/clientes_mecanico "><img src="/img/seta.png" alt="Voltar"></a>
+            </button>
+            <div class="search-input-container">
+                <input type="text" id="searchInput" placeholder="Buscar Veículo" onkeyup="searchVehicles()">
+                <img src="/img/lupa.png" alt="Pesquisar">
             </div>
+            <button class="new-car-button" id="openModalBtn" onclick="openAddCarModal()">Adicionar Veículo</button>
         </div>
-      
-  
-        <% veiculos.forEach((veiculo) => { %>
-            <div class="cards-section">
-                <div class="cards-container" id="cardsContainer">
-                    <div class="card">
-                        <h3><%= veiculo.modelo %></h3>
-                        <h1><%= veiculo.placa %></h1>
+
+        <div class="main-content">
+            <div class="mechanic-box">
+                <h2>Dados do Cliente:</h2>
+                <% clientes.forEach((cliente)=> { %>
+                    <div class="mechanic-info">
+                        <p><strong>Nome:</strong>
+                            <%= cliente.nome %>
+                        </p>
+                        <p><strong>Número:</strong>
+                            <%= cliente.telefone %>
+                        </p>
+                        <p><strong>E-mail:</strong>
+                            <%= cliente.email %>
+                        </p>
+                        <p><strong>CPF:</strong>
+                            <%= cliente.cpf_cliente %>
+                        </p>
+                        <button class="delete-client-button" onclick="openDeleteModal()">Excluir Cliente</button>
                     </div>
+                    <% }) %>
+            </div>
+
+            <div class="cards-section">
+                <h2>Veículos:</h2>
+                <div class="cards-container" id="cardsContainer">
+                    <% veiculos.forEach((veiculo)=> { %>
+                        <div class="card">
+                            <h3>
+                                <%= veiculo.marca %>
+                                    <%= veiculo.modelo %>
+                            </h3>
+                            <h1>
+                                <%= veiculo.placa %>
+                            </h1>
+                        </div>
+                        <% }) %>
                 </div>
             </div>
-        <% }) %>
-      
-    </div>
+        </div>
 
-    <!-- Modal Structure -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Cadastrar Veículo</h2>
-                <span class="close">×</span>
-            </div>
-            <p>Preencha os campos abaixo de acordo com o veículo do cliente</p>
-            <div class="modal-body">
-                <label for="modelo">Modelo:</label>
-                <input type="text" id="modelo" placeholder="Modelo" required>
-                <label for="placa">Placa:</label>
-                <input type="text" id="placa" placeholder="Placa" required>
-                <label for="cor">Cor:</label>
-                <input type="text" id="cor" placeholder="Cor" required>
-                <label for="marca">Marca:</label>
-                <input type="text" id="marca" placeholder="Marca" required>
-                <label for="ano">Ano:</label>
-                <input type="number" id="ano" placeholder="Ano" required>
-            </div>
-            <div class="modal-footer">
-                <button id="submitCarBtn">Finalizar</button>
-            </div>
+        <!-- Modal de Confirmação de Exclusão -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Confirmar Exclusão</h2>
+            <span class="close" onclick="closeDeleteModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Você tem certeza que deseja excluir este cliente?</p>
+        </div>
+        <div class="modal-footer">
+            <form action="/excluirCliente" method="post" id="deleteClientForm">
+                <input type="hidden" name="cpf_cliente" value="<%= cpf_cliente %>">
+                <button class="btn btn-cancel" type="button" onclick="closeDeleteModal()">Cancelar</button>
+               <button class="delete-client-button" type="submit">Excluir Cliente</button>
+            </form>
         </div>
     </div>
+</div>
 
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
+        <!-- Modal para Adicionar Veículo -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Cadastrar Veículo</h2>
+                    <span class="close" onclick="closeAddCarModal()">&times;</span>
+                </div>
+                <p>Preencha os campos abaixo de acordo com o veículo do cliente</p>
 
-        // Get the button that opens the modal
-        var btn = document.getElementById("openModalBtn");
+                <form action="/adicionarVeiculo" method="post" id="addCarForm">
+                    <input type="hidden" name="cpf_cliente" value="<%= cpf_cliente %>">
+                    <div class="modal-body">
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+                        <div class="form-group">
+                            <label for="placa">Placa:</label>
+                            <input type="text" id="placa" class="form-control"  required name="placa_veiculo">
+                        </div>
+                        <div class="form-group">
+                            <label for="marca">Marca:</label>
+                            <input type="text" id="marca" class="form-control"  required name="marca_veiculo">
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Modelo:</label>
+                            <input type="text" id="modelo" class="form-control"  required name="modelo_veiculo">
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="cor">Cor:</label>
+                            <input type="text" id="cor" class="form-control"  required name="cor_veiculo">
+                        </div>
+                      
+                        <div class="form-group">
+                            <label for="ano">Ano:</label>
+                            <input type="number" id="ano" class="form-control"  required name="ano_veiculo">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="submitCarBtn" class="btn btn-primary" type="submit">Finalizar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-        // When the user clicks the button, open the modal 
-        btn.onclick = function () {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+        <script>
+            function openDeleteModal() {
+                document.getElementById('deleteModal').style.display = 'block';
             }
-        }
 
-        // Add event listener to the finalize button
-        document.getElementById("submitCarBtn").addEventListener("click", function () {
-            // Get the values from the modal inputs
-            var modelo = document.getElementById("modelo").value;
-            var placa = document.getElementById("placa").value;
-            var cor = document.getElementById("cor").value;
-            var marca = document.getElementById("marca").value;
-            var ano = document.getElementById("ano").value;
+            function closeDeleteModal() {
+                document.getElementById('deleteModal').style.display = 'none';
+            }
 
-            // Create a new card
-            var newCard = document.createElement("div");
-            newCard.classList.add("card");
+            function confirmDelete() {
+                // Lógica para exclusão do cliente
+                closeDeleteModal();
+                alert('Cliente excluído com sucesso!');
+            }
 
-            // Add the content to the card
-            newCard.innerHTML = `
-                <h3>${modelo}</h3>
-                <h1>${placa}</h1>
-            `;
+            function openAddCarModal() {
+                document.getElementById('myModal').style.display = 'block';
+            }
 
-            // Append the new card to the container
-            document.getElementById("cardsContainer").appendChild(newCard);
+            function closeAddCarModal() {
+                document.getElementById('myModal').style.display = 'none';
+            }
 
-            // Close the modal
-            modal.style.display = "none";
+            function searchVehicles() {
+                const searchValue = document.getElementById('searchInput').value.toLowerCase();
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    const vehicleInfo = card.innerText.toLowerCase();
+                    if (vehicleInfo.includes(searchValue)) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+       
+    </body>
+    <style>
+    /* Reset Básico */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arvo', serif;
+    }
 
-            // Clear the input fields for future use
-            document.getElementById("modelo").value = '';
-            document.getElementById("placa").value = '';
-            document.getElementById("cor").value = '';
-            document.getElementById("marca").value = '';
-            document.getElementById("ano").value = '';
-        });
-    </script>
-</body>
-<style>* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arvo', serif;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
 
-        
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-weight: normal;
-        }
+    /* Header */
+    header {
+        background-color: #000000;
+        color: white;
+        padding: 8px;
+        text-align: center;
+    }
 
-        header {
-            background-color: #000000;
-            color: white;
-            padding: 8px;
-            text-align: center;
-            position: relative;
-        }
+    header img {
+        width: 200px;
+        height: auto;
+    }
 
-        header img {
-            width: 200px;
-            height: auto;
-        }
+    /* Search Bar */
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px 0 25px;
+        flex-direction: row;
+    }
 
-        .welcome-message {
-            position: absolute;
-            top: 30px;
-            right: 10px;
-            font-size: 16px;
-            color: white;
-            font-weight: bold;
-        }
+    .search-bar .back-button {
+        margin-right: 30px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
 
-        .title-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto;
-            width: 80%;
-            position: relative;
-        }
-.search-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
-    margin-top: 20px;
-}
+    .search-bar .back-button img {
+        width: 24px;
+        height: 24px;
+    }
 
-.search-bar .back-button {
-    margin-right: 30px; /* Ajuste o valor conforme necessário */
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
+    .search-bar .search-input-container {
+        position: relative;
+        width: 50%;
+    }
 
-.search-bar .back-button img {
-    width: 24px; /* Tamanho original da imagem da setinha */
-    height: 24px; /* Tamanho original da imagem da setinha */
-}
+    .search-bar input[type="text"] {
+        width: 100%;
+        padding: 10px 10px 10px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        outline: none;
+    }
 
-.search-bar .search-input-container {
-    position: relative;
-    width: 50%;
-}
+    .search-bar .search-input-container img {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
 
-.search-bar input[type="text"] {
-    width: 100%;
-    padding: 10px 10px 10px 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-}
+    .search-bar .new-car-button {
+        margin-left: 20px;
+    }
 
-.search-bar .search-input-container img {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px; /* Tamanho da lupa */
-    height: 20px; /* Tamanho da lupa */
-    cursor: pointer;
-}
+    .new-car-button {
+        display: inline-block;
+        padding: 10px 10px;
+        border-radius: 15px;
+        background-color: #0D6EFD;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s, transform 0.3s;
+    }
 
-.search-bar .new-car-button {
-    margin-left: 20px; /* Ajuste o valor conforme necessário */
-}
+    .new-car-button:hover {
+        background-color: #0726af;
+        transform: translateY(-2px);
+    }
+    /* Main Content */
+    .main-content {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+    }
 
-.new-car-button,.button {
-    display: inline-block;
-    padding: 10px 10px;
-    border-radius: 15px;
-    background-color: #0D6EFD;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    .mechanic-box {
+        flex: 1;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: 2px solid #ccc;
+        box-sizing: border-box;
+        overflow: auto;
+        margin-left: 70px; /* Ajuste o valor conforme necessário */
+    }
 
-.new-car-button:hover,
-.button:hover {
-    background-color: #0726af;
-    transform: translateY(-2px);
-}
 
-        .title {
-            font-size: 24px;
-            color: #333;
-            font-weight: bold;
-            padding-top: 90px;
-            margin-left: 315px;
-        }
+    /* Cards Section */
+    .cards-section {
+        flex: 2;
+        padding: 20px;
+    }
 
+    .cards-section h2 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 10px;
+        box-sizing: border-box;
+    }
+    /* Card */
+    .card {
+        background-color: #ffffff;
+        border: 5px solid #000000;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        height: 130px;
+        width: 100%;
+        max-width: 240px;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-sizing: border-box;
+    }
+
+    .card h3 {
+        margin: 0;
+        font-size: 20px;
+        color: white;
+        background-color: #003688;
+        padding: 5px;
+        border-radius: 3%;
+    }
+
+    .card h1 {
+        margin: 20px;
+        font-size: 35px;
+        font-weight: bold;
+        color: black;
+    }
+
+    /* Delete Button */
+    .delete-client-button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 15px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        margin-top: 20px;
+    }
+
+    .delete-client-button:hover {
+        background-color: #c82333;
+    }
+
+    /* Modals */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Modal Header */
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+        margin: 0;
+        color: #9e0505;
+        text-align: center;
+    }
+
+    .close {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Modal Body */
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-body input {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: 100%;
+    }
+
+    .modal-body input:focus {
+        outline: none;
+        border-color: #003688;
+    }
+
+    /* Modal Footer */
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+
+    .modal-footer button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        margin-left: 10px;
+    }
+
+    .modal-footer .btn-cancel {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .modal-footer .btn-cancel:hover {
+        background-color: #218838;
+    }
+
+    .modal-footer .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .modal-footer .btn-delete:hover {
+        background-color: #c82333;
+    }
+
+    /* Media Queries */
+    @media (max-width: 768px) {
         .main-content {
-            display: flex;
-            align-items: center;
-            height: 400px;
-            margin-left: 350px;
+            flex-direction: column;
         }
 
         .mechanic-box {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 50px rgba(0, 0, 0, 0.1);
-            border: 2px solid #ccc;
-            width: 600px;
-            height: 200px;
-            box-sizing: border-box;
-            text-align: left;
-            display: flex;
+            margin-left: 0;
+            max-width: 100%;
+        }
+
+        .search-bar {
             flex-direction: column;
-            justify-content: center;
-            margin: 70px;
-            margin-bottom: 150px;
-            margin-right: 200px;
-            
+            align-items: stretch;
         }
 
-        .mechanic-box h2 {
-            font-size: 18px;
-            font-weight: bold;
-            color: #000000;
-        }
-
-        .mechanic-info p {
-            margin: 5px 0;
-            font-size: 16px;
-        }
-
-        .cards-section {
+        .search-bar .search-input-container {
             width: 100%;
-        }
-
-        .cards-section h2 {
-            font-size: 18px;
-            font-weight: bold;
             margin-bottom: 10px;
-            color: #333;
         }
 
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(2, 250px);
-            gap: 40px;
-            box-sizing: border-box;
-            align-items: start;
-            white-space: nowrap;
-            
-        }
-
-        .card {
-            background-color: #ffffff;
-            border: 5px solid #000000;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            height: 130px;
-            width: 240px;
-            font-size: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-           
-        }
-
-        .card h3 {
+        .search-bar .back-button, 
+        .search-bar .new-car-button {
             margin: 0;
-            font-size: 20px;
-            color: white;
-            background-color: #003688;
-            padding: 5px;
-            align-self: stretch;
-            border-radius: 3%;
-        }
-
-        .card h1 {
-            margin: 20px;
-            font-size: 40px;
-            font-style: bold;
-            color: black;
-            justify-content: center;
-        }
-
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            margin-top: auto;
-            font-weight: normal;
-        }
-
-        .mechanic-info {
-            display: flex;
-            flex-direction: column;
-            gap: 0px;
-        }
-
-        .mechanic-info strong {
-            font-weight: bold;
-        }
-
-        
-        /* Modal CSS */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
             width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4); /* Fundo escurecido */
-            padding-top: 60px;
-            box-sizing: border-box;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            margin: 10% auto; /* Centraliza horizontalmente */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            
-        }
-
-        .modal-header h2 {
-            margin: 0;
-            color: #9e0505; /* Cor do título */
             text-align: center;
         }
+    }
 
-        .close {
-            color: #aaa;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    </style>
 
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .modal-body input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-
-        .modal-footer button {
-            background-color: #003688;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .modal-footer button:hover {
-            background-color: #005bb5;
-        }
-
-        /* Estilos para os campos do modal */
-        .modal-body label {
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .modal-body input {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            box-sizing: border-box; /* Inclui padding e border na largura total */
-        }
-
-        .modal-body input:focus {
-            outline: none;
-            border-color: #003688; /* Cor da borda ao focar */
-        }
-
-        .modal-footer button {
-            background-color: #138132; /* Cor de fundo do botão */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s; /* Transição suave para o hover */
-        }
-
-        .modal-footer button:hover {
-            background-color: #1fb349; /* Cor de fundo do botão ao passar o mouse */
-        }</style>
-
-</html>
-</html>
+    </html>

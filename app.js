@@ -34,9 +34,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
-
-
-//rotas
 //rotas
 app.get('/', (req, res) => {
     res.render('index1');
@@ -78,6 +75,46 @@ app.get('/orcamentos_adm', (req, res) => {
 app.get('/fornecedor_adm', (req, res) => {
     res.render('fornecedor_adm');
 });
+
+
+
+app.get('/index1', (req, res) => {
+    res.render('index1');
+});
+app.get('/aprovar_entrada_cliente', (req, res) => {
+    res.render('aprovar_entrada_cliente');
+});
+
+app.get('/aprovar_orcamento_cliente', (req, res) => {
+    res.render('aprovar_orcamento_cliente');
+});
+
+app.get('/funcionarios_adm', (req, res) => {
+    res.render('funcionarios_adm');
+});
+
+app.get('/orcamentos_adm', (req, res) => {
+    res.render('orcamentos_adm');
+});
+
+app.get('/fornecedor_adm', (req, res) => {
+    res.render('fornecedor_adm');
+});
+
+app.get('/checklist_aprovar_entrada', (req, res) => {
+    res.render('checklist_aprovar_entrada');
+});
+
+app.get('/meu_veiculo_cliente', (req, res) => {
+    res.render('meu_veiculo_cliente');
+});
+
+app.get('/acompanhar_cliente', (req, res) => {
+    res.render('acompanhar_cliente');
+});
+//
+
+
 
 // Login
 app.post('/loginMecanico', (req,res)=>{
@@ -163,28 +200,88 @@ app.post('/loginCliente', (req,res)=>{
         }
     })
 }); 
+//
 
 
-
-app.get('/clientes_mecanico', (req,res)=>{
-    db.query('SELECT c.nome AS nome_cliente, c.telefone AS telefone, c.email AS email, c.cpf_cliente AS cpf_cliente, v.placa AS placa_veículo FROM cliente c JOIN veiculo v ON c.cpf_cliente = v.cpfcliente;', (error,results) =>{
-        if(error){
-            console.log('nao foi possivel ver os clientes', error);
-        }else{
-            res.render('clientes_mecanico', {clientes: results})
-        }
-    })
-});
-
-app.get('/veiculos_do_cliente_mecanico/:cpf_cliente', (req, res) => {
-    const cpfCliente = req.params.cpf_cliente;
-    
-    // Consulta no banco para buscar os veículos do cliente
-    db.query('SELECT * FROM veiculo WHERE cpfcliente = ?', [cpfCliente], (error, results) => {
+//rota do cliente
+app.get('/clientes_mecanico', (req, res) => {
+    db.query('SELECT * FROM cliente ORDER BY data_criacao DESC', (error, results) => {
         if (error) {
-            console.log('Erro ao buscar veículos do cliente', error);
+            console.log('Erro ao buscar clientes', error);
+            res.status(500).send('Erro ao buscar clientes');
         } else {
-            res.render('veiculos_do_cliente_mecanico', { veiculos: results });
+            res.render('clientes_mecanico', { clientes: results });
         }
     });
 });
+
+app.post('/adicionarCliente', (req, res) => {
+    const cpf_cliente = req.body.cpf_cliente;
+    const nome = req.body.nome_cliente;
+    const email = req.body.email_cliente;
+    const senha = req.body.senha_cliente;
+    const telefone = req.body.telefone_cliente;
+    const id_oficina = req.body.id_oficina;
+ 
+    db.query('INSERT INTO cliente (cpf_cliente, telefone, email, nome, senha, idoficina) VALUES  (?, ?, ?, ?, ?, ?)', 
+    [cpf_cliente, telefone, email, nome, senha, id_oficina], (error, results) => {
+        if (error) {
+            console.log('Erro ao cadastrar cliente', error);
+        } else {
+            console.log('Cliente cadastrado com sucesso');
+            // Redireciona para a página de clientes
+            res.redirect('/clientes_mecanico');
+        }
+    });
+ });
+ 
+
+ app.get('/veiculos_do_cliente_mecanico/:cpf_cliente', (req, res) => {
+    const cpfCliente = req.params.cpf_cliente;
+
+    db.query('SELECT * FROM cliente WHERE cpf_cliente = ?', [cpfCliente], (clienteError, clienteResults) => {
+        if (clienteError) {
+            console.log('Erro ao buscar dados do cliente', clienteError);
+            return;
+        }
+
+        db.query('SELECT * FROM veiculo WHERE cpfcliente = ?', [cpfCliente], (veiculoError, veiculoResults) => {
+            if (veiculoError) {
+                console.log('Erro ao buscar veículos do cliente', veiculoError);
+                return;
+            }
+
+            res.render('veiculos_do_cliente_mecanico', { 
+                clientes: clienteResults, 
+                veiculos: veiculoResults,
+                cpf_cliente: cpfCliente
+            });
+        });
+    });
+});
+
+
+app.post('/adicionarVeiculo', (req, res) => {
+    const modelo = req.body.modelo_veiculo;
+    const placa = req.body.placa_veiculo;
+    const cor = req.body.cor_veiculo;
+    const marca = req.body.marca_veiculo;
+    const ano = req.body.ano_veiculo;
+    const cpfCliente = req.body.cpf_cliente;
+
+    db.query('INSERT INTO veiculo (placa, marca, modelo, cor, ano, cpfcliente) VALUES (?, ?, ?, ?, ?, ?)', 
+    [placa, marca, modelo, cor, ano, cpfCliente], (error, results) => {
+        if (error) {
+            console.log('Erro ao cadastrar veiculo', error);
+            res.status(500).send('Erro ao cadastrar carro');
+        } else {
+            console.log('Veículo cadastrado com sucesso');
+            // Redireciona para a página de veículos do cliente, incluindo o cpf_cliente
+            res.redirect(`/veiculos_do_cliente_mecanico/${cpfCliente}`);
+        }
+    });
+});
+
+
+// rota veículo do cliente
+

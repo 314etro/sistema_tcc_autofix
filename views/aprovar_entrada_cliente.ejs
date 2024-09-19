@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home cliente</title>
+    <title>Aprovação de entrada</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="/img/Logo.png" alt="Autofix Logo"> 
+<div class="header">
+<div class="logo">
+        <img src="/img/logo.png" alt="Autofix Logo"> 
         </div>
-    </div>
+</div>
 
     <div class="content">
         <div class="title">
@@ -28,7 +28,7 @@
             <a href="/acompanhar_cliente">
                 <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
-            <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width: 30px; height: auto;">
+            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
         </div>
 
         <div class="welcome">
@@ -36,36 +36,133 @@
         </div>  
         
         <div class="menu">
-            <a href="" class="active">Aprovar Entrada</a>
+            <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
             <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
         </div>
 
         <div class="cards">
-                <div class="approval-card">
-                    <h2>Entrada em aberto</h2>
-                    <p>Carro:</p>
-                    <p>Marca:</p>
-                    <p>Cor:</p>
-                    <p>Placa:</p>
-                    <p>Data de entrada:</p>
-                </div>
+                <div class="card mb-3" style="width: 18rem;">
+                <div class="card-header" style="background-color: rgba(149, 0, 0, 1);; color:#f8f8f8; text-align: center;">Aprovar entrada</div>
+                <div class="card-body">
+                    <div class="approval-card">
+                      <p class="card-text">Carro:</p>
+                      <p>Marca:</p>
+                      <p>Cor:</p>
+                      <p>Placa:</p>
+                      <p>Data de entrada:</p>
+                    </div>
+                    <button id="openModalButton1" data-previous-url="/aprovar_entrada_cliente" class="button">Mais informações</button> </div> 
         </div>
+
+                <div class="card mb-3" style="width: 18rem;">
+                <div class="card-header" style="background-color: rgba(149, 0, 0, 1); color:#f8f8f8; text-align: center;">Aprovar entrada</div>
+                <div class="card-body">
+                    <div class="approval-card">
+                      <p class="card-text">Carro:</p>
+                      <p>Marca:</p>
+                      <p>Cor:</p>
+                      <p>Placa:</p>
+                      <p>Data de entrada:</p>
+                    </div>
+                    <button id="openModalButton2" data-previous-url="/aprovar_entrada_cliente" class="button">Mais informações</button>
+        </div>
+        </div>
+        </div>
+        </div>
+
+
+<!-- Modal de Perfil -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('profileModal')">×</span>
+        <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
+        <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+        <p>Nome: Gustavo</p>
+        <p>Email: gustavo@email.com</p>
+        <p>Outra informação relevante</p>
     </div>
+</div>
+        
 
     <!-- Modal -->
-    <div id="profileModal" class="modal">
+    <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Perfil do Usuário</h2>
-            <p>Nome: Gustavo</p>
-            <p>Email: gustavo@email.com</p>
-            <a href="/index1"><button id="logoutButton" class="logout-btn">Sair</button></a>
+            <span class="close" onclick="closeModal('modal')">×</span> 
+            <h4 class="header-title" style="text-align: center;">Checklist</h4>
+            <button onclick="approveModal()" class="button-approve" type="button" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Aceitar</button>
+            <p></p>
+            <button onClick="rejectModal()" class="button-reject" type="button" style="background-color: rgba(134, 6, 6, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Rejeitar</button>
         </div>
     </div>
 
+    <!-- Modal 2 -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modal2')">×</span>
+            <h4 class="header-title" style="text-align: center;">Checklist</h4>
+            <button onclick="approveModal()" class="button-approve" type="button" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Aceitar</button>
+            <p></p>
+            <button onClick="rejectModal()" class="button-reject" type="button" style="background-color: rgba(134, 6, 6, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Rejeitar</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
     <script>
         // Obtém os elementos do DOM
-        const modal = document.getElementById("profileModal");
+        const modal2 = document.getElementById("modal2");
+        const closeModalSpanModal2 = document.querySelector("#modal2 .close"); // Seleciona o "x" do modal de perfil
+
+
+        // Quando o usuário clica no <span> (x), fecha o modal
+        closeModalSpanModal2.onclick = function() {
+            modal2.style.display = "none";
+        }
+
+        // Quando o usuário clica fora do modal, fecha o modal
+        window.onclick = function(event) {
+            if (event.target == modal2) {
+                modal2.style.display = "none";
+            }
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Abrir o modal ao clicar no botão
+        document.getElementById("openModalButton1").addEventListener("click", function(event) {
+            const button = event.target;
+            const previousUrl = button.dataset.previousUrl; // Obtém o data-previous-url
+            openModal('modal'); // Abre o modal
+            // Armazena a URL anterior para uso posterior
+            sessionStorage.setItem("previousUrl", previousUrl); 
+        });
+
+        document.getElementById("openModalButton2").addEventListener("click", function(event) {
+            const button = event.target;
+            const previousUrl = button.dataset.previousUrl; // Obtém o data-previous-url
+            openModal('modal2'); // Abre o modal de perfil
+            // Armazena a URL anterior para uso posterior
+            sessionStorage.setItem("previousUrl", previousUrl); 
+        });
+
+        function returnToPreviousPage() {
+            const previousUrl = sessionStorage.getItem("previousUrl");
+            if (previousUrl) {
+                window.location.href = previousUrl; 
+            }
+            closeModal('modal');
+            return false; 
+        }
+
+
+// Obtém os elementos do DOM
+const modal = document.getElementById("profileModal");
         const profileIcon = document.getElementById("profileIcon");
         const closeModalSpan = document.getElementsByClassName("close")[0];
 
@@ -85,203 +182,184 @@
                 modal.style.display = "none";
             }
         }
+
+
+        function approveModal() {
+            // Lógica para aprovar a entrada
+            alert("Entrada aprovada!"); 
+            closeModal('modal'); 
+        }
+
+        function rejectModal() {
+            // Lógica para rejeitar a entrada
+            alert("Entrada rejeitada!");
+            closeModal('modal');
+        }
+        
     </script>
-</body>
-<style>body {
-    font-family: 'Arvo', serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-    font-size: 16px;
-}
-
-.header {
-    background-color: #505050;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logout-btn {
-    background-color: #e74c3c; /* Cor vermelha */
+    
+    <style>
+        body {
+            font-family: 'Arvo', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+        .header {
+            background-color: #505050;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            margin: 0 auto;
+        }
+        .logo img {
+            height: 60px;
+        }
+        .content {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 16px;
+        }
+        .welcome {
+            margin-bottom: 30px;
+        }
+        .welcome h2 {
+            font-size: 20px;
+            color: #505050;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .menu a {
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+        }
+        .menu a.active {
+            margin: 0 auto;
+            
+        }
+        .cards {
+            display: flex;
+            justify-content: left;
+            margin-top: 5px;
+            margin-left: 5px;
+            gap: 10px;
+        }
+        .approval-card, .expired-card {
+            transition: transform 0.3s ease;
+            font-size: medium;
+        }
+        .icon {
+            display: flex;           
+            justify-content: flex-end; 
+            gap: 10px;                 
+            padding-right: 20px;       
+        }
+        .reject {
+            background-color: red;
+            border-radius: 5px;
+            border: none;
+        }
+        .confirm {
+            background-color: rgba(19, 129, 50, 1);
+            border-radius: 5px;
+            border: none;
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px; 
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .card-button {
+            background-color: rgba(19, 129, 50, 1);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            margin-left: 50px;
+        }
+        .card-button:hover {
+            transform: translateY(-5px);
+        }
+        .card .mb-3 {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        .button {
+            background-color: rgba(19, 129, 50, 1);
+            color: white;
+            font-size: smaller;
+            padding: 10px 20px;
+            margin-left: 50px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+         
+        }
+        .button:hover {
+            transform: translateY(-5px);
+        }
+        .logout-btn {
+    background-color: red;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-    margin-top: 20px; /* Espaço no topo */
-    width: 100%; /* Largura total do botão */
-    text-align: center;
+    transition: transform 0.2s ease;
 }
 
 .logout-btn:hover {
-    background-color: #c0392b; /* Cor mais escura no hover */
+    transform: translateY(-5px);
 }
-
-.logo {
-    display: flex;
-    margin: 0 auto;
-
-}
-
-.logo img {
-    height: 60px;
-
-}
-
-.content {
-    padding: 20px;
-}
-
-h1{
-    font-size: 16px;
-}
-
-.welcome {
-    margin-bottom: 30px;
-}
-
-.welcome h2 {
-    font-size: 20px;
-    color: #505050;
-}
-
-.menu {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-}
-
-.menu a {
-    padding: 10px;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    border-bottom: 2px solid transparent;
-}
-
-.menu a.active {
-   margin: 0 auto;
-   
-   
-}
-
-.cards {
-    display: flex;
-    justify-content: center; /* Centraliza os cards horizontalmente */
-    align-items: center; /* Centraliza verticalmente */
-    gap: 20px; /* Adiciona espaço entre os cards */
-    margin-top: 20px; /* Espaço no topo */
-}
-
-.approval-card, .expired-card {
-    flex: 1; /* Cards ocupam o mesmo espaço */
-    padding: 20px;
-    margin: 10px;
-    background-color: white;
-    border-radius: 10px; /* Arredondando os cantos dos cards */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona sombra */
-    max-width: 300px; /* Limita o tamanho máximo dos cards */
-    text-align: left; /* Alinhamento do texto à esquerda */
-    box-sizing: border-box;
-    transition: transform 0.3s ease; /* Efeito de transição ao passar o mouse */
-}
-
-.approval-card:hover, .expired-card:hover {
-    transform: scale(1.05); /* Efeito de zoom ao passar o mouse */
-}
-
-.approval-card h2 {
-    color: #ff7f27;
-    font-size: 18px;
-    margin-bottom: 10px; /* Espaço entre o título e o conteúdo */
-}
-
-.approval-card p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #333;
-}
-
-.expired-card h2 {
-    color: #7c1b1b;
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.expired-card p {
-    margin: 5px 0;
-    font-size: 16px;
-    color: #333;
-}
-
-.icon {
-    display: flex;           /* Usa Flexbox para o layout dos ícones */
-  justify-content: flex-end; /* Alinha os ícones à direita */
-  gap: 10px;                 /* Espaço entre os ícones (opcional) */
-  padding-right: 20px;       /* Espaço adicional à direita (opcional) */
-}
-
-.reject {
-    background-color: red;
-    border-radius: 5px;
-    border: none;
-
-}
-
-.confirm {
-    background-color: rgb(9, 189, 9);
-    border-radius: 5px;
-    border: none;
-
-}
-.modal {
-    display: none; /* Escondido por padrão */
-    position: fixed; /* Fica em cima da tela */
-    z-index: 1; /* Fica na frente */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Habilita scroll se necessário */
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo com opacidade */
-}
-
-/* Estilo para o conteúdo do modal */
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto; /* Centrado verticalmente */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Largura do modal */
-    max-width: 400px; /* Largura máxima */
-    border-radius: 10px; /* Cantos arredondados */
-}
-
-/* Estilo para o botão de fechar */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.icon img {
-   width: 30px;   /* Define o tamanho padrão para todos os ícones */
-   height: auto;  /* Mantém a proporção da imagem */
-}
-
 
 </style>
+</body>
 </html>

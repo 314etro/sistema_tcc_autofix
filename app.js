@@ -203,7 +203,7 @@ app.post('/loginCliente', (req,res)=>{
 //
 
 
-//rota do cliente
+//rotas de adicionar, exibir cliente
 app.get('/clientes_mecanico', (req, res) => {
     db.query('SELECT * FROM cliente ORDER BY data_criacao DESC', (error, results) => {
         if (error) {
@@ -261,6 +261,36 @@ app.post('/adicionarCliente', (req, res) => {
 });
 
 
+
+app.post('/excluirCliente', (req, res) => {
+    const cpfCliente = req.body.cpf_cliente;
+
+    // Primeiro, exclua todos os veículos associados ao cliente
+    db.query('DELETE FROM veiculo WHERE cpfcliente = ?', [cpfCliente], (veiculoError) => {
+        if (veiculoError) {
+            console.log('Erro ao excluir veículos do cliente', veiculoError);
+            res.status(500).send('Erro ao excluir veículos do cliente');
+            return;
+        }
+
+        // Em seguida, exclua o cliente
+        db.query('DELETE FROM cliente WHERE cpf_cliente = ?', [cpfCliente], (clienteError) => {
+            if (clienteError) {
+                console.log('Erro ao excluir cliente', clienteError);
+                res.status(500).send('Erro ao excluir cliente');
+                return;
+            }
+
+            console.log('Cliente excluído com sucesso');
+            // Redireciona para a página de clientes
+            res.redirect('/clientes_mecanico');
+        });
+    });
+});
+
+
+// rota de adicionar veiculo ao cliente
+
 app.post('/adicionarVeiculo', (req, res) => {
     const modelo = req.body.modelo_veiculo;
     const placa = req.body.placa_veiculo;
@@ -283,5 +313,6 @@ app.post('/adicionarVeiculo', (req, res) => {
 });
 
 
-// rota veículo do cliente
-
+app.get('/checklist', (req, res) => {
+    res.render('checklist_mecanico');
+});

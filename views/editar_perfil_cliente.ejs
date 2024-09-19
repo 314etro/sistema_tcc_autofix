@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOFIX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <!-- logo e título -->
+    <div class="header">
+        <div class="logo">
+            <img src="img/Logo.png" alt="Autofix Logo"> 
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="title" >
+         <a href=""><h1>Área do Cliente</h1></a>    <!-- referenciar aprovar entrada -->
+        </div>
+        <div class="welcome">
+            <h2>Bem Vindo, Gustavo</h2>
+        </div> 
+        <div class="menu">
+
+            <div class="icon">
+            <a href="/aprovar_entrada_cliente">
+                <img src="/img/back.png" alt="Meus Veículos">
+            </a>
+        </div>
+
+            <a class="active">Dados e Privacidade</a>
+        </div>
+
+        <!-- Seção dos cards -->
+        <div class="card-container">
+            <div class="card-header">Informações Básicas</div>
+            
+            <div class="card-item">
+                <label>Foto do seu perfil</label>
+                <div class="profile-pic"></div>
+            </div>
+            
+            <div class="card-item">
+                <label>Nome</label>
+            </div>
+            
+            <div class="card-item">
+                <label>Telefone</label>
+            </div>
+            
+            <div class="card-item">
+                <label>E-mail</label>
+            </div>
+            
+            <div class="card-item">
+                <label>Senha</label>
+                <button class="edit-button" id="openModal">Editar senha</button>
+            </div>
+        </div>
+
+        </div>
+
+        <!-- Modal -->
+    <div id="editPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                Editar senha
+            </div>
+            <div class="modal-body">
+                <label for="newPassword">Nova senha</label>
+                <input type="password" id="newPassword" placeholder="Digite sua senha aqui">
+                <div class="error-message">Senha de no mínimo 8 caracteres</div>
+
+                <label for="confirmPassword">Confirme sua senha</label>
+                <input type="password" id="confirmPassword" placeholder="Digite sua senha aqui">
+                <div class="error-message">Senha de no mínimo 8 caracteres</div>
+            </div>
+            <div class="modal-footer">
+                <button class="close-button" id="closeModal">Cancelar</button>
+                <button class="save-button">Salvar senha</button>
+            </div>
+        </div>
+    </div>
+
+        <!-- Scripts necessários para Bootstrap e jQuery -->
+    <!-- Usar a versão completa do jQuery em vez da slim !!!-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-9/aliU8dGd02pjr5sTFtD0NNtCEe91Dp7jzzyHBmCPS2AY4scEsm3IMmSmJ2Ll4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaXkrJrn2zL2Z7D1QIBKNHyllFa9Fcg/8ER" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+aGg6fHkdW/aXar3QyZPo49lC/lg6ljFNfYJaa5daGzzT2Moc" crossorigin="anonymous"></script>
+    
+ <!-- adicionar script do perfil -->
+  <script>
+    // Obtém os elementos do DOM
+    var modal = document.getElementById("editPasswordModal");
+        var openModalBtn = document.getElementById("openModal");
+        var closeModalBtn = document.getElementById("closeModal");
+
+        // Abre o modal quando o botão "Editar senha" é clicado
+        openModalBtn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Fecha o modal quando o botão "Cancelar" é clicado
+        closeModalBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Fecha o modal ao clicar fora do conteúdo
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+  </script>
+
+
+
+
+        <style>
+ body {
+            font-family: 'Arvo', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+
+        .header {
+            background-color: #505050;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+           
+        }
+        
+        .title h1 {
+            font-size: medium;
+            margin-bottom: 33px;
+            color: #000;
+        
+        }
+        h1 {
+            font-size: medium;
+        }
+
+        h2 {
+            font-size: larger;
+            color: rgba(116, 9, 9, 0.795);
+        }
+
+        h3 {
+            text-decoration: none;
+            text-align: center;
+            font-size: medium;
+            
+        }
+
+        h4 {
+            color: rgba(116, 9, 9, 0.795);
+        }
+       
+
+        .logo {
+            display: flex;
+            margin: 0 auto;
+        }
+
+        .logo img {
+            height: 60px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .welcome {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            
+        }
+
+        .welcome h2 {
+            font-size: 20px;
+            color: #505050;
+            margin-bottom: 20px;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .menu a {
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight:500;
+            border-bottom: 2px solid transparent;
+        }
+
+
+        .menu a.active {
+            margin: 0 auto;
+        }
+        .card-container {
+            width: 50%;
+            background-color: #f7f7f7;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 40px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            font-size: 16px;
+            background-color: #f7f7f7;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .card-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card-item:last-child {
+            border-bottom: none;
+        }
+
+        .card-item label {
+            font-size: 14px;
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ccc;
+        }
+
+        .edit-button {
+            background-color: #A00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .edit-button:hover {
+            background-color: #900;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            font-size: 18px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-body label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .save-button {
+            background-color: #218838;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .save-button:hover {
+            background-color: #218838;
+        }
+
+        .close-button {
+            background-color: #900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .close-button:hover {
+            background-color: #900;
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: red;
+        }
+        
+        .icon {
+         width: 30px; /* Ajuste o tamanho do ícone conforme necessário */
+         height: auto;
+         vertical-align: middle; /* Alinha verticalmente com o texto */
+         margin-right: 10px; /* Espaço entre o ícone e o texto */
+         margin-top: 10px;
+         }
+       
+
+
+        </style>
+        </body>
+       </html>

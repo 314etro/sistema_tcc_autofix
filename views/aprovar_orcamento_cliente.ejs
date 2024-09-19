@@ -29,7 +29,15 @@
                 <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
             <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+            <a href="/index1">
+                <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
+            </a>
         </div>
+
+
+        
+        
+    
     
 
         <div class="welcome">
@@ -52,7 +60,7 @@
                       <p>Placa:</p>
                       <p>Data de entrada:</p>
                     </div>
-                    <a href="/checklist_orcamento_entrada">
+                    <a href="/checklist_aprovar_entrada">
                     <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 
@@ -68,7 +76,7 @@
                       <p>Placa:</p>
                       <p>Data de entrada:</p>
                     </div>
-                    <a href="/checklist_orcamento_entrada">
+                    <a href="/checklist_aprovar_entrada">
                     <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 
@@ -84,9 +92,11 @@
         <span class="close" onclick="closeModal('profileModal')">×</span>
         <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
         <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+        <br>
         <p>Nome: Gustavo</p>
         <p>Email: gustavo@email.com</p>
-        <p>Outra informação relevante</p>
+        <br>
+        <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>
 </div>
        
@@ -186,6 +196,7 @@
             gap: 10px;                 
             padding-right: 20px;       
         }
+        
         .reject {
             background-color: red;
             border-radius: 5px;
@@ -216,6 +227,11 @@
             max-width: 400px; 
             border-radius: 10px;
         }
+
+        .modal .title-profile {
+            color: #7c0808;
+        }
+
         .close {
             color: #aaa;
             float: right;
@@ -279,4 +295,20 @@
     transform: translateY(-5px);
 }
  
+.edit-profile {
+            background-color: #950000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 300px;
+            align-items: center;
+            margin-left: 30px;
+           
+        }
+
+        .edit-profile:hover {
+            background-color: #7a0000;
+        }
 </style>

@@ -24,22 +24,26 @@
 
         <!-- icones  -->
         <div class="icon">
-            <a href="meu_veiculo.html">
-                <img src="../public/img/carroicon.png" alt="Meus Veículos"> 
+            <a href="/meu_veiculo_cliente">
+                <img src="/img/carroicon.png" alt="Meus Veículos">
             </a>
-
-            <a href="#">
-                <img src="../public/img/ampulhetaicon.png" alt="Acompanhar Serviço">
+            <a href="/acompanhar_cliente">
+                <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
-
-            <a href="">
-                <img src="../public/img/perfilicon.png" alt="Perfil">
+            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+            <a href="/index1">
+                <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
             </a>
         </div>
         
         <div class="welcome">
-            <h2>Bem Vindo, Gustavo</h2>
+           <h2>Bem Vindo, Gustavo</h2> 
         </div>  
+
+        <div class="menu-principal">
+            <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
+            <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
+        </div>
         
         <div class="menu">
             <a class="active">Meus Veículos</a>
@@ -54,6 +58,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text">
+                         <!-- banco de dados -->
                         <p>Placa:</p>
                         <p>Carroceria:</p>
                         <p>Marca:</p>
@@ -66,26 +71,56 @@
             <!-- adicionar outros cards aqui, copiar e colar a partir da div card mb-3 -->
         </div>
     </div>
-    <div id="profileModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('profileModal')">×</span>
-            <img src="../public/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
-            <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
-            <p>Nome: </p>
-            <p>Email: </p>
-            <p>Telefone:</p>
-            <p>Senha</p>
-            <p><button class="edit-profile" type="button" href="editar.html" style="width:150px; height: 35px; border-radius: 5px; border: none">Editar Senha </button></p>
-        </div>
+     <!-- banco de dados -->
+ <!-- add modal -->
+ <div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('profileModal')">×</span>
+        <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
+        <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+        <br>
+        <p>Nome: Gustavo</p>
+        <p>Email: gustavo@email.com</p>
+        <br>
+        <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>
+</div>
+    </div>
+</div>
+
     <!-- Scripts necessários para Bootstrap e jQuery -->
     <!-- Usar a versão completa do jQuery em vez da slim !!!-->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-9/aliU8dGd02pjr5sTFtD0NNtCEe91Dp7jzzyHBmCPS2AY4scEsm3IMmSmJ2Ll4" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaXkrJrn2zL2Z7D1QIBKNHyllFa9Fcg/8ER" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+aGg6fHkdW/aXar3QyZPo49lC/lg6ljFNfYJaa5daGzzT2Moc" crossorigin="anonymous"></script>
- <!-- adicionar script do perfil -->
+ 
+    <!-- adicionar script do perfil -->
     <script>
-       
+        const modal = document.getElementById("profileModal");
+    const profileIcon = document.getElementById("profileIcon");
+    const closeModalSpan = document.getElementsByClassName("close")[0];
+
+    // Abre o modal ao clicar no ícone de perfil
+    profileIcon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    // Fecha o modal ao clicar no botão "x"
+    closeModalSpan.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    // Fecha o modal ao clicar fora dele
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // Função para fechar o modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
     </script>
 
     <style>
@@ -106,6 +141,42 @@
             align-items: center;
         }
 
+        .menu-principal {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .menu-principal a {
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+        }
+        .menu-principal a.active {
+            margin: 0 auto;
+            
+        }
+  
+        h1 {
+            font-size: medium;
+        }
+
+        h2 {
+            font-size: larger;
+            color: rgba(116, 9, 9, 0.795);
+        }
+
+        h3 {
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        h4 {
+            color: rgba(116, 9, 9, 0.795);
+        }
+
         .logo {
             display: flex;
             margin: 0 auto;
@@ -120,12 +191,15 @@
         }
 
         .welcome {
-            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
         }
 
         .welcome h2 {
             font-size: 20px;
             color: #505050;
+            margin-bottom: 20px;
         }
 
         .menu {
@@ -139,37 +213,21 @@
             padding: 10px;
             text-decoration: none;
             color: #000;
-            font-weight: bold;
+            font-weight:500;
             border-bottom: 2px solid transparent;
         }
 
         .cards {
             display: flex;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .menu a.active {
             margin: 0 auto;
         }
 
-        h1 {
-            font-size: medium;
-        }
-
-        h2 {
-            font-size: larger;
-            color: rgba(116, 9, 9, 0.795);
-        }
-
-        h3 {
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .logo {
-            margin: 0 auto;
-        }
+       
 
         .veiculo {
             display: flex;
@@ -179,10 +237,7 @@
             border-bottom: 1px solid #ccc;
         }
 
-        h4 {
-            color: rgba(116, 9, 9, 0.795);
-        }
-
+       
         .icon-button {
             margin-left: 20px;
             margin-top: 10px;
@@ -209,41 +264,58 @@
             display: flex;
             align-items: center;
         }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
+        
+         /* Estilos do modal */
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
+            overflow: auto; 
             background-color: rgba(0, 0, 0, 0.5);
         }
-
         .modal-content {
             background-color: #fff;
-            margin: 15% auto;
+            margin: 15% auto; 
             padding: 20px;
-            width: 80%;
-            max-width: 400px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px; 
             border-radius: 10px;
-            position: relative;
         }
+        
 
         .close {
             position: absolute;
             top: 10px;
-            right: 15px;
+            right: 10px;
+            font-size: 24px;
             color: #aaa;
-            font-size: 28px;
             cursor: pointer;
-            border: none;
-            background: none;
         }
 
         .close:hover {
             color: #000;
+        }
+
+        .edit-profile {
+            background-color: #950000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 300px;
+            align-items: center;
+            margin-left: 30px;
+           
+        }
+
+        .edit-profile:hover {
+            background-color: #7a0000;
         }
 
         .card-header {
@@ -261,6 +333,7 @@
             text-align: center;
             flex-grow: 1;
         }
+
         .info-icon {
             cursor: pointer;
             margin-left: auto; /* Garante que a imagem fique no extremo direito */

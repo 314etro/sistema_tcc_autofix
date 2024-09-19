@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprovar Orçamento</title>
+    <title>Orçamentos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            <img src="/img/logo.png" alt="Autofix Logo"> 
+<div class="header">
+<div class="logo">
+        <img src="/img/logo.png" alt="Autofix Logo"> 
         </div>
-    </div>
+</div>
 
     <div class="content">
         <div class="title">
             <h1>Área do Cliente</h1>
         </div>
-
+                
         <div class="icon">
             <a href="/meu_veiculo_cliente">
                 <img src="/img/carroicon.png" alt="Meus Veículos">
@@ -28,9 +28,17 @@
             <a href="/acompanhar_cliente">
                 <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
-            <img src="/img/icon-user.png" alt="Perfil" id="profileIcon" style="cursor: pointer;">
+            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+            <a href="/index1">
+                <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
+            </a>
         </div>
+
+
         
+        
+    
+    
 
         <div class="welcome">
             <h2>Bem Vindo, Gustavo</h2>
@@ -38,63 +46,72 @@
         
         <div class="menu">
             <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
-            <a href="" class="active">Aprovar Orçamento</a>
+            <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
         </div>
 
-        
-    <div class="checklist">
-        <div class="checklist-item">
-            <span class="description">• Disco de freio desgastado</span>
-            <input class="price" type="text" placeholder="R$50,00">
-            <button class="checkmark">✔</button>
+        <div class="checklist">
+            <div class="checklist-item">
+                <span class="description">• Disco de freio desgastado</span>
+                <input class="price" type="text" placeholder="R$50,00" data-price="50.00">
+                <button class="checkmark">✔</button>
+            </div>
+            <div class="checklist-item">
+                <span class="description">• Disco de freio desgastado</span>
+                <input class="price" type="text" placeholder="R$50,00" data-price="50.00">
+                <button class="checkmark">✔</button>
+            </div>
+            <div class="checklist-item">
+                <span class="description">• Disco de freio desgastado</span>
+                <input class="price" type="text" placeholder="R$50,00" data-price="50.00">
+                <button class="checkmark">✔</button>
+            </div>
+            <div class="checklist-item">
+                <span class="description">• Disco de freio desgastado</span>
+                <input class="price" type="text" placeholder="R$50,00" data-price="50.00">
+                <button class="checkmark">✔</button>
+            </div>
+            <div class="checklist-item">
+                <span class="description">• Disco de freio desgastado</span>
+                <input class="price" type="text" placeholder="R$50,00" data-price="50.00">
+                <button class="checkmark">✔</button>
+            </div>
         </div>
-        <div class="checklist-item">
-            <span class="description">• Disco de freio desgastado</span>
-            <input class="price" type="text" placeholder="R$50,00">
-            <button class="checkmark">✔</button>
+    
+        <div class="total">
+            Total: R$ <span id="total-price">0.00</span>
         </div>
-        <div class="checklist-item">
-            <span class="description">• Disco de freio desgastado</span>
-            <input class="price" type="text" placeholder="R$50,00">
-            <button class="checkmark">✔</button>
-        </div>
-        <div class="checklist-item">
-            <span class="description">• Disco de freio desgastado</span>
-            <input class="price" type="text" placeholder="R$50,00">
-            <button class="checkmark">✔</button>
-        </div>
-        <div class="checklist-item">
-            <span class="description">• Disco de freio desgastado</span>
-            <input class="price" type="text" placeholder="R$50,00">
-            <button class="checkmark">✔</button>
+    
+        <div class="actions">
+            <a href="/aprovar_orcamento_cliente"><button class="reject">Rejeitar orçamento</button></a>
+            <a href="/aprovar_entrada_cliente"><button class="confirm">Confirmar</button></a>
         </div>
     </div>
 
-    <div class="total">
-        Total: R$
-    </div>
 
-    <div class="actions">
-        <a href="/aprovar_orcamento_cliente"><button class="reject">Rejeitar orçamento</button></a>
-        <a href="/aprovar_entrada_cliente"><button class="confirm">Confirmar</button></a>
+<!-- Modal de Perfil -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('profileModal')">×</span>
+        <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
+        <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+        <br>
+        <p>Nome: Gustavo</p>
+        <p>Email: gustavo@email.com</p>
+        <br>
+        <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>
 </div>
-    <!-- Modal -->
-    <div id="profileModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Perfil do Usuário</h2>
-            <p>Nome: Gustavo</p>
-            <p>Email: gustavo@email.com</p>
-            <a href="/index1"><button id="logoutButton" class="logout-btn">Sair</button></a>
-        </div>
-    </div>
+       
+
 
     <script>
         // Obtém os elementos do DOM
         const modal = document.getElementById("profileModal");
         const profileIcon = document.getElementById("profileIcon");
         const closeModalSpan = document.getElementsByClassName("close")[0];
+        const checkmarks = document.querySelectorAll('.checkmark');
+        const totalPriceSpan = document.getElementById('total-price');
+        const prices = document.querySelectorAll('.price');
 
         // Quando o usuário clica na imagem de perfil, abre o modal
         profileIcon.onclick = function() {
@@ -113,113 +130,196 @@
             }
         }
 
+        // Adiciona um event listener a cada checkmark
+        checkmarks.forEach(checkmark => {
+            checkmark.addEventListener('click', () => {
+                // Alterna a classe 'selected' no botão clicado
+                checkmark.classList.toggle('selected');
 
-        // Obtém todos os botões de checkmark
-const checkmarks = document.querySelectorAll('.checkmark');
+                // Atualiza o preço total
+                updateTotalPrice();
+            });
+        });
 
-// Adiciona um event listener a cada checkmark
-checkmarks.forEach(checkmark => {
-    checkmark.addEventListener('click', () => {
-        // Alterna a classe 'selected' no botão clicado
-        checkmark.classList.toggle('selected');
-    });
-});
-
-
-
+        // Função para atualizar o preço total
+        function updateTotalPrice() {
+            let totalPrice = 0;
+            prices.forEach(priceInput => {
+                if (priceInput.parentElement.querySelector('.checkmark').classList.contains('selected')) {
+                    totalPrice += parseFloat(priceInput.dataset.price);
+                }
+            });
+            totalPriceSpan.textContent = totalPrice.toFixed(2);
+        }
     </script>
 </body>
 <style>
+        body {
+            font-family: 'Arvo', serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            font-size: 16px;
+        }
+        .header {
+            background-color: #505050;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            margin: 0 auto;
+        }
+        .logo img {
+            height: 60px;
+        }
+        .content {
+            padding: 20px;
+        }
+        h1 {
+            font-size: 16px;
+        }
+        .welcome {
+            margin-bottom: 30px;
+        }
+        .welcome h2 {
+            font-size: 20px;
+            color: #505050;
+        }
+        .menu {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .menu a {
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+        }
+        .menu a.active {
+            margin: 0 auto;
+            
+        }
+        .cards {
+            display: flex;
+            justify-content: left;
+            margin-top: 5px;
+            margin-left: 5px;
+            gap: 10px;
+        }
+        .approval-card, .expired-card {
+            transition: transform 0.3s ease;
+            font-size: medium;
+        }
+        .icon {
+            display: flex;           
+            justify-content: flex-end; 
+            gap: 10px;                 
+            padding-right: 20px;       
+        }
+        
+        .reject {
+            background-color: red;
+            border-radius: 5px;
+            border: none;
+        }
+        .confirm {
+            background-color: rgba(19, 129, 50, 1);
+            border-radius: 5px;
+            border: none;
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; 
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 400px; 
+            border-radius: 10px;
+        }
 
-body {
-    font-family: 'Arvo', serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f8f8;
-    font-size: 16px;
-}
+        .modal .title-profile {
+            color: #7c0808;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .card-button {
+            background-color: rgba(19, 129, 50, 1);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            margin-left: 50px;
+        }
+        .card-button:hover {
+            transform: translateY(-5px);
+        }
+        .card .mb-3 {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+        .button-orcamento   {
+            background-color: rgba(19, 129, 50, 1);
+            color: white;
+            font-size: smaller;
+            padding: 5px 15px;
+            margin-left: 50px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+         
+        }
+        .button-orcamento:hover {
+            transform: translateY(-5px);
+        }
 
-/* Estilo para o botão de sair */
-.logout-btn {
-    background-color: #e74c3c; /* Cor vermelha */
+        .logout-btn {
+    background-color: red;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
     cursor: pointer;
-    margin-top: 20px; /* Espaço no topo */
-    width: 100%; /* Largura total do botão */
-    text-align: center;
+    transition: transform 0.2s ease;
 }
 
 .logout-btn:hover {
-    background-color: #c0392b; /* Cor mais escura no hover */
-}
-
-.icon img {
-   width: 30px;   /* Define o tamanho padrão para todos os ícones */
-   height: auto;  /* Mantém a proporção da imagem */
-}
-
-
-
-.header {
-    background-color: #505050;
-    color: white;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    display: flex;
-    margin: 0 auto;
-
-}
-
-.logo img {
-    height: 60px;
-
-}
-
-.content {
-    padding: 20px;
-}
-
-h1{
-    font-size: 16px;
-}
-
-.welcome {
-    margin-bottom: 30px;
-}
-
-.welcome h2 {
-    font-size: 20px;
-    color: #505050;
-}
-
-.menu {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #ccc;
-}
-
-.menu a {
-    padding: 10px;
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-    border-bottom: 2px solid transparent;
-}
-
-.menu a.active {
-   margin: 0 auto;
-   
-   
+    transform: translateY(-5px);
 }
 
 .checklist {
@@ -282,77 +382,6 @@ h1{
             margin-right: 20px;
         }
 
-
-.icon {
-   display: flex;           /* Usa Flexbox para o layout dos ícones */
-  justify-content: flex-end; /* Alinha os ícones à direita */
-  gap: 10px;                 /* Espaço entre os ícones (opcional) */
-  padding-right: 20px;       /* Espaço adicional à direita (opcional) */
-}
-
-.icon img {
-   width: 30px;   /* Define o tamanho padrão para todos os ícones */
-   height: auto;  /* Mantém a proporção da imagem */
-}
-
-#profileIcon {
-   width: 30px;   /* Tamanho específico do ícone de perfil */
-   height: auto;  /* Mantém a proporção */
-}
-
-
-
-.reject {
-    background-color: red;
-    border-radius: 5px;
-    border: none;
-
-}
-
-.confirm {
-    background-color: rgb(9, 189, 9);
-    border-radius: 5px;
-    border: none;
-
-}
-.modal {
-    display: none; /* Escondido por padrão */
-    position: fixed; /* Fica em cima da tela */
-    z-index: 1; /* Fica na frente */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Habilita scroll se necessário */
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo com opacidade */
-}
-
-/* Estilo para o conteúdo do modal */
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto; /* Centrado verticalmente */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Largura do modal */
-    max-width: 400px; /* Largura máxima */
-    border-radius: 10px; /* Cantos arredondados */
-}
-
-/* Estilo para o botão de fechar */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .checkmark {
     padding: 5px 10px;
     background-color: #f0f0f0;
@@ -373,5 +402,23 @@ h1{
     outline: none;
 }
 
+.edit-profile {
+            background-color: #950000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 300px;
+            align-items: center;
+            margin-left: 30px;
+           
+        }
+
+        .edit-profile:hover {
+            background-color: #7a0000;
+        }
+ 
 </style>
+
 </html>

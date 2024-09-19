@@ -29,6 +29,9 @@
                 <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
             </a>
             <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+            <a href="/index1">
+                <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
+            </a>
         </div>
 
         <div class="welcome">
@@ -77,9 +80,11 @@
         <span class="close" onclick="closeModal('profileModal')">×</span>
         <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
         <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+        <br>
         <p>Nome: Gustavo</p>
         <p>Email: gustavo@email.com</p>
-        <p>Outra informação relevante</p>
+        <br>
+        <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>
 </div>
         
@@ -298,6 +303,11 @@ const modal = document.getElementById("profileModal");
             max-width: 400px; 
             border-radius: 10px;
         }
+
+        .modal .title-profile {
+            color: #7c0808;
+        }
+
         .close {
             color: #aaa;
             float: right;
@@ -359,6 +369,22 @@ const modal = document.getElementById("profileModal");
 .logout-btn:hover {
     transform: translateY(-5px);
 }
+.edit-profile {
+            background-color: #950000;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 300px;
+            align-items: center;
+            margin-left: 30px;
+           
+        }
+
+        .edit-profile:hover {
+            background-color: #7a0000;
+        }
 
 </style>
 </body>

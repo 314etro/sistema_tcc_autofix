@@ -55,18 +55,20 @@
             <div class="cards-section">
                 <h2>Veículos:</h2>
                 <div class="cards-container" id="cardsContainer">
-                    <a href="/checklist">
                     <% veiculos.forEach((veiculo)=> { %>
-                        <div class="card">
-                            <h3>
-                                <%= veiculo.marca %>
+                        <a href="/checklist/<%= veiculo.placa %>">
+                            <div class="card">
+                                <h3>
+                                    <%= veiculo.marca %>
                                     <%= veiculo.modelo %>
-                            </h3>
-                            <h1>
-                                <%= veiculo.placa %>
-                            </h1>
-                        </div>
-                        <% }) %>
+                                </h3>
+                                <h1>
+                                    <%= veiculo.placa %>
+                                </h1>
+                            </div>
+                        </a>
+                    <% }) %>
+                    
                     </a>
                 </div>
             </div>
@@ -310,22 +312,41 @@
         gap: 10px;
         box-sizing: border-box;
     }
-    /* Card */
-    .card {
-        background-color: #ffffff;
-        border: 5px solid #000000;
-        border-radius: 10px;
-        text-align: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        height: 130px;
-        width: 100%;
-        max-width: 240px;
-        font-size: 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        box-sizing: border-box;
-    }
+    /* Card */.card {
+    background-color: #ffffff;
+    border: 5px solid #000000;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 130px;
+    width: 100%;
+    max-width: 240px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    cursor: pointer; /* Indica que é clicável */
+}
+
+/* Placa do veículo */
+.card h1 {
+    margin: 20px;
+    font-size: 35px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none; /* Sem sublinhado inicial */
+    text-decoration-color: transparent; /* Cor do sublinhado invisível inicialmente */
+    transition: text-decoration-color 0.3s ease, color 0.3s ease; /* Transição suave para cor e sublinhado */
+}
+
+/* Estilo ao passar o mouse sobre o card */
+.card:hover h1 {
+    text-decoration: underline; /* Define o sublinhado */
+    text-decoration-color: black; /* Cor do sublinhado */
+}
+
+
 
     .card h3 {
         margin: 0;

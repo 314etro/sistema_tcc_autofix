@@ -108,7 +108,7 @@ font-family: Arial, sans-serif;
     }
 
     .new-client-button:hover, .button:hover {
-        background-color: #0726af;
+        background-color: #033441;
         transform: translateY(-2px);
     }
 
@@ -162,7 +162,7 @@ font-family: Arial, sans-serif;
     }
 
     .modal-header {
-        background-color: #1540ff;
+        background-color: #005b71;
         color: white;
     }
 
@@ -177,6 +177,12 @@ font-family: Arial, sans-serif;
     .modal-body input {
         margin-bottom: 10px;
     }
+
+    .modal-body {
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
+
 
 
     </style>
@@ -203,8 +209,23 @@ font-family: Arial, sans-serif;
     </div>
 
     <main class="container">
-        <div class="row" id="clientCards">
+        <div class="row" id="funcionarioCards">
             <!-- Cards de funcionários serão adicionados aqui -->
+            <% funcionarios.forEach((mecanico) => { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card" data-cpf="<%= mecanico.cpf_mecanico %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= mecanico.nome %></h5>
+                            <p class="card-text">Email: <%= mecanico.email %></p>
+                            <p class="card-text">Telefone: <%= mecanico.telefone %></p>
+                            <a href="/editarFuncionario/<%= mecanico.cpf_mecanico %>">
+                                <button class="btn btn-primary">Editar</button>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
         </div>
     </main>
 
@@ -218,59 +239,56 @@ font-family: Arial, sans-serif;
                 </div>
                 <div class="modal-body">
                     <p>Preencha os campos abaixo para adicionar um novo funcionário:</p>
-
+                    <form action="/adicionarFuncionario" method="post" id="addFuncionarioForm">
                     <div class="mb-3">
-                        <label for="nome" class="form-label">Nome:</label>
-                        <input type="text" class="form-control" id="nome" required>
+                        <label for="nome_mecanico" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome"  name="nome_mecanico" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" required>
+                        <label for="email_mecanico" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email_mecanico" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone:</label>
-                        <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}"
+                        <label for="telefone_mecanico" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}" name="telefone_mecanico"
                             title="Digite exatamente 13 dígitos numéricos" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="cpf" class="form-label">CPF:</label>
-                        <input type="text" class="form-control" id="cpf" maxlength="11" pattern="\d{11}"
+                        <label for="senha_mecanico" class="form-label">Senha:</label>
+                        <input type="text" class="form-control" id="senha" name="senha_mecanico" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_oficina_mecanico" class="form-label">Número da Oficina:</label>
+                        <input type="text" class="form-control" id="id_oficina" name="id_oficina" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cpf-editar" class="form-label">CPF do Mecânico:</label>
+                        <input type="text" class="form-control" id="cpf_mecanico" name="cpf_mecanico" maxlength="11" pattern="\d{11}"
                             title="Digite exatamente 11 dígitos numéricos" required>
                     </div>
-                </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="button" id="finalizeCadastro">Finalizar</button>
+                    <div class="mb-3">
+                        <label for="cpf-editar" class="form-label">CPF do Administrador:</label>
+                        <input type="text" class="form-control" id="cpf_adm" name="cpf_adm" maxlength="11" pattern="\d{11}"
+                            title="Digite exatamente 11 dígitos numéricos" required>
+                    </div>
+                
+
+                    <div class="modal-footer">
+                        <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="button">Finalizar</button>
+                    </div>
                 </div>
             </div>
+        </form>
         </div>
     </div>
-
-    <!-- Modal de Perfil -->
-    <div class="modal fade" id="perfilModal" tabindex="-1" aria-labelledby="perfilModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="perfilModalLabel">Perfil do Funcionário</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Conteúdo do perfil do funcionário -->
-                    <p>Nome: <span id="nome-perfil"></span></p>
-                    <p>Email: <span id="email-perfil"></span></p>
-                    <p>Telefone: <span id="telefone-perfil"></span></p>
-                    <p>CPF: <span id="cpf-perfil"></span></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="button" data-bs-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+    
 
     <!-- Modal de Editar Perfil -->
     <div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
@@ -282,25 +300,32 @@ font-family: Arial, sans-serif;
                 </div>
                 <div class="modal-body">
                     <!-- Formulário para editar o perfil do funcionário -->
+                    <form action="/editarFuncionario" method="post" id="addFuncionarioForm">
                     <div class="mb-3">
                         <label for="nome-editar" class="form-label">Nome:</label>
-                        <input type="text" class="form-control" id="nome-editar" required>
+                        <input type="text" class="form-control" id="nome-editar"  name="nome_mecanico" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="email-editar" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email-editar" required>
+                        <input type="email" class="form-control" id="email-editar" name="email_mecanico" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="telefone-editar" class="form-label">Telefone:</label>
-                        <input type="text" class="form-control" id="telefone-editar" maxlength="13" pattern="\d{13}"
+                        <input type="text" class="form-control" id="telefone-editar" name="telefone_mecanico"  maxlength="13" pattern="\d{13}" 
                             title="Digite exatamente 13 dígitos numéricos" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="cpf-editar" class="form-label">CPF:</label>
-                        <input type="text" class="form-control" id="cpf-editar" maxlength="11" pattern="\d{11}"
+                        <label for="cpf-editar" class="form-label">CPF do Mecânico:</label>
+                        <input type="text" class="form-control" id="cpf_mecanico" name="cpf_mecanico" maxlength="11" pattern="\d{11}"
+                            title="Digite exatamente 11 dígitos numéricos" required>
+                    </div>
+
+                    <div class="mb-3"></div>
+                        <label for="cpf-editar" class="form-label">CPF do Administrador:</label>
+                        <input type="text" class="form-control" id="cpf_adm" name="cpf_adm" maxlength="11" pattern="\d{11}"
                             title="Digite exatamente 11 dígitos numéricos" required>
                     </div>
                 </div>
@@ -317,105 +342,26 @@ font-family: Arial, sans-serif;
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Adicionar card de cliente
-        function addClientCard(nome, email, telefone, cpf) {
-            const cardHtml = `
-            <div class="col-md-4 mb-3 mb-md-0">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">${nome}</h5>
-                        <p class="card-text">Email: ${email}</p>
-                        <p class="card-text">Telefone: ${telefone}</p>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#perfilModal" 
-                                onclick="preencherPerfil('${nome}', '${email}', '${telefone}', '${cpf}')">Perfil</button>
-                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editarPerfilModal" 
-                                onclick="preencherEdicao('${nome}', '${email}', '${telefone}', '${cpf}')">Editar</button>
-                    </div>
-                </div>
-            </div>`;
-            document.getElementById('clientCards').insertAdjacentHTML('beforeend', cardHtml);
-        }
+       document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const funcionarioCards = document.querySelectorAll('#funcionarioCards .card');
 
-        // Função para preencher o modal de perfil
-        function preencherPerfil(nome, email, telefone, cpf) {
-            document.getElementById('nome-perfil').textContent = nome;
-            document.getElementById('email-perfil').textContent = email;
-            document.getElementById('telefone-perfil').textContent = telefone;
-            document.getElementById('cpf-perfil').textContent = cpf;
-        }
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
 
-        // Função para preencher o modal de edição
-        function preencherEdicao(nome, email, telefone, cpf) {
-            document.getElementById('nome-editar').value = nome;
-            document.getElementById('email-editar').value = email;
-            document.getElementById('telefone-editar').value = telefone;
-            document.getElementById('cpf-editar').value = cpf;
-        }
+                funcionarioCards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const email = card.querySelectorAll('.card-text')[0].textContent.toLowerCase();
+                    const phone = card.querySelectorAll('.card-text')[1].textContent.toLowerCase();
+                    const cpf_mecanico = card.getAttribute('data-cpf').toLowerCase();
 
-        // Clientes existentes
-        const clients = [
-            { nome: "João da Silva", email: "joao.silva@example.com", telefone: "(11) 91234-5678", cpf: "12345678901" },
-            { nome: "Maria Souza", email: "maria.souza@example.com", telefone: "(11) 98765-4321", cpf: "98765432101" },
-            { nome: "Pedro Santos", email: "pedro.santos@example.com", telefone: "(11) 12345-6789", cpf: "11122233344" }
-        ];
-
-        // Renderizar cards iniciais
-        clients.forEach(client => addClientCard(client.nome, client.email, client.telefone, client.cpf));
-
-        // Buscar funcionário
-        document.getElementById('searchButton').addEventListener('click', () => {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filteredClients = clients.filter(client =>
-                client.nome.toLowerCase().includes(searchTerm) ||
-                client.email.toLowerCase().includes(searchTerm) ||
-                client.telefone.includes(searchTerm) ||
-                client.cpf.includes(searchTerm)
-            );
-
-            // Limpar os cards existentes
-            document.getElementById('clientCards').innerHTML = '';
-
-            // Adicionar os cards filtrados
-            filteredClients.forEach(client => addClientCard(client.nome, client.email, client.telefone, client.cpf));
-        });
-
-        // Adicionar novo cliente ao clicar em "Finalizar"
-        document.getElementById('finalizeCadastro').addEventListener('click', () => {
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const telefone = document.getElementById('telefone').value;
-            const cpf = document.getElementById('cpf').value;
-
-            if (nome && email && telefone && cpf) {
-                addClientCard(nome, email, telefone, cpf);
-                clients.push({ nome, email, telefone, cpf });
-
-                // Limpar os campos e fechar o modal
-                document.getElementById('nome').value = '';
-                document.getElementById('email').value = '';
-                document.getElementById('telefone').value = '';
-                document.getElementById('cpf').value = '';
-                const modal = bootstrap.Modal.getInstance(document.getElementById('newClientModal'));
-                modal.hide();
-            }
-        });
-
-        // Salvar alterações do perfil
-        document.getElementById('salvarEdicao').addEventListener('click', () => {
-            const nome = document.getElementById('nome-editar').value;
-            const email = document.getElementById('email-editar').value;
-            const telefone = document.getElementById('telefone-editar').value;
-            const cpf = document.getElementById('cpf-editar').value;
-
-            // Aqui você precisa implementar a lógica para atualizar o funcionário no banco de dados
-            // ...
-
-            // Atualize o card do funcionário na página
-            // ...
-
-            // Feche o modal
-            const modal = bootstrap.Modal.getInstance(document.getElementById('editarPerfilModal'));
-            modal.hide();
+                    if (title.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm) || cpf.includes(searchTerm)) {
+                        card.parentElement.style.display = ''; // Mantenha o cartão visível
+                    } else {
+                        card.parentElement.style.display = 'none'; // Oculte o cartão
+                    }
+                });
+            });
         });
     </script>
 </body>

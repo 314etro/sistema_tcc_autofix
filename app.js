@@ -5,8 +5,9 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3001;
 
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const session = require('express-session'); // Adicione o módulo express-session
 

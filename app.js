@@ -5,8 +5,7 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-
-const PORT = process.env.PORT || 5000
+const port = 3000;
 
 
 const session = require('express-session'); // Adicione o módulo express-session

@@ -32,18 +32,8 @@ const db = mysql.createPool({
     queueLimit: 0
 });
 
-db.connect((error)=>{
-    if(error){
-        console.log('erro ao conectar com banco de dados');
-    } else{
-        console.log('conectado ao mysql');
-    }
-});
 
 app.use(bodyParser.urlencoded({extended: true}));
-app.listen(port, ()=> {
-    console.log(`Servidor rodando no endereço: http://localhost:${port}`);
-})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 

@@ -6,7 +6,8 @@
     "description": "",  
     "main": "index1.ejs",
     "scripts":{
-      "start": "index1.ejs"
+      "start": "index1.ejs",
+      "test": "echo  \"Error: no test specified\" && exit 1"
     },
     "keywords":[],
     "author":"",

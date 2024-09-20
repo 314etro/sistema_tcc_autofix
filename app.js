@@ -501,3 +501,29 @@ app.post('/adicionarFuncionario', (req, res) => {
       }
     });
   });
+
+
+
+
+  app.post('/editarFuncionario', (req, res) => {
+    const cpf_mecanico = req.body.cpf_mecanico;
+    const nome = req.body.nome_mecanico;
+    const email = req.body.email_mecanico;
+    const telefone = req.body.telefone_mecanico;
+    const senha = req.body.senha_mecanico;
+    const id_oficina = req.body.id_oficina;
+    const cpf_adm = req.body.cpf_adm;
+
+    db.query(
+      'UPDATE mecanico SET nome = ?, email = ?, telefone = ?, senha = ?, idoficina = ?, cpfadm = ? WHERE cpf_mecanico = ?',
+      [nome, email, telefone, senha, id_oficina, cpf_adm, cpf_mecanico],
+      (error, results) => {
+        if (error) {
+          console.log('Erro ao editar Funcionário:', error);
+          res.status(500).send('Erro ao editar Funcionário');
+        } else {
+          res.redirect('/funcionarios_adm');
+        }
+      }
+    );
+});

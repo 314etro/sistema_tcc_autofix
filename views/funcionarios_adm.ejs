@@ -218,13 +218,10 @@ font-family: Arial, sans-serif;
                             <h5 class="card-title"><%= mecanico.nome %></h5>
                             <p class="card-text">Email: <%= mecanico.email %></p>
                             <p class="card-text">Telefone: <%= mecanico.telefone %></p>
-                            <a href="/editarFuncionario/<%= mecanico.cpf_mecanico %>">
-                                <button class="btn btn-primary">Editar</button>
-                            </a>
-                            
+                            <button class="btn btn-primary editar-button" data-bs-toggle="modal" data-bs-target="#editarPerfilModal" data-id="<%= mecanico.cpf_mecanico %>">Editar</button>
                         </div>
                     </div>
-                </div>
+                </div>                
             <% }); %>
         </div>
     </main>
@@ -318,6 +315,15 @@ font-family: Arial, sans-serif;
                     </div>
 
                     <div class="mb-3">
+                        <label for="senha_mecanico" class="form-label">Senha:</label>
+                        <input type="text" class="form-control" id="senha" name="senha_mecanico" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_oficina_mecanico" class="form-label">Número da Oficina:</label>
+                        <input type="text" class="form-control" id="id_oficina" name="id_oficina" required>
+                    </div>
+
+                    <div class="mb-3">
                         <label for="cpf-editar" class="form-label">CPF do Mecânico:</label>
                         <input type="text" class="form-control" id="cpf_mecanico" name="cpf_mecanico" maxlength="11" pattern="\d{11}"
                             title="Digite exatamente 11 dígitos numéricos" required>
@@ -328,14 +334,15 @@ font-family: Arial, sans-serif;
                         <input type="text" class="form-control" id="cpf_adm" name="cpf_adm" maxlength="11" pattern="\d{11}"
                             title="Digite exatamente 11 dígitos numéricos" required>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="button" id="salvarEdicao">Salvar Alterações</button>
-                </div>
+                
+                    <div class="modal-footer">
+                        <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="button" id="salvarEdicao">Salvar Alterações</button>
+                    </div>
             </div>
         </div>
     </div>
+</div>
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

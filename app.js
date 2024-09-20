@@ -5,7 +5,9 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-const port = 3000;
+
+const PORT = process.env.PORT || 5000
+
 
 const session = require('express-session'); // Adicione o módulo express-session
 
@@ -20,11 +22,14 @@ app.use(session({
 
 
 
-const db = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database: 'autofix'
+const db = mysql.createPool({
+    host: process.env.DB_HOST, 
+    user: process.env.DB_USERNAME, 
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DBNAME,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 db.connect((error)=>{

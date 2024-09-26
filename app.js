@@ -5,9 +5,7 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-const port = process.env.PORT || 3001;
-
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+const port = 3000;
 
 const session = require('express-session'); // Adicione o módulo express-session
 
@@ -17,23 +15,25 @@ app.use(session({
     saveUninitialized: true
   }));
 
-
-
-
-
-
-const db = mysql.createPool({
-    host: process.env.DB_HOST, 
-    user: process.env.DB_USERNAME, 
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DBNAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
+const db = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',
+    database: 'autofix'
 });
 
+db.connect((error)=>{
+    if(error){
+        console.log('erro ao conectar com banco de dados');
+    } else{
+        console.log('conectado ao mysql');
+    }
+});
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.listen(port, ()=> {
+    console.log(`Servidor rodando no endereço: http://localhost:${port}`);
+})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -481,6 +481,7 @@ app.post('/adicionarFuncionario', (req, res) => {
     });
  });
 
+
  app.post('/editarFuncionario', (req, res) =>{
     const cpf_mecanico = parseInt(req.body.inputCpf_mecanico);
     const nome = parseInt(req.body.inputNome);
@@ -498,27 +499,3 @@ app.post('/adicionarFuncionario', (req, res) => {
   });
 
 
-
-
-  app.post('/editarFuncionario', (req, res) => {
-    const cpf_mecanico = req.body.cpf_mecanico;
-    const nome = req.body.nome_mecanico;
-    const email = req.body.email_mecanico;
-    const telefone = req.body.telefone_mecanico;
-    const senha = req.body.senha_mecanico;
-    const id_oficina = req.body.id_oficina;
-    const cpf_adm = req.body.cpf_adm;
-
-    db.query(
-      'UPDATE mecanico SET nome = ?, email = ?, telefone = ?, senha = ?, idoficina = ?, cpfadm = ? WHERE cpf_mecanico = ?',
-      [nome, email, telefone, senha, id_oficina, cpf_adm, cpf_mecanico],
-      (error, results) => {
-        if (error) {
-          console.log('Erro ao editar Funcionário:', error);
-          res.status(500).send('Erro ao editar Funcionário');
-        } else {
-          res.redirect('/funcionarios_adm');
-        }
-      }
-    );
-});

@@ -224,10 +224,25 @@ document.querySelectorAll('.openModalButton').forEach(button => {
 </script>
 
     <style>
+.btn-checklist {
+    background-color: orange;
+    color: white;
+    border: none;
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block; /* Para ocupar toda a largura */
+    cursor: pointer;
+    transition: transform 0.1s ease;
+    margin-top: 10px; /* Espaço entre o texto e o botão */
+    width: 100%; /* Mesma largura do botão "Mais informações" */
+}
 
-        .ver_checklist_entrada{
-            background-color: orange;
-        }
+.btn-checklist:hover {
+    transform: translateY(-5px); /* Animação ao passar o mouse */
+}
+
+
 .button-common {
     padding: 10px 15px;
     border: none;

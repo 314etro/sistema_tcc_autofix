@@ -37,7 +37,7 @@
         </div>
 
         <div class="welcome">
-            <h2>Bem Vindo,<%= nomeCliente %> </h2>
+            <h2>Bem Vindo, <%= nomeCliente %> </h2>
         </div>
 
         <div class="menu">
@@ -59,37 +59,38 @@
                             <p>Cor: <%= veiculo.cor %></p>
                             <p>Placa: <%= veiculo.placa %></p>
                         </div>
-                        <button class="openModalButton" data-previous-url="/aprovar_entrada_cliente" data-placa="<%= veiculo.placa %>">Mais informações</button>
+                        <a href="/ver_checklist_entrada?placa=<%= veiculo.placa %>" class="btn btn-checklist">Visualizar Checklist</a>
+                        <button class="openModalButton" data-previous-url="/aprovar_entrada_cliente" data-placa="<%= veiculo.placa %>" data-cpfCliente="<%= veiculo.cpf_cliente %>">Mais informações</button>
                     </div>
                 </div>
             <% }); %>
         </div>
-        
-    </div>
-  
-
-
-
-    <!-- Modal -->
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal')">×</span>
-        <h4 class="header-title" style="text-align: center;">Checklist</h4>
-
-        <input type="hidden" name="placa" id="placaInput"> 
     
-
-        <form action="/aceitar_entrada" method="post">
-            <button type="submit" class="button-common button-accept">Aceitar</button>
-        </form>
-
-        <form action="/rejeitar_entrada" method="post">
-            <button onClick="rejectModal()" class="button-common button-reject" type="submit">Rejeitar</button>
-        </form>
-    </div>
-</div>
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" onclick="closeModal('modal')">×</span>
+                <h4 class="header-title" style="text-align: center;">Checklist</h4>
+              
+              
     
+                <div class="aceitar-rejeitar">
+                <form action="/aprovar_entrada" method="post">
+                     <input type="hidden" name="placa" id="placaInput"> 
+               
+                    <button type="submit" class="button-common button-accept">Aceitar</button>
+                </form>
+                
+                
+                <form action="/rejeitar_entrada" method="post">
+                    <input type="hidden" name="placa" id="placaInput"> 
+                    <input type="hidden" name="cpfCliente" id="cpfClienteInput"> 
+                    <button class="button-common button-reject" type="submit">Rejeitar</button>
+                </form>
+            </div>
+                
+            </div>
+        </div>
 
     
     <!-- Modal de Perfil -->
@@ -203,21 +204,30 @@
     </script>
 
 
-    <script>
-  document.querySelectorAll('.openModalButton').forEach(button => {
+<script>
+// Add event listeners to all buttons that open the modal
+document.querySelectorAll('.openModalButton').forEach(button => {
     button.addEventListener('click', function (event) {
-        const placa = button.dataset.placa;
-        const cpfCliente = button.dataset.cpfCliente; // Obtenha o CPF do cliente
-        const placaInput = document.getElementById("placaInput");
-        const cpfClienteInput = document.getElementById("cpfClienteInput"); // Selecione o input de CPF
-        placaInput.value = placa;
-        cpfClienteInput.value = cpfCliente; // Define o valor do input com o CPF
+        const placa = button.dataset.placa;  // Get vehicle's plate
+        const cpfCliente = button.dataset.cpfCliente; // Get vehicle's client CPF
+
+        // Set these values in the modal hidden inputs
+        document.getElementById("placaInput").value = placa;
+        document.getElementById("cpfClienteInput").value = cpfCliente;
+
+        // Open the modal
         openModal('modal');
     });
 });
 
-    </script>
+
+</script>
+
     <style>
+
+        .ver_checklist_entrada{
+            background-color: orange;
+        }
 .button-common {
     padding: 10px 15px;
     border: none;

@@ -375,12 +375,13 @@
         const limpador_para_brisa_traseiro = req.body.limpador_para_brisa_traseiro;
         const luz_de_re = req.body.luz_de_re;
         const bateria = req.body.bateria;
+        const status = req.body.status
         const cpfmecanico = req.session.cpfMecanico; // Obtenha o CPF da sessão
 
     
 
         db.query(
-            'INSERT INTO inspecao_entrada (placa, pintura_padrao, limpador_de_para_brisa_dianteiro, marcacao_dos_pneus_traseiro, lentes_do_farol, luz_de_freio, lentes_de_lanterna, luz_de_direcao, nivel_de_agua_no_limpador_de_parabrisa, estado_dos_pneus, porta_traseira_esquerda, porta_traseira_direita, nivel_de_oleo, tag, cinto_de_seguranca, extintor_de_incendio, kit_multimidia_radio_am_fm, macaco, estepe, triangulo_de_seguranca, estofamento, chave_de_roda, certificado_ant, para_lama_dianteiro_direito, para_lama_traseiro_esquerdo, para_lama_traseiro_direito, teto, para_choque_dianteiro, capo_do_motor, para_brisa_dianteiro, vidro_lateral_esquerdo, vidro_lateral_direito, porta_dianteira_esquerda, porta_dianteira_direita, para_lama_dianteiro_esquerdo, para_choque_traseiro, para_brisa_traseiro, nivel_combustivel, tacografo, limpador_para_brisa_traseiro, luz_de_re, bateria, cpfmecanico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            'INSERT INTO inspecao_entrada (placa, pintura_padrao, limpador_de_para_brisa_dianteiro, marcacao_dos_pneus_traseiro, lentes_do_farol, luz_de_freio, lentes_de_lanterna, luz_de_direcao, nivel_de_agua_no_limpador_de_parabrisa, estado_dos_pneus, porta_traseira_esquerda, porta_traseira_direita, nivel_de_oleo, tag, cinto_de_seguranca, extintor_de_incendio, kit_multimidia_radio_am_fm, macaco, estepe, triangulo_de_seguranca, estofamento, chave_de_roda, certificado_ant, para_lama_dianteiro_direito, para_lama_traseiro_esquerdo, para_lama_traseiro_direito, teto, para_choque_dianteiro, capo_do_motor, para_brisa_dianteiro, vidro_lateral_esquerdo, vidro_lateral_direito, porta_dianteira_esquerda, porta_dianteira_direita, para_lama_dianteiro_esquerdo, para_choque_traseiro, para_brisa_traseiro, nivel_combustivel, tacografo, limpador_para_brisa_traseiro, luz_de_re, bateria, status, cpfmecanico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)',
             
             [
                 placa, // Adicione a placa aqui
@@ -425,7 +426,9 @@
                 limpador_para_brisa_traseiro,
                 luz_de_re,
                 bateria,
+                status,
                 cpfmecanico
+
             ],
             (error, results) => {
                 if (error) {
@@ -501,40 +504,87 @@
         }
       
         // Faça uma consulta ao banco de dados para obter os veículos
-        db.query('SELECT v.placa, v.marca, v.modelo, v.cor, v.ano, c.cpf_cliente, c.nome AS cliente_nome, ie.* FROM veiculo v JOIN cliente c ON v.cpfcliente = c.cpf_cliente JOIN inspecao_entrada ie ON v.placa = ie.placa WHERE ie.placa IS NOT NULL AND c.cpf_cliente = ?;', [req.session.cpfCliente], (error, results) => {
-          if (error) {
-            console.log('Erro ao buscar veiculos', error);
-            res.status(500).send('Erro ao buscar veiculos');
-          } else {
-            // Obtenha o nome do cliente
-            db.query('SELECT nome FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
-              if (nomeError) {
-                console.log('Erro ao buscar nome do cliente', nomeError);
+        db.query(
+            `SELECT v.placa, v.marca, v.modelo, v.cor, v.ano, c.cpf_cliente, c.nome AS cliente_nome, ie.* 
+             FROM veiculo v 
+             JOIN cliente c ON v.cpfcliente = c.cpf_cliente 
+             JOIN inspecao_entrada ie ON v.placa = ie.placa 
+             WHERE ie.status = 'aguardando_aprovacao' AND v.cpfcliente = ?`,  [req.session.cpfCliente],
+            (error, results) => {
+              if (error) {
+                console.log('Erro ao buscar veiculos', error);
+                res.status(500).send('Erro ao buscar veiculos');
               } else {
-                // Passe os resultados da consulta e o nome do cliente para a view
-                res.render('aprovar_entrada_cliente', { veiculos: results, nomeCliente: nomeResults[0].nome }); 
+                // Obtenha o nome do cliente
+                db.query('SELECT nome FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
+                  if (nomeError) {
+                    console.log('Erro ao buscar nome do cliente', nomeError);
+                  } else {
+                    // Passe os resultados da consulta e o nome do cliente para a view
+                    res.render('aprovar_entrada_cliente', { veiculos: results, nomeCliente: nomeResults[0].nome }); 
+                  }
+                });
               }
-            });
-          }
-        });
+            }
+        );
     });
     
-app.post('/aceitar_entrada', (req, res) => {
-    const placa = req.body.placa;
-    const cpfCliente = req.body.cpfCliente;
-
-    db.query('INSERT INTO aprovacao_inspecao (placa, cpf_cliente, status_aprovacao) VALUES (?, ?, ?)', 
-        [placa, cpfCliente, 'Aprovado'], 
-        (error, results) => {
+    app.post('/aprovar_entrada', (req, res) => {
+        const placa = req.body.placa;
+       
+    
+        // Atualize o status da inspeção de entrada para "Aprovado"
+        db.query('UPDATE inspecao_entrada SET status = "Aprovado" WHERE placa = ?', [placa], (error, results) => {
             if (error) {
-                console.log('Erro ao aprovar checklist de entrada', error);
-                console.log(results);
-                res.status(500).send('Erro ao aprovar checklist de entrada');
+                console.log('Erro ao aprovar entrada', error);
+                res.status(500).send('Erro ao aprovar entrada');
             } else {
-                console.log('Checklist de entrada aprovado com sucesso');
-                res.redirect('/aprovar_entrada_cliente'); // Redirecione para a página de aprovação de entrada
+                console.log('Entrada aprovada com sucesso');
+    
+                // Redirecione para a página de aprovação de entrada do cliente
+                res.redirect(`/aprovar_entrada_cliente`); 
             }
+        });
+    });
+
+    
+    app.post('/rejeitar_entrada', (req, res) => {
+        const placa = req.body.placa;
+       
+    
+        // Atualize o status da inspeção de entrada para "Aprovado"
+        db.query('UPDATE inspecao_entrada SET status = "rejeitado" WHERE placa = ?', [placa], (error, results) => {
+            if (error) {
+                console.log('Erro ao aprovar entrada', error);
+                res.status(500).send('Erro ao aprovar entrada');
+            } else {
+                console.log('Entrada aprovada com sucesso');
+    
+                // Redirecione para a página de aprovação de entrada do cliente
+                res.redirect(`/aprovar_entrada_cliente`); 
+            }
+        });
+    });
+
+
+
+
+app.get('/ver_checklist_entrada', (req, res) => {
+    const placa = req.query.placa; // Obtenha a placa da query string
+  
+    // Faça uma consulta ao banco de dados para obter o checklist da inspeção de entrada
+    db.query('SELECT * FROM inspecao_entrada WHERE placa = ?', [placa], (error, results) => {
+      if (error) {
+        console.log('Erro ao buscar checklist', error);
+        res.status(500).send('Erro ao buscar checklist');
+      } else {
+        if (results.length > 0) {
+          const inspecao = results[0]; // Obtenha o objeto de inspeção
+          res.render('checklist_aprovar', { inspecao: inspecao }); // Renderize a view 'checklist_aprovar_entrada' com os dados da inspeção
+        } else {
+          res.send('Checklist não encontrado');
         }
-    );
-});
-    //
+      }
+    });
+  });
+  

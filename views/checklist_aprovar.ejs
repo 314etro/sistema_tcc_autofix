@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist carro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/css/style_checklist_mecanico.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+    <header>
+        <img src="/img/logo.png" alt="Logo">
+    </header>
+
+    <div class="container">
+        <!-- Novo cabeçalho com grid do Bootstrap -->
+        <div class="row align-items-center mb-4">
+            <div class="col-2">
+                <a href="/aprovar_entrada_cliente" class="btn btn-light btn-sm">
+                    <img src="/img/seta.png" alt="Voltar" style="width: 20px; height: 20px;">
+                </a>
+            </div>
+            <div class="col-8 text-center">
+                <h1 class="mb-0">Checklist</h1>
+            </div>
+            <div class="col-2">
+                <!-- Espaço vazio para balancear o layout -->
+            </div>
+        </div>
+        <h2>Itens Internos</h2> 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="item-group">
+                    <div class="item-list">
+                        <div class="item-name">Kit Multimídia/ Rádio AM/FM</div>
+                        <div class="item-status">
+                            <%= inspecao.kit_multimidia_radio_am_fm %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Extintor de incêndio</div>
+                        <div class="item-status">
+                            <%= inspecao.extintor_de_incendio %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Tag - sem parar</div>
+                        <div class="item-status">
+                            <%= inspecao.tag %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Cinto de segurança</div>
+                        <div class="item-status">
+                            <%= inspecao.cinto_de_seguranca %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Triângulo de segurança</div>
+                        <div class="item-status">
+                            <%= inspecao.triangulo_de_seguranca %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Estepe</div>
+                        <div class="item-status">
+                            <%= inspecao.estepe %>
+                        </div>
+                    </div>
+                    <div class="item-list">
+                        <div class="item-name">Quilometragem</div>
+                        <div class="item-status">
+                            <%= inspecao.quilometragem %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    
+            <div class="col-md-6">
+                <div class="item-group">
+                        <div class="item-list">
+                            <div class="item-name">Macaco</div>
+                            <div class="item-status">
+                                <%= inspecao.macaco %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Chave de Roda</div>
+                            <div class="item-status">
+                                <%= inspecao.chave_de_roda %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Extintor</div>
+                            <div class="item-status">
+                                <%= inspecao.extintor %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Estofamento</div>
+                            <div class="item-status">
+                                <%= inspecao.estofamento %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Tacógrafo</div>
+                            <div class="item-status">
+                                <%= inspecao.tacografo %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Certificado ANTT</div>
+                            <div class="item-status">
+                                <%= inspecao.certificado_ant %>
+                            </div>
+                        </div>
+                        <div class="item-list">
+                            <div class="item-name">Nível de Combustível</div>
+                            <div class="item-status">
+                                <%= inspecao.nivel_combustivel %>
+                            </div>
+                        </div>
+                </div>
+                    </div>
+                </div>
+
+                <h2>Itens Externos</h2> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-group">
+                                <div class="item-list">
+                                    <div class="item-name">Para-Lama Dianteiro Direito</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_lama_dianteiro_direito %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Lama Traseiro Direito</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_lama_traseiro_direito %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Lama Dianteiro Esquerdo</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_lama_dianteiro_esquerdo %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Lama Traseiro Esquerdo</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_lama_traseiro_esquerdo %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Teto</div>
+                                    <div class="item-status">
+                                        <%= inspecao.teto %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Capô do Motor</div>
+                                    <div class="item-status">
+                                        <%= inspecao.capo_do_motor %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Choque Dianteiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_choque_dianteiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Choque Traseiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_choque_traseiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Brisa Dianteiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_brisa_dianteiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Para-Brisa Traseiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.para_brisa_traseiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Vidros Laterais Direito</div>
+                                    <div class="item-status">
+                                        <%= inspecao.vidro_lateral_direito %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Vidros Laterais Esquerdo</div>
+                                    <div class="item-status">
+                                        <%= inspecao.vidro_lateral_esquerdo %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Porta Dianteira Direita</div>
+                                    <div class="item-status">
+                                        <%= inspecao.porta_dianteira_direita %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Porta Traseira Direita</div>
+                                    <div class="item-status">
+                                        <%= inspecao.porta_traseira_direita %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Porta Dianteira Esquerda</div>
+                                    <div class="item-status">
+                                        <%= inspecao.porta_dianteira_esquerda %>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="item-group">
+                                <div class="item-list">
+                                    <div class="item-name">Porta Traseira Esquerda</div>
+                                    <div class="item-status">
+                                        <%= inspecao.porta_traseira_esquerda %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Pintura Padrão</div>
+                                    <div class="item-status">
+                                        <%= inspecao.pintura_padrao %>
+                                    </div>
+                                </div>
+
+                                <div class="item-list">
+                                    <div class="item-name">Limpador de Para-Brisa Dianteiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.limpador_de_para_brisa_dianteiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Limpador de Para-Brisa Traseiro</div>
+                                    <div class="item-status">
+                                        <%= inspecao.limpador_para_brisa_traseiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Lentes do Farol</div>
+                                    <div class="item-status">
+                                        <%= inspecao.lentes_do_farol %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Lentes da Lanterna</div>
+                                    <div class="item-status">
+                                        <%= inspecao.lentes_de_lanterna %>
+                                    </div>
+                                </div>
+
+                                <div class="item-list">
+                                    <div class="item-name">Luz de Freio</div>
+                                    <div class="item-status">
+                                        <%= inspecao.luz_de_freio %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Luz de Direção (Seta)</div>
+                                    <div class="item-status">
+                                        <%= inspecao.luz_de_direcao %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Luz de Ré</div>
+                                    <div class="item-status">
+                                        <%= inspecao.luz_de_re %>
+                                    </div>
+                                </div>
+
+                                <div class="item-list">
+                                    <div class="item-name">Bateria</div>
+                                    <div class="item-status">
+                                        <%= inspecao.bateria %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Placa</div>
+                                    <div class="item-status">
+                                        <%= inspecao.placa %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Estado dos Pneus</div>
+                                    <div class="item-status">
+                                        <%= inspecao.estado_dos_pneus %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Marcação dos Pneus</div>
+                                    <div class="item-status">
+                                        <%= inspecao.marcacao_dos_pneus_traseiro %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Nível de Água no Limpador de Para-Brisa</div>
+                                    <div class="item-status">
+                                        <%= inspecao.nivel_de_agua_no_limpador_de_parabrisa %>
+                                    </div>
+                                </div>
+                                <div class="item-list">
+                                    <div class="item-name">Nível de Óleo</div>
+                                    <div class="item-status">
+                                        <%= inspecao.nivel_de_oleo %>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+        <div class="botao-enviar">
+            <button class="btn btn-primary" onclick="returnToPreviousPage()">Voltar</button>
+        </div>
+    </div>
+    
+</body>
+
+</html>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arvo', serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            position: relative;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1800px;
+            margin: 20px auto;
+            background-color: #fcfcfc;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            color: #000000;
+            margin-top: 30px;
+            background-color: #c7c7c7;
+            border-radius: 5px;
+        }
+
+        .item-group {
+            margin-bottom: 10px;
+        }
+
+        .item-list {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-bottom: 5px;
+        }
+
+        .item-name {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .item-status {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 200px;
+        }
+
+        .item-status input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background-color: #fff;
+            box-sizing: border-box;
+            height: 30px;
+        }
+
+        .item-status select {
+            width: 100%;
+            max-width: 200px;
+            padding: 5px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        .item-status input {
+            width: 200px;
+        }
+
+        .botao-enviar {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .botao-enviar button {
+            background-color: #138132;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;}  
+
+            .back-button img {
+    width: 20px;
+    height: 20px;
+}

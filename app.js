@@ -601,3 +601,15 @@ app.get('/ver_checklist_entrada', (req, res) => {
         }
     })
   })
+
+
+
+  app.get('/realizar_inspecao_manutencao/:cpf_cliente', (req, res) => {
+    const cpfCliente = req.params.cpf_cliente;
+
+   
+
+            res.render('realizar_inspecao_manutencao_mecanico', { 
+                cpf_cliente: cpfCliente
+            });
+        });

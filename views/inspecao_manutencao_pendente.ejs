@@ -27,7 +27,7 @@
             <a href="/home_mecanico">  <img src="img/seta.png" alt="Voltar"></a>
         </button>
         <div class="search-input-container">
-            <input type="text" placeholder="Buscar funcionário">
+            <input type="text" placeholder="Buscar inspeção pendente">
             <img src="img/lupa.png" alt="Pesquisar">
         </div>
     </div>
@@ -42,11 +42,13 @@
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card">
                             <div class="card-body">
-                                <!-- trocar os nomes "cliente" -->
-                                <h5 class="card-title"><%= cliente.nome_cliente %></h5>   
-                                <p class="card-text">Email: <%= cliente.email %></p>
-                                <p class="card-text">Telefone: <%= cliente.telefone %></p>
-                                <button class="btn btn-primary">Veículos</button>
+                                <h5 class="card-title"><%= inspecao_manutencao.nome_cliente %></h5>   
+                                <p class="card-text">Email: <%= inspecao_manutencao.email %></p>
+                                <p class="card-text">Telefone: <%= inspecao_manutencao.telefone %></p>
+                                <p class="card-text">Modelo<%= inspecao_manutencao.modelo %></p>
+                                <button class="btn btn-primary btn-inspecao">Realizar inspeção</button>
+
+
                             </div>
                         </div>
                     </div>
@@ -190,6 +192,16 @@ header img {
 .button:hover {
     background-color: #0726af;
     transform: translateY(-2px);
-}</style>
+}
+
+.btn-inspecao {
+  
+    white-space: nowrap; /* Impede a quebra de linha */
+    padding: 8px 5px; /* Ajusta o padding para garantir espaço suficiente */
+    width: 220px; /* Faz o botão ocupar toda a largura disponível */
+    text-align: center; /* Centraliza o texto no botão */
+}
+
+</style>
 
 </html>

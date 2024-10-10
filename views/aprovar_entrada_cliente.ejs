@@ -75,19 +75,19 @@
               
     
                 <div class="aceitar-rejeitar">
-                <form action="/aprovar_entrada" method="post">
-                     <input type="hidden" name="placa" id="placaInput"> 
-               
-                    <button type="submit" class="button-common button-accept">Aceitar</button>
-                </form>
-                
-                
-                <form action="/rejeitar_entrada" method="post">
-                    <input type="hidden" name="placa" id="placaInput"> 
                     <input type="hidden" name="cpfCliente" id="cpfClienteInput"> 
-                    <button class="button-common button-reject" type="submit">Rejeitar</button>
-                </form>
-            </div>
+                    
+                    <form action="/aprovar_entrada" method="post">
+                        <input type="hidden" name="placa" id="placaInputAceitar"> 
+                        <button type="submit" class="button-common button-accept">Aceitar</button>
+                    </form>
+                
+                    <form action="/rejeitar_entrada" method="post">
+                        <input type="hidden" name="placa" id="placaInputRejeitar"> 
+                        <button class="button-common button-reject" type="submit">Rejeitar</button>
+                    </form>
+                </div>
+                
                 
             </div>
         </div>
@@ -205,20 +205,21 @@
 
 
 <script>
-// Add event listeners to all buttons that open the modal
 document.querySelectorAll('.openModalButton').forEach(button => {
     button.addEventListener('click', function (event) {
         const placa = button.dataset.placa;  // Get vehicle's plate
         const cpfCliente = button.dataset.cpfCliente; // Get vehicle's client CPF
 
-        // Set these values in the modal hidden inputs
-        document.getElementById("placaInput").value = placa;
+        // Set these values in both modal hidden inputs
+        document.getElementById("placaInputAceitar").value = placa;
+        document.getElementById("placaInputRejeitar").value = placa;  // <-- Certifique-se de preencher este também
         document.getElementById("cpfClienteInput").value = cpfCliente;
 
         // Open the modal
         openModal('modal');
     });
 });
+
 
 
 </script>

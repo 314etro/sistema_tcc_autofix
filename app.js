@@ -531,6 +531,8 @@
     
     app.post('/aprovar_entrada', (req, res) => {
         const placa = req.body.placa;
+        console.log('Placa recebida para aceitação:', placa); // Adicione este console.log
+
        
     
         // Atualize o status da inspeção de entrada para "Aprovado"
@@ -550,15 +552,15 @@
     
     app.post('/rejeitar_entrada', (req, res) => {
         const placa = req.body.placa;
-       
+        console.log('Placa recebida para rejeição:', placa); // Adicione este console.log
     
         // Atualize o status da inspeção de entrada para "Aprovado"
         db.query('UPDATE inspecao_entrada SET status = "rejeitado" WHERE placa = ?', [placa], (error, results) => {
             if (error) {
-                console.log('Erro ao aprovar entrada', error);
-                res.status(500).send('Erro ao aprovar entrada');
+                console.log('Erro ao rejeitar entrada', error);
+                res.status(500).send('Erro ao rejeitar entrada');
             } else {
-                console.log('Entrada aprovada com sucesso');
+                console.log('Entrada rejeitada com sucesso');
     
                 // Redirecione para a página de aprovação de entrada do cliente
                 res.redirect(`/aprovar_entrada_cliente`); 
@@ -588,3 +590,14 @@ app.get('/ver_checklist_entrada', (req, res) => {
     });
   });
   
+
+
+  app.get('/inspecao_manutencao_pendente', (req,res)=>{
+    db.query('SELECT cliente.nome AS nome_cliente, cliente.email, cliente.telefone, veiculo.marca, veiculo.modelo, veiculo.placa, inspecao_entrada.status FROM cliente JOIN veiculo ON cliente.cpf_cliente = veiculo.cpfcliente JOIN inspecao_entrada ON veiculo.placa = inspecao_entrada.placa  WHERE inspecao_entrada.status = "aprovado";', (error,results)=> {
+        if(error){
+            console.log('não foi possivel exibir os aprovados')
+        }else{
+            res.render('inspecao_manutencao_pendente', {inspecao_manutencao: results})
+        }
+    })
+  })

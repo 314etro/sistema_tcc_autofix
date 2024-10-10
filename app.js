@@ -602,14 +602,42 @@ app.get('/ver_checklist_entrada', (req, res) => {
     })
   })
 
+  app.get('/realizar_inspecao_manutencao/:placa', (req, res) => {
+    const placa = req.params.placa;
 
+    // Consulta no banco de dados
+    const sql = `
+        SELECT v.*, c.nome AS nome_cliente, c.telefone AS telefone_cliente, c.email AS email_cliente
+        FROM veiculo v
+        JOIN cliente c ON v.cpfcliente = c.cpf_cliente
+        WHERE v.placa = ?;
+    `;
+    const values = [placa];
 
-  app.get('/realizar_inspecao_manutencao/:cpf_cliente', (req, res) => {
-    const cpfCliente = req.params.cpf_cliente;
+    db.query(sql, values, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Erro ao buscar dados do veículo.');
+            return;
+        }
 
-   
+        if (results.length === 0) {
+            res.status(404).send('Veículo não encontrado.');
+            return;
+        }
 
-            res.render('realizar_inspecao_manutencao_mecanico', { 
-                cpf_cliente: cpfCliente
-            });
+        const veiculo = results[0];
+
+        // Renderiza o template com os dados do veículo e do cliente
+        res.render('realizar_inspecao_manutencao_mecanico', {
+            placa: veiculo.placa,
+            marca: veiculo.marca,
+            modelo: veiculo.modelo,
+            cor: veiculo.cor,
+            ano: veiculo.ano,
+            nome_cliente: veiculo.nome_cliente,
+            telefone_cliente: veiculo.telefone_cliente,
+            email_cliente: veiculo.email_cliente
         });
+    });
+});

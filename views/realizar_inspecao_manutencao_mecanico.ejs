@@ -15,22 +15,20 @@
 
     <title>Inspeção</title>
 </head>
+
 <body>
     <header>
         <img src="/img/logo.png" alt="Logo Autofix">
     </header>
 
 
-        <div class="container">
-            <h3 class="title">Civic - Type R </h3>
+    <div class="container">
+        <h3 class="title"><%=marca %> <%= modelo %> <%= ano %></h3>
+        <h5 class="title"><%=nome_cliente %></h5>
 
         <div class="d-flex justify-content-center">
             <div class="inputs" id="inputs">
-                <div class="form-group mt-4">
-                    <input type="text" class="form-control" placeholder="Digite um novo item...">
                 </div>
-              
-            </div>
         </div>
 
         <div class="text-center mt-4">
@@ -56,10 +54,21 @@
         // Função para adicionar novo input
         document.getElementById('addInput').addEventListener('click', function() {
             const newInput = document.createElement('div');
-            newInput.classList.add('form-group', 'mt-4');
-            newInput.innerHTML = '<input type="text" class="form-control" placeholder="Digite um novo item...">';
+            newInput.classList.add('form-group', 'mt-4', 'd-flex', 'align-items-center'); // Adiciona classes para alinhamento
+            newInput.innerHTML = `
+                <input type="text" class="form-control flex-grow-1" placeholder="Digite um novo item...">
+                <button class="remove-item-button" onclick="removeInput(this)">
+                    <span aria-hidden="true">×</span>
+                </button>
+            `;
             document.getElementById('inputs').appendChild(newInput);
         });
+
+        // Função para remover um input
+        function removeInput(button) {
+            const inputContainer = button.parentElement;
+            inputContainer.remove();
+        }
 
         // Abrir o modal ao clicar na seta de voltar
         document.getElementById('backButton').addEventListener('click', function(event) {
@@ -79,85 +88,85 @@
     </script>
 </body>
 <style>
-    body {
-        font-family: 'Arvo', serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        font-weight: normal;
-    }
+  body {
+    font-family: 'Arvo', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-weight: normal;
+}
 
-    header {
-        background-color: #000000;
-        color: white;
-        padding: 8px;
-        text-align: center;
-        position: relative;
-    }
+header {
+    background-color: #000000;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    position: relative;
+}
 
-    .title {
-        text-align: center;
-        font-size: 26px;
-        margin: 10px auto;
-        color: #333;
-        width: 100%;
-        
-        justify-content: center; /* Centraliza o título */
-        position: relative; /* Adiciona posição relativa para o título */
-    }
+.title {
+    text-align: center;
+    font-size: 26px;
+    margin: 10px auto;
+    color: #333;
+    width: 100%;
+    
+    justify-content: center; /* Centraliza o título */
+    position: relative; /* Adiciona posição relativa para o título */
+}
 
-    .whatsapp-icon {
-        position: absolute;
-        right: 30px; /* Ajuste para mover o ícone mais para a direita */
-        top: 50%;
-        transform: translateY(-50%); /* Centraliza verticalmente */
-        width: 46px; /* Ajuste o tamanho do ícone */
-        height: 46px; /* Ajuste o tamanho do ícone */
-        cursor: pointer;
-        border: none;
-        background: none;
-        padding: 0;
-    }
+.whatsapp-icon {
+    position: absolute;
+    right: 30px; /* Ajuste para mover o ícone mais para a direita */
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza verticalmente */
+    width: 46px; /* Ajuste o tamanho do ícone */
+    height: 46px; /* Ajuste o tamanho do ícone */
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+}
 
-    .container {
-        max-width: 900px;
-        padding: 30px;
-        margin: 100px auto;
-        background-color: #fff;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
+.container {
+    max-width: 900px;
+    padding: 30px;
+    margin: 100px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
 
-    header img {
-        width: 200px;
-        height: auto;
-    }
+header img {
+    width: 200px;
+    height: auto;
+}
 
-    .welcome-message {
-        position: absolute;
-        top: 30px;
-        right: 10px;
-        font-size: 16px;
-        color: white;
-        font-weight: bold;
-    }
+.welcome-message {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
 
-    .text-center {
-        margin-top: 20px;
-    }
+.text-center {
+    margin-top: 20px;
+}
 
-    .inputs {
-        border-radius: 5px;
-        width: 100%;
-        max-width: 500px;
-        align-items: center;
-    }
+.inputs {
+    border-radius: 5px;
+    width: 100%;
+    max-width: 500px;
+    align-items: center;
+}
 
-    .btn-success {
+.btn-success {
     margin-top: 20px;
     width: 100px;
     height: 40px; /* Ajuste a altura do botão */
@@ -186,53 +195,67 @@
 }
 
 
-    .title-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    /* Estilos para o modal */
-    .modal-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-    }
+/* Estilos para o modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
 
-    .modal-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
-        width: 300px;
-    }
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 300px;
+}
 
-    .modal-content h4 {
-        margin-bottom: 20px;
-    }
+.modal-content h4 {
+    margin-bottom: 20px;
+}
 
-    .modal-content button {
-        margin: 5px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+.modal-content button {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    .btn-cancel {
-        background-color: #f0f0f0;
-        color: #000;
-    }
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #000;
+}
 
-    .btn-exit {
-        background-color: #d9534f;
-        color: #fff;
-    }
+.btn-exit {
+    background-color: #d9534f;
+    color: #fff;
+}
+
+/* Estilos para o botão "Excluir" */
+/* Estilos para o botão "Excluir" */
+/* Estilos para o botão "Excluir" */
+.remove-item-button {
+    margin-left: 5px; /* Ajuste o valor conforme necessário */
+    border: none;
+    background-color: #cc0606; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    cursor: pointer;
+    display: flex; /* Centraliza o "X" dentro do botão */
+    justify-content: center;
+    align-items: center;
+}
 </style>
 </html>

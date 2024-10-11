@@ -601,7 +601,6 @@ app.get('/ver_checklist_entrada', (req, res) => {
         }
     })
   })
-
   app.get('/realizar_inspecao_manutencao/:placa', (req, res) => {
     const placa = req.params.placa;
 
@@ -701,3 +700,6 @@ app.post('/cancelar_inspecao_manutencao/:placa', (req, res) => {
         res.redirect('/loginMecanico');
     }
 });
+
+
+

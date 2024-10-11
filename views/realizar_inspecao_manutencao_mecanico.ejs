@@ -51,12 +51,16 @@
 <div class="modal-overlay" id="modalOverlay">
     <div class="modal-content">
         <h4>Deseja sair sem salvar?</h4>
-        <form action="/cancelar_inspecao_manutencao/<%= placa %>" method="POST">
-            <button class="btn-exit" id="confirmExit">Sair mesmo assim</button>
-        </form>
-        <button class="btn-cancel" id="cancelExit">Cancelar</button>
+        
+        <!-- Novo contêiner para centralizar os botões -->
+
+            <button class="btn-cancel" id="cancelExit">Cancelar</button>
+            <form action="/cancelar_inspecao_manutencao/<%= placa %>" method="POST">
+                <button class="btn-exit" id="confirmExit">Sair mesmo assim</button>
+            </form>
     </div>
 </div>
+
 
 
 
@@ -230,30 +234,32 @@ header img {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-    width: 400px; /* Aumenta a largura do modal */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra ao modal */
+    width: 400px; /* Define a largura do modal */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.modal-content h4 {
-    margin-bottom: 20px;
-}
-
+/* Centraliza e define os botões para que tenham o mesmo tamanho */
 .modal-content button {
-    margin: 17px; /* Aumenta a margem entre os botões */
-    padding: 10px 20px;
+    width: 100%; /* Define a largura dos botões para ocupar 100% do container */
+    padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 15px; /* Espaçamento entre os botões */
 }
 
+/* Estilo do botão "Cancelar" */
 .btn-cancel {
     background-color: #138132; /* Cor verde */
-    color: #fff;
+    color: white;
 }
+
+/* Estilo do botão "Sair mesmo assim" */
 .btn-exit {
-    background-color: #d9534f;
-    color: #fff;
+    background-color: #97211d;
+    color: white;
 }
+
 
 /* Estilos para o botão "Excluir" */
 /* Estilos para o botão "Excluir" */

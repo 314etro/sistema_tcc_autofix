@@ -25,27 +25,22 @@
         <h3 class="title"><%=marca %> <%= modelo %> <%= ano %></h3>
         <h5 class="title"><%=nome_cliente %></h5>
 
-        <div class="d-flex justify-content-center">
+        
+        <form action="/salvar-servicos" method="POST">
             <div class="inputs" id="inputs">
-                <div class="form-group mt-4 d-flex align-items-center">
-                    <input type="text" class="form-control flex-grow-1" placeholder="Digite um novo item...">
-                    <button class="remove-item-button" onclick="removeInput(this)">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
+              <div class="form-group mt-4 d-flex align-items-center">
+                <input type="text" name="nome_servico[]" class="form-control flex-grow-1" placeholder="Digite um novo item...">
+                <button type="button" class="remove-item-button" onclick="removeInput(this)">
+                  <span aria-hidden="true">x</span>
+                </button>
+              </div>
             </div>
-        </div>
-
-        <div class="text-center mt-4">
-            <button id="addInput" class="btn btn-primary">+</button>
-        </div>
-
-        <div class="text-center mt-4 d-flex justify-content-center gap-3">
-            <button class="btn btn-success">Enviar</button>
-            <button class="btn btn-danger" id="backButton">Cancelar</button>
-        </div>
-    </div>
-</div>
+            
+            <div class="text-center mt-4">
+              <button type="button" id="addInput" class="btn btn-primary">+</button>
+              <button type="submit" class="btn btn-success">Enviar</button>
+            </div>
+          </form>
     <!-- Modal de confirmação -->
 <!-- Modal de confirmação -->
 <div class="modal-overlay" id="modalOverlay">
@@ -64,25 +59,23 @@
 
 
 
-    <script>
-        // Função para adicionar novo input
-        document.getElementById('addInput').addEventListener('click', function() {
-            const newInput = document.createElement('div');
-            newInput.classList.add('form-group', 'mt-4', 'd-flex', 'align-items-center'); // Adiciona classes para alinhamento
-            newInput.innerHTML = `
-                <input type="text" class="form-control flex-grow-1" placeholder="Digite um novo item...">
-                <button class="remove-item-button" onclick="removeInput(this)">
-                    <span aria-hidden="true">×</span>
-                </button>
-            `;
-            document.getElementById('inputs').appendChild(newInput);
-        });
-
-        // Função para remover um input
-        function removeInput(button) {
-            const inputContainer = button.parentElement;
-            inputContainer.remove();
-        }
+<script>
+    document.getElementById('addInput').addEventListener('click', function() {
+      const newInput = document.createElement('div');
+      newInput.classList.add('form-group', 'mt-4', 'd-flex', 'align-items-center');
+      newInput.innerHTML = `
+        <input type="text" name="nome_servico[]" class="form-control flex-grow-1" placeholder="Digite um novo item...">
+        <button type="button" class="remove-item-button" onclick="removeInput(this)">
+          <span aria-hidden="true">x</span>
+        </button>
+      `;
+      document.getElementById('inputs').appendChild(newInput);
+    });
+  
+    function removeInput(button) {
+      button.parentElement.remove();
+    }
+ 
 
         // Abrir o modal ao clicar na seta de voltar
         document.getElementById('backButton').addEventListener('click', function(event) {

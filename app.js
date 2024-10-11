@@ -702,4 +702,25 @@ app.post('/cancelar_inspecao_manutencao/:placa', (req, res) => {
 });
 
 
-
+// Rota para salvar os serviços
+app.post('/salvar-servicos', (req, res) => {
+    const { nome_servico } = req.body;
+  
+    if (Array.isArray(nome_servico)) {
+      nome_servico.forEach(servico => {
+        const sql = 'INSERT INTO servico (nome_servico) VALUES (?)';
+        db.query(sql, [servico], (err, result) => {
+          if (err) throw err;
+          console.log('Serviço inserido:', servico);
+        });
+      });
+    } else {
+      // Caso seja apenas um item
+      const sql = 'INSERT INTO servico (nome_servico) VALUES (?)';
+      db.query(sql, [nome_servico], (err, result) => {
+        if (err) throw err;
+        console.log('Serviço inserido:', nome_servico);
+      });
+    }
+  
+  });

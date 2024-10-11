@@ -49,9 +49,10 @@
                                 <p class="card-text">Placa: <%= inspecao_manutencao.placa %></p>
                 
 
-                                <a href="/realizar_inspecao_manutencao/<%= inspecao_manutencao.placa %>">
-                                    <button class="btn btn-primary btn-inspecao">Realizar inspeção</button>
-                                </a>
+                                <form action="/realizar_inspecao_manutencao_a/<%= inspecao_manutencao.placa %>" method="POST">
+                                    <button type="submit" class="btn btn-primary btn-inspecao">Realizar inspeção</button>
+                                </form>
+                                
 
                                
                 

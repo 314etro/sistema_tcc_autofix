@@ -641,3 +641,63 @@ app.get('/ver_checklist_entrada', (req, res) => {
         });
     });
 });
+
+
+app.post('/realizar_inspecao_manutencao_a/:placa', (req, res) => {
+    const placa = req.params.placa;
+
+    // Verifique se a sessão existe e se a chave 'cpfMecanico' está presente
+    if (req.session.hasOwnProperty('cpfMecanico')) {
+        const cpfMecanico = req.session.cpfMecanico; 
+
+        // Inserir dados na tabela inspecao_manutencao
+        const sqlInsert = `
+            INSERT INTO inspecao_manutencao (status, cpfmecanico, placa)
+            VALUES ('aguardando_aprovacao', ?, ?);
+        `;
+
+        db.query(sqlInsert, [cpfMecanico, placa], (err, result) => {
+            if (err) {
+                console.error('Erro ao inserir inspeção:', err);
+                res.status(500).send('Erro ao processar inspeção.');
+                return;
+            }
+
+            // Redirecionar para a página de realizar inspeção após a inserção
+            res.redirect(`/realizar_inspecao_manutencao/${placa}`);
+        });
+    } else {
+        // Se a sessão não existir ou a chave não estiver presente, redirecione para o login
+        res.redirect('/loginMecanico'); 
+    }
+});
+
+
+app.post('/cancelar_inspecao_manutencao/:placa', (req, res) => {
+    const placa = req.params.placa;
+
+    // Verifica se a sessão existe e se a chave 'cpfMecanico' está presente
+    if (req.session.hasOwnProperty('cpfMecanico')) {
+        const cpfMecanico = req.session.cpfMecanico; 
+
+        // Delete o registro da tabela inspecao_manutencao baseado no cpfMecanico e na placa
+        const sqlDelete = `
+            DELETE FROM inspecao_manutencao 
+            WHERE cpfmecanico = ? AND placa = ?;
+        `;
+
+        db.query(sqlDelete, [cpfMecanico, placa], (err, result) => {
+            if (err) {
+                console.error('Erro ao cancelar inspeção:', err);
+                res.status(500).send('Erro ao cancelar a inspeção.');
+                return;
+            }
+
+            // Redirecionar para a página de inspeção pendente após o cancelamento
+            res.redirect('/inspecao_manutencao_pendente');
+        });
+    } else {
+        // Se a sessão não existir ou a chave não estiver presente, redirecione para o login
+        res.redirect('/loginMecanico');
+    }
+});

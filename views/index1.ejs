@@ -6,16 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoFix - Reparos Automotivos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqk1w2xIRMq5RFAzM0V1QYHugoT0tK2d0Gm/AJl8MKC5HxY0Qlc/ZiaOqOz9h8o8PwUF61Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-
 </head>
 
 <body>
     <header class="text-white py-2">
         <img src="../img/logo.png" alt="Logo Autofix" class="img-fluid">
         <div class="login-dropdown" id="loginDropdown">
-
             <a href="#" class="login-button" id="loginButton">Fazer login</a>
             <div class="login-options" id="loginOptions">
                 <button class="login-button" onclick="openModal('modalCliente')">Sou cliente</button>
@@ -24,7 +20,6 @@
             </div>
         </div>
     </header>
-    
 
     <main>
         <section class="hero">
@@ -107,9 +102,9 @@
                         <li><a href="#">Sobre nós</a></li>
                     </ul>
                 </div>
-                <div class="footer-content-img"><img src="img/logo.png" alt="Logo autofix" ></div>
+                <div class="footer-content-img"><img src="img/logo.png" alt="Logo autofix"></div>
             </div>
-        
+        </div>
     </footer>
 
     <!-- Modal Cliente -->
@@ -118,12 +113,12 @@
             <span class="close" onclick="closeModal('modalCliente')">×</span>
             <h2>Olá, Cliente</h2>
             <div class="icon">
-            <img src="img/user-icon.png" alt="">
+                <img src="img/user-icon.png" alt="">
             </div>
             <div class="h4">
-            <h4>Faça o seu Login</h4>
+                <h4>Faça o seu Login</h4>
             </div>
-            <form  action="/loginCliente" method="post" >
+            <form action="/loginCliente" method="post">
                 <div class="form-group">
                     <label for="emailCliente">Email</label>
                     <input type="email" id="emailCliente" name="emailCliente" placeholder="Insira seu email">
@@ -136,7 +131,7 @@
                     <label for="id_oficina">Oficina</label>
                     <input type="number" id="id_oficina" name="id_oficina" placeholder="Insira o código da oficina">
                 </div>
-                   <button type="submit" class="btn-primary">Entrar</button>
+                <button type="submit" class="btn-primary">Entrar</button>
             </form>
         </div>
     </div>
@@ -148,11 +143,11 @@
             <h2>Olá, Mecânico</h2>
             <div class="icon">
                 <img src="img/user-icon.png" alt="">
-                </div>
-                <div class="h4">
+            </div>
+            <div class="h4">
                 <h4>Faça o seu Login</h4>
-                </div>
-            <form  action="/loginMecanico" method="post">
+            </div>
+            <form action="/loginMecanico" method="post">
                 <div class="form-group">
                     <label for="emailMecanico">Email</label>
                     <input type="email" id="emailMecanico" name="emailMecanico" placeholder="Insira seu email">
@@ -163,14 +158,9 @@
                 </div>
                 <div class="form-group">
                     <label for="id_oficina">Oficina</label>
-                    <input type="number" id="id_oficina" name="id_oficina" placeholder="Insira o código da sua oficina" > 
+                    <input type="number" id="id_oficina" name="id_oficina" placeholder="Insira o código da sua oficina">
                 </div>
-
-
-      
-                  <button type="submit" class="btn-primary">Entrar</button></a>
-
-
+                <button type="submit" class="btn-primary">Entrar</button>
             </form>
         </div>
     </div>
@@ -182,11 +172,11 @@
             <h2>Olá, Administrador</h2>
             <div class="icon">
                 <img src="img/user-icon.png" alt="">
-                </div>
-                <div class="h4">
+            </div>
+            <div class="h4">
                 <h4>Faça o seu Login</h4>
-                </div>
-            <form  action="/loginAdm" method="post">
+            </div>
+            <form action="/loginAdm" method="post">
                 <div class="form-group">
                     <label for="emailAdm">Email</label>
                     <input type="email" id="emailAdm" name="emailAdm" placeholder="Insira seu email">
@@ -205,610 +195,619 @@
     </div>
 
     <script>
-       const loginButton = document.getElementById("loginButton");
-const loginOptions = document.getElementById("loginOptions");
-let isOpen = false; // Controla se o menu está aberto
+        const loginButton = document.getElementById("loginButton");
+        const loginOptions = document.getElementById("loginOptions");
+        let isOpen = false; // Controla se o menu está aberto
 
-loginButton.addEventListener("click", function () {
-    // Alterna o estado do menu
-    isOpen = !isOpen;
-    loginOptions.style.display = isOpen ? "block" : "none";
+        loginButton.addEventListener("click", function() {
+            // Alterna o estado do menu
+            isOpen = !isOpen;
+            loginOptions.style.display = isOpen ? "block" : "none";
 
-    // Se o menu estiver aberto, remova o timeout
-    if (isOpen) {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-    } else {
-        // Se estiver fechando, inicie o timeout
-        timeoutId = setTimeout(function () {
-            loginOptions.style.display = "none";
-            isOpen = false; // Atualiza o estado
-        }, 6000);
-    }
-});
+            // Se o menu estiver aberto, remova o timeout
+            if (isOpen) {
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+            } else {
+                // Se estiver fechando, inicie o timeout
+                timeoutId = setTimeout(function() {
+                    loginOptions.style.display = "none";
+                    isOpen = false; // Atualiza o estado
+                }, 6000);
+            }
+        });
 
-loginOptions.addEventListener("click", function (event) {
-    event.stopPropagation(); // Impede o fechamento ao clicar nas opções
-});
+        loginOptions.addEventListener("click", function(event) {
+            event.stopPropagation(); // Impede o fechamento ao clicar nas opções
+        });
 
-document.addEventListener("click", function (event) {
-    if (!loginButton.contains(event.target) && !loginOptions.contains(event.target)) {
-        loginOptions.style.display = "none";
-        isOpen = false; // Atualiza o estado
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
-    }
-});
+        document.addEventListener("click", function(event) {
+            if (!loginButton.contains(event.target) && !loginOptions.contains(event.target)) {
+                loginOptions.style.display = "none";
+                isOpen = false; // Atualiza o estado
+                if (timeoutId) {
+                    clearTimeout(timeoutId);
+                }
+            }
+        });
 
         // Função para abrir o modal
-function openModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // Desabilita o scroll da página
-  }
-}
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Desabilita o scroll da página
+            }
+        }
 
-// Função para fechar o modal
-function closeModal(modalId) {
-  const modal = document.getElementById(modalId);
-  if (modal) {
-    modal.style.display = 'none';
-    document.body.style.overflow = ''; // Restaura o scroll da página
-  }
-}
+        // Função para fechar o modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = ''; // Restaura o scroll da página
+            }
+        }
 
-// Adicione um evento de click para cada botão de login
-document.getElementById('loginCliente').addEventListener('click', function() {
-  openModal('modalCliente');
-});
+        // Adicione um evento de click para cada botão de login
+        document.getElementById('loginCliente').addEventListener('click', function() {
+            openModal('modalCliente');
+        });
 
-document.getElementById('loginMecanico').addEventListener('click', function() {
-  openModal('modalMecanico');
-});
+        document.getElementById('loginMecanico').addEventListener('click', function() {
+            openModal('modalMecanico');
+        });
 
-document.getElementById('loginAdministrador').addEventListener('click', function() {
-  openModal('modalAdministrador');
-});
+        document.getElementById('loginAdministrador').addEventListener('click', function() {
+            openModal('modalAdministrador');
+        });
 
-// Adicione um evento de click para fechar o modal
-document.querySelectorAll('.close').forEach(function(close) {
-  close.addEventListener('click', function() {
-    const modal = close.parentNode.parentNode;
-    closeModal(modal.id);
-  });
-});
-
-
+        // Adicione um evento de click para fechar o modal
+        document.querySelectorAll('.close').forEach(function(close) {
+            close.addEventListener('click', function() {
+                const modal = close.parentNode.parentNode;
+                closeModal(modal.id);
+            });
+        });
     </script>
 </body>
 
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+        color: #333;
+    }
 
-<style>body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2;
-    color: #333;
-}
+    header {
+        background-color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #fff;
+        padding: 1rem 0 1rem 1rem;
+        height: 55px;
+    }
 
-header {
-    background-color: #000000; 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    color: #fff;
-    padding: 1rem 0 1rem 1rem; /* Adicione padding à direita */
-    height: 55px; /* Define a altura do cabeçalho */
-    
-}
+    header .img-fluid {
+        margin-right: 0px;
+        transition: transform 0.3s ease;
+    }
 
+    header.img-fluid:hover {
+        transform: scale(1.1);
+    }
 
-header .img-fluid {
-    margin-right: 0px; 
-    transition: transform 0.3s ease;
-}
+    header .img-fluid {
+        display: flex;
+        align-items: center;
+    }
 
+    header .img-fluid {
+        height: auto;
+        width: 200px;
+    }
 
-header.img-fluid:hover {
-    transform: scale(1.1); /* Aumenta o tamanho do logo ao passar o mouse */
-}
+    nav {
+        margin-left: auto;
+        justify-content: center;
+    }
 
-header .img-fluid {
-    display: flex; /* Para alinhar o logo e manter sua posição */
-    align-items: center;
-   
-}
+    .container {
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
 
-header .img-fluid {
-    height: auto;
-    width: 200px;
-}
+    .login-button {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
 
-nav {
-    margin-left: auto; /* Empurra o nav (menu) para o lado direito */
-    justify-content: center;
-}
+    .login-button:hover {
+        background-color: #555;
+        transform: scale(1.05);
+    }
 
-.container {
-    margin: 0 auto;
-    padding: 0 1rem;
-}
+    .login-button:hover {
+        background-color: #555;
+    }
 
+    nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+    }
 
+    nav li {
+        display: inline-block;
+        margin-left: 1rem;
+    }
 
-.login-button {
-    background-color: #333; 
-    color: #fff; 
-    padding: 10px 20px; 
-    border: none; 
-    border-radius: 5px; 
-    text-decoration: none; 
-    display: inline-block; /* Torna o botão um bloco em linha */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Transição suave */
-}
+    nav a {
+        color: #fff;
+        text-decoration: none;
+    }
 
-.login-button:hover {
-    background-color: #555; 
-    transform: scale(1.05); /* Aumenta ligeiramente o botão ao passar o mouse */
-}
+    section {
+        padding: 2rem 0;
+    }
 
+    .hero {
+        background-color: #fff;
+        padding: 4rem 0;
+        text-align: center;
+        position: relative;
+    }
 
-.login-button:hover {
-    background-color: #555; 
-}
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: inline-block; /* Mantém os itens do menu na mesma linha */
-}
+    .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+    }
 
-nav li {
-    display: inline-block; 
-    margin-left: 1rem;
-}
+    .hero img {
+        max-width: 100%;
+        height: auto;
+    }
 
-nav a {
-    color: #fff;
-    text-decoration: none;
-}
+    .services {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2rem;
+    }
 
+    .service {
+        max-width: 1600px;
+        background-color: #000000;
+        color: #fff;
+        padding: 1rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0.1);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        gap: 20px;
+        flex-direction: row;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-section {
-    padding: 2rem 0;
-}
+    .service:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
 
-.hero {
-    background-color: #fff;
-    padding: 4rem 0;
-    text-align: center;
-    position: relative; /* Permite posicionar a imagem de fundo */
-}
+    .service p {
+        margin-top: 10px;
+        padding: 0;
+    }
 
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
+    .service2 {
+        background-color: #000000;
+        color: #fff;
+        padding: 2rem;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        flex: 1 1 5%;
+    }
 
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-}
+    .service h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
 
-.hero img {
-    max-width: 100%;
-    height: auto;
-}
+    .service p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
 
-.services {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 2rem;
-}
+    .service img {
+        width: 100%;
+        max-width: 40%;
+        height: auto;
+        border-radius: 5px;
+        margin-right: 0%;
+    }
 
-.service {
-    max-width: 1600px;
-    background-color: #000000;
-    color: #fff;
-    padding: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0.1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    flex-direction: row;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    .texto-service {
+        display: flex;
+        flex-direction: column;
+        max-width: 70%;
+        padding-left: 20px;
+    }
 
-.service:hover {
-    transform: translateY(-10px); /* Eleva o card ao passar o mouse */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
-}
+    footer {
+        background-color: #000000;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
 
-.service p {
-    /* Remova o padding-top, ou ajuste para o valor desejado */
-    margin-top: 10px; /* Adiciona margem superior se precisar */
-    padding: 0;
-}
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0 1rem;
+    }
 
-.service2 {
-    background-color: #000000;
-    color: #fff;
-    padding: 2rem;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex: 1 1 5%;
-}
+    .contact,
+    .links,
+    .copyright {
+        flex: 1 1 30%;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
 
-.service h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
+    .contact h3,
+    .links h3 {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
 
-.service p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
+    .contact ul,
+    .links ul {
+        list-style: none;
+        padding: 0;
+    }
 
-.service img {
-    width: 100%;
-    max-width: 40%;
-    height: auto;
-    border-radius: 5px;
-    margin-right: 0%;
-    
-    
-}
+    .contact li,
+    .links li {
+        margin-bottom: 0.5rem;
+    }
 
+    .contact a,
+    .links a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: text-decoration 0.3s ease;
+    }
 
-.texto-service {
-    display: flex;
-    flex-direction: column;
-    max-width: 70%; /* O texto e título ocupam 50% do espaço */
-    padding-left: 20px; /* Adiciona espaçamento entre a imagem e o texto */
-}
+    .footer-logo {
+        position: absolute;
+        bottom: 0.5rem;
+        right: 0.5rem;
+    }
 
-footer {
-    background-color: #000000;
-    color: #fff;
-    padding: 1rem 0; /* Reduzido o padding para diminuir a altura do rodapé */
-    text-align: center;
-    position: relative; /* Mantém o posicionamento relativo para o logo */
-    overflow: hidden;
-}
+    .contact a:hover,
+    .links a:hover {
+        text-decoration: underline;
+    }
 
-.footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0 1rem; /* Opcional: Adiciona um padding horizontal menor */
-}
+    .titulo_service {
+        background-color: #C75353;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
 
-.contact, 
-.links,
-.copyright {
-    flex: 1 1 30%; /* Mantém a largura das colunas, ajuste conforme necessário */
-    text-align: left; /* Alinhamento do texto à esquerda */
-    margin-bottom: 1rem; /* Reduzido o espaço entre as colunas */
-}
+    .titulo_service h2 {
+        color: #fff;
+        margin: 0;
+    }
 
-.contact h3,
-.links h3 {
-    font-size: 1rem; /* Reduzido o tamanho da fonte para diminuir a altura */
-    margin-bottom: 0.5rem;
-}
+    .img-service {
+        align-items: center;
+    }
 
-.contact ul,
-.links ul {
-    list-style: none;
-    padding: 0;
-}
+    .login-dropdown {
+        position: relative;
+        padding: 1rem;
+        margin-right: 118px;
+    }
 
-.contact li,
-.links li {
-    margin-bottom: 0.5rem;
-}
+    .login-button {
+        position: relative;
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+    }
 
-.contact a,
-.links a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 0.9rem; /* Reduzido o tamanho da fonte dos links */
-    transition: text-decoration 0.3s ease; /* Transição suave */
-}
+    .login-button:hover {
+        background-color: #555;
+    }
 
-.footer-logo {
-    position: absolute;
-    bottom: 0.5rem; /* Ajuste o espaçamento do logo em relação ao rodapé */
-    right: 0.5rem;
-    
-}
+    .login-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: #333;
+        color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+        width: 200px;
+    }
 
+    .login-options button {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        text-align: left;
+        margin-bottom: 5px;
+        background-color: #333;
+        color: #fff;
+        opacity: 1;
+        transition: background-color 0.3s ease;
+    }
 
-.contact a:hover,
-.links a:hover {
-    text-decoration: underline;
-}
+    .login-options button:hover {
+        background-color: #555;
+    }
 
+    .hero {
+        background-image: url("img/img3-login.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: 4rem 0;
+        text-align: center;
+        overflow: hidden;
+        color: #fff;
+        position: relative;
+    }
 
-.titulo_service{
-    background-color: #C75353;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
+    .hero:hover::before {
+        opacity: 1;
+    }
 
-.titulo_service h2{
-    color: #fff;
-    margin: 0;
-}
+    .hero h1,
+    .hero p {
+        position: relative;
+        z-index: 1;
+    }
 
-.img-service {
- align-items: center;
-}
+    /* Estilos gerais para o modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-.login-dropdown {
-    position: relative; /* Permite posicionar as opções de login */
-    padding: 1rem;
-    margin-right: 118px;
-}
-
-.login-button {
-    position: relative; /* Altera para posicionamento absoluto */
-    background-color: #333;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    
-    
-}
-
-.login-button:hover {
-    background-color: #555;
-}
-
-.login-options {
-    display: none; /* Esconde as opções por padrão */
-    position: absolute; /* Posiciona as opções em relação ao botão */
-    top: 100%; /* Posiciona abaixo do botão */
-    right: 0; /* Posiciona à direita */
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1; /* Garante que as opções fiquem por cima do botão */
-    width: 200px; /* Aumente a largura para garantir que os botões sejam visíveis */
-}
-
-.login-options button {
-    display: block; /* Faz os botões ficarem um abaixo do outro */
-    width: 100%; /* Largura dos botões */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    text-align: left;
-    margin-bottom: 5px;
-    background-color: #333;
-    color: #fff;
-    opacity: 1; /* Torna os botões visíveis */
-    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
-}
-
-.login-options button:hover {
-    background-color: #555; /* Muda a cor de fundo dos botões ao passar o mouse */
-}
-
-.hero {
-    background-image: url("img/img3-login.png"); /* Caminho para a imagem */
-    background-size: cover; /* Ajuste o tamanho da imagem */
-    background-position: center; /* Posicionamento da imagem */
-    background-repeat: no-repeat; /* Evita repetição da imagem */
-    padding: 4rem 0; /* Padding para o conteúdo */
-    text-align: center; /* Alinhamento de texto */
-    overflow: hidden;
-    color: #fff;
-    position: relative;
-}
-
-
-
-.hero:hover::before {
-    opacity: 1; /* Torna a sobreposição visível ao passar o mouse */
-}
-
-.hero h1, .hero p {
-    position: relative;
-    z-index: 1; /* Garante que o texto fique acima da sobreposição */
-}
-
-/* Estilos gerais para o modal */
-/* Estilos gerais para o modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fundo escurecido */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.modal-content {
+    .modal-content {
         background-color: #fff;
         border-radius: 10px;
-        padding: 40px;
+        padding: 30px;
         width: 100%;
-        max-width: 400px;
+        max-width: 350px;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         position: relative;
         margin: auto;
         transform: translate(0, -50%);
         top: 50%;
         text-align: initial;
-      }
+    }
 
+    .modal-content h2 {
+        margin-top: 0;
+        font-size: 22px;
+        color: #333;
+        text-align: center;
+    }
 
-.modal-content h2 {
-    margin-top: 0;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
-}
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-.form-group {
-    margin-bottom: 15px;
-}
+    .form-group label {
+        display: block;
+        margin-bottom: 10px; /* Aumente o espaçamento entre o label e o input */
+        font-weight: bold;
+        color: #555;
+    }
 
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
-}
+    .form-group input {
+        flex: 1;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        margin-bottom: 15px; /* Aumente o espaçamento entre os inputs */
+    }
 
-.form-group input {
-    width: 378px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
+    .input-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-.input-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
+    .input-group label {
+        width: 90px;
+        text-align: left;
+        margin-right: 10px;
+    }
 
-.input-group label {
-  width: 100px; /* adjust the width to your liking */
-  text-align: left;
-  margin-right: 10px;
-}
+    .input-group input {
+        flex: 1;
+    }
 
-.input-group input {
-  flex: 1;
-}
+    .btn-primary {
+        width: 100%;
+        padding: 8px;
+        background-color: #000000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 12px;
+    }
 
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    background-color: #000000; /* Botão preto */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 12px;
-}
+    .btn-primary:hover {
+        background-color: #333;
+    }
 
-.btn-primary:hover {
-    background-color: #333; /* Efeito hover */
-}
+    /* Estilo do botão de fechar */
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: #aaa;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
 
-/* Estilo do botão de fechar */
-.close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: #aaa;
-    cursor: pointer;
-    transition: color 0.3s;
-}
+    .close:hover {
+        color: #333;
+    }
 
-.close:hover {
-    color: #333;
-}
+    .icon {
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        font-size: 20px;
+    }
 
-.icon{
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    font-size: 20px;
-    
-}
+    .h4 {
+        margin: 0;
+        font-size: 18px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
 
-.h4{
-    margin: 0;             
-    font-size: 18px; 
-    text-align: center;
-    display: flex;
-    justify-content: center;
-}
+    footer .footer-content-img img {
+        width: 200px;
+        height: auto;
+    }
 
+    footer .footer-content-img:hover img {
+        transform: scale(1.1);
+    }
 
+    @media (max-width: 768px) {
+        .form-group {
+            width: 100%;
+        }
+    }
 
-footer .footer-content-img img {
-    width: 200px; /* Ajuste o valor conforme necessário */
-    height: auto; /* Mantém a proporção da imagem */
-    
-}
+    @media screen and (max-width: 1020px) {
+        header .img-fluid {
+            width: 120px;
+        }
 
-footer .footer-content-img:hover img {
-    transform: scale(1.1); /* Aumenta o logo ao passar o mouse */
-}
+        .login-dropdown {
+            padding: 1rem 1rem;
+            margin-right: 0px;
+        }
 
+        footer .footer-content-img img {
+            width: 120px;
+        }
 
-@media screen and (max-width: 1020px){
+        .login-button {
+            padding: 1rem 1rem;
+            font-size: 1rem;
+            text-align: center;
+        }
 
-    header .img-fluid {
-    width: 120px;
-    
-}
+        .service {
+            flex-direction: column;
+        }
 
-.login-dropdown {
-    padding: 1rem 1rem;
-    margin-right: 0px;
-    
- 
-}
+        .service img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
 
-footer .footer-content-img img {
-    width: 120px; /* Ajuste o valor conforme necessário */
-}
+        .titulo_service {
+            padding: 1rem;
+        }
 
-    .login-button {
-    padding: 1rem 1rem; 
-    font-size: 1rem;
-    text-align: center;
-}
-   
-    .service {flex-direction: column;}
+        .titulo_service h2 {
+            font-size: 1rem;
+            text-align: center;
+        }
 
-    .service img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;}
+        .texto-service {
+            max-width: 100%;
+            padding-left: 0px;
+        }
 
-    .titulo_service{
-        padding: 1rem;}
+        .modal-content {
+            padding: 15px;
+            width: 90%;
+            max-width: none;
+        }
 
-    .titulo_service h2{font-size: 1rem; text-align: center; }
+        .modal-content h2 {
+            font-size: 20px;
+        }
 
-    .texto-service {
-    max-width: 100%; /* O texto e título ocupam 50% do espaço */
-    padding-left: 0px; /* Adiciona espaçamento entre a imagem e o texto */
-}
+        .form-group input {
+            padding: 8px;
+            font-size: 14px;
+        }
 
-   
-    
-}
+        .input-group label {
+            width: auto;
+            margin-right: 5px;
+        }
 
-
+        .btn-primary {
+            padding: 8px;
+            font-size: 14px;
+        }
+    }
 </style>
+
 </html>

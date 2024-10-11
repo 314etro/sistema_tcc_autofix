@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <head>
@@ -28,7 +27,13 @@
 
         <div class="d-flex justify-content-center">
             <div class="inputs" id="inputs">
+                <div class="form-group mt-4 d-flex align-items-center">
+                    <input type="text" class="form-control flex-grow-1" placeholder="Digite um novo item...">
+                    <button class="remove-item-button" onclick="removeInput(this)">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
+            </div>
         </div>
 
         <div class="text-center mt-4">
@@ -37,18 +42,23 @@
 
         <div class="text-center mt-4 d-flex justify-content-center gap-3">
             <button class="btn btn-success">Enviar</button>
-            <a href="/home_adm"><button class="btn btn-danger" id="confirmExit">Cancelar</button></a>
+            <button class="btn btn-danger" id="backButton">Cancelar</button>
         </div>
     </div>
 </div>
     <!-- Modal de confirmação -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-content">
-            <h4>Deseja sair sem salvar?</h4>
+<!-- Modal de confirmação -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <h4>Deseja sair sem salvar?</h4>
+        <form action="/cancelar_inspecao_manutencao/<%= placa %>" method="POST">
             <button class="btn-exit" id="confirmExit">Sair mesmo assim</button>
-            <button class="btn-cancel" id="cancelExit">Cancelar</button>
-        </div>
+        </form>
+        <button class="btn-cancel" id="cancelExit">Cancelar</button>
     </div>
+</div>
+
+
 
     <script>
         // Função para adicionar novo input
@@ -78,7 +88,7 @@
 
         // Fechar o modal e sair da página
         document.getElementById('confirmExit').addEventListener('click', function() {
-            window.location.href = 'inspecao_manutencao_pendente.html'; // Redireciona para a página de manutenção pendente
+            window.location.href = '/inspecao_manutencao_pendente'; // Redireciona para a página de manutenção pendente
         });
 
         // Fechar o modal e cancelar a ação
@@ -212,6 +222,7 @@ header img {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 1000; /* Adiciona um z-index alto para o modal ficar por cima de outros elementos */
 }
 
 .modal-content {
@@ -219,7 +230,8 @@ header img {
     padding: 20px;
     border-radius: 5px;
     text-align: center;
-    width: 300px;
+    width: 400px; /* Aumenta a largura do modal */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Adiciona uma sombra ao modal */
 }
 
 .modal-content h4 {
@@ -227,7 +239,7 @@ header img {
 }
 
 .modal-content button {
-    margin: 5px;
+    margin: 17px; /* Aumenta a margem entre os botões */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -235,10 +247,9 @@ header img {
 }
 
 .btn-cancel {
-    background-color: #f0f0f0;
-    color: #000;
+    background-color: #138132; /* Cor verde */
+    color: #fff;
 }
-
 .btn-exit {
     background-color: #d9534f;
     color: #fff;

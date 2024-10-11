@@ -15,19 +15,24 @@
 </head>
 
 <body>
-    <header>
-        <img src="/img/logo.png" alt="Logo">
+    <header class="text-white py-2">
+        <img src="/img/logo.png" alt="Logo AutoFix" class="img-fluid">
+
+
+        <div class="all-icons">
         <div class="user-icon" data-toggle="modal" data-target="#userModal">
-            <img src="/img/user.png" alt="Ícone de usuário">
+            <img src="/img/user.png" alt="Ícone de usuário" class="icon-user">
         </div>
 
 
         <div class="user-icon2" data-toggle="modal" data-target="#logoutModal">
-            <img src="/img/sair.png" alt="Ícone de Sair">
-        </div></a>
-    </header>
-    </div>
+            <img src="/img/sair.png" alt="Ícone de Sair" class="icon-back">
+        </div>
+        </div>
 
+    </header>
+
+    <main>
     <div class="title">
         <h3>Página Inicial</h3>
     </div>
@@ -71,6 +76,7 @@
             </div>
         </div>
     </div>
+    </main>
 
     <!-- Modal de Informações do Mecânico -->
     <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
@@ -119,26 +125,34 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
 <style>
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: 'Arvo', serif;
-        /* Use a fonte Arvo */
-    }
 
-    header {
-        background-color: #000000;
-        color: white;
-        padding: 8px;
-        text-align: center;
-        position: relative;
-    }
+header {
+    background-color: #000000; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 87px; /* Define a altura do cabeçalho */
+    padding: 16px 1rem !important; /* Forçar o padding desejado */
+    position: fixed; /* Mantém o header fixo no topo */
+    top: 0; /* Fixa no topo */
+    left: 0; /* Fixa à esquerda */
+    right: 0; /* Fixa à direita */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+    
+}
 
-    header img {
+
+    header .img-fluid {
         width: 200px;
         height: auto;
+        display: flex; /* Para alinhar o logo e manter sua posição */
+        align-items: center;
+      
     }
+    
 
     body {
         margin: 0;
@@ -146,11 +160,16 @@
         background-color: #ffffff;
         background-image: url('/img/oficina.png');
         background-size: cover;
+        background-position: center 20%; /* Afastando a imagem do topo */
         background-repeat: no-repeat;
         background-position: center center;
         height: 100vh;
         position: relative;
+        font-family: "Fredoka", sans-serif;
+        font-weight: 400;
+        font-variation-settings:"wdth" 100.0;
         /* Necessário para o uso da pseudo-classe ::before */
+    
     }
 
     body::before {
@@ -188,6 +207,7 @@
     header,
     .container,
     .content {
+        padding: 1rem 0 1rem 1rem;
         position: relative;
         z-index: 2;
         /* Conteúdo acima da sobreposição */
@@ -196,93 +216,38 @@
     }
 
 
-    .user-icon {
-        position: absolute;
-        top: 0px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        background-color: #ffffff00;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
 
     .user-icon img {
         width: 40px;
         height: 40px;
         color: #fff;
-        margin-top: 50px;
-        margin-right: 150px;
         cursor: pointer;
     }
 
-    .user-icon2 {
-        position: absolute;
-        top: 0px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        background-color: #ffffff00;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-    }
+
 
     .user-icon2 img {
-        width: 35px;
-        height: 35px;
+        width: 40px;
+        height: 40px;
         color: #fff;
-        margin-top: 50px;
-        margin-right: 60px;
-    }
-
-    .search-bar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        margin-top: 20px;
-    }
-
-    .search-bar .back-button {
-        margin-right: 10px;
-        background-color: transparent;
-        border: none;
         cursor: pointer;
+       
+       
     }
 
-    .search-bar .back-button img {
-        width: 24px;
-        height: 24px;
+    .all-icons {
+        position: absolute; /* Para posicionar no canto direito */
+        top: 25%; /* Ajuste conforme necessário */
+        right: 5%; /* Ajuste conforme necessário */
+        display: flex; /* Flexbox para alinhar os ícones */
+        gap: 20px; /* Espaçamento entre os ícones */
+        background-color: #ffffff00;
+        border-radius: 50%;
+        justify-content: space-between;
+  
     }
 
-    .search-bar .search-input-container {
-        position: relative;
-        width: 50%;
-    }
-
-    .search-bar input[type="text"] {
-        width: 100%;
-        padding: 10px 10px 10px 20px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        outline: none;
-    }
-
-    .search-bar .search-input-container img {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-    }
 
 
     /*cabecalho acima*/
@@ -350,24 +315,78 @@
 
 
 
-    @media (max-width: 768px) {
-        .card-item {
-            min-width: 120px;
-        }
-
-        .card {
-            padding: 15px;
-        }
-
-        .card img {
-            width: 40px;
-            height: 40px;
-        }
-
-        .card-title {
-            font-size: 14px;
-        }
+    @media screen and (max-width: 768px){
+        header .img-fluid {
+        width: 120px;
     }
+
+header {
+    justify-content:space-between;
+    position: fixed; /* Mantém o header fixo no topo */
+    top: 0; /* Fixa no topo */
+    left: 0; /* Fixa à esquerda */
+    right: 0; /* Fixa à direita */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+body {
+    padding-top: 70px; /* Espaço para o header fixo */
+}
+
+body {
+        background-image: url('/img/oficina.png'); /* Imagem para telas pequenas */
+        height: auto; /* Ajusta a altura conforme o conteúdo */
+        background-position: center 40%; /* Aumenta o afastamento na versão pequena */
+    }
+
+    body::before {
+        background-color: rgba(0, 0, 0, 0.6); /* Aumenta a opacidade na camada escura */
+        
+    }
+
+    }
+
+    /* Media Query para tablets */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    header .img-fluid {
+        width: 160px; /* Ajusta o tamanho da logo para tablets */
+    }
+
+    .all-icons {
+        top: 25%; /* Ajusta a posição dos ícones */
+        right: 5%; /* Mantém a posição à direita */
+    }
+
+    .title {
+        font-size: 14px; /* Aumenta o tamanho da fonte do título */
+        margin-top: 60px; /* Ajusta a margem superior para o título */
+    }
+
+    .card-container {
+        gap: 15px; /* Ajusta o espaçamento entre os cards */
+    }
+
+    .card-item {
+        min-width: 180px; /* Aumenta a largura mínima dos cards */
+        max-width: 220px; /* Aumenta a largura máxima dos cards */
+    }
+
+    .card {
+        width: 180px; /* Ajusta a largura dos cards */
+        height: 180px; /* Ajusta a altura dos cards */
+    }
+
+    .card img {
+        width: 60px; /* Aumenta o tamanho das imagens nos cards */
+        height: 60px; /* Ajusta a altura das imagens nos cards */
+    }
+
+    
+
+
+
+}
+
 </style>
 
 </html>

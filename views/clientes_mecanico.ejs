@@ -321,6 +321,44 @@
     .modal-body input {
         margin-bottom: 10px;
     }
+
+    @media screen and (max-width: 1020px){
+
+        header img {
+            width: 120px;
+            padding: 1rem 0 1rem 1rem;
+        }
+
+        header {
+    justify-content:space-between;
+    position: fixed; /* Mantém o header fixo no topo */
+    top: 0; /* Fixa no topo */
+    left: 0; /* Fixa à esquerda */
+    right: 0; /* Fixa à direita */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+}
+
+body {
+    padding-top: 70px; /* Espaço para o header fixo */
+}
+
+    .new-client-button,
+    .button {
+    max-width: 150px; /* Ajuste conforme necessário */
+    padding: 10px 10px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.search-bar .back-button {
+        margin-right: 1rem;
+        /* Ajuste o valor conforme necessário */
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    }
 </style>
 
 </html>

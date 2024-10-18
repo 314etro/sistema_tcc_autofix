@@ -28,14 +28,15 @@
 
     <div class="cards-container" id="cardsContainer">
         <% orcamento.forEach(function(orcamento) { %>
-            <div class="card" data-name="<%= orcamento.nome_mecanico %>">
+            <div class="card" data-name="<%= orcamento.nome_mecanico %>" data-cpf="<%= orcamento.cpf_mecanico %>"> 
                 <div class="card-content">
                     <h3><%= orcamento.nome_mecanico %></h3>
                     <p>Inspeções em aberto: <%= orcamento.quantidade_inspecoes %></p>
                 </div>
-                <a href="orcamentos_mecanico_adm.html" class="card-button">
+                <a href="/realizar_orcamento/<%= orcamento.cpf_mecanico %>" class="card-button"> 
                     <button class="card-button">Ver orçamentos</button>
                 </a>
+                
             </div>
         <% }); %>
     </div>

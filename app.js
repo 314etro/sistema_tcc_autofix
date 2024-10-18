@@ -8,6 +8,7 @@
         const port = 3000;
 
         const session = require('express-session'); // Adicione o módulo express-session
+const res = require('express/lib/response');
 
         app.use(session({
             secret: 'your-secret-key', // Substitua por uma chave secreta forte
@@ -932,25 +933,25 @@
     });
 
 
-
     app.get('/orcamentos_adm', (req, res) => {
         // Consulta no banco de dados para obter os orçamentos pendentes
         db.query(`
             SELECT 
-        mecanico.nome AS nome_mecanico,
-        COUNT(inspecao_manutencao.id_inspecao_manutencao) AS quantidade_inspecoes
-    FROM 
-        mecanico
-    LEFT JOIN 
-        inspecao_manutencao ON mecanico.cpf_mecanico = inspecao_manutencao.cpfmecanico
-    LEFT JOIN 
-        orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
-    WHERE 
-        inspecao_manutencao.id_inspecao_manutencao IS NOT NULL -- Garante que a inspeção de manutenção existe
-    GROUP BY 
-        mecanico.nome
-    HAVING 
-        COUNT(orcamento.id_orcamento) = 0; -- Somente mecânicos sem orçamento enviado
+                mecanico.nome AS nome_mecanico,
+                mecanico.cpf_mecanico,
+                COUNT(inspecao_manutencao.id_inspecao_manutencao) AS quantidade_inspecoes
+            FROM 
+                mecanico
+            LEFT JOIN 
+                inspecao_manutencao ON mecanico.cpf_mecanico = inspecao_manutencao.cpfmecanico
+            LEFT JOIN 
+                orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
+            WHERE 
+                inspecao_manutencao.id_inspecao_manutencao IS NOT NULL -- Garante que a inspeção de manutenção existe
+            GROUP BY 
+                mecanico.nome, mecanico.cpf_mecanico
+            HAVING 
+                COUNT(orcamento.id_orcamento) = 0; -- Somente mecânicos sem orçamento enviado
 
         `, (error, results) => {
             if (error) {
@@ -962,3 +963,139 @@
             }
         });
     });
+
+
+
+app.get('/realizar_orcamento/:cpf_mecanico', (req, res) => {
+    const cpfMecanico = req.params.cpf_mecanico;
+
+    // Consulta para buscar o nome e telefone do mecânico
+    db.query('SELECT * FROM mecanico WHERE cpf_mecanico = ?', [cpfMecanico], (error, mecanicoResults) => {
+        if (error) {
+            console.log('Erro ao buscar dados do mecânico:', error);
+            res.status(500).send('Erro ao buscar dados do mecânico');
+            return;
+        }
+
+        if (mecanicoResults.length === 0) {
+            console.log('Mecânico não encontrado');
+            res.status(404).send('Mecânico não encontrado');
+            return;
+        }
+
+        const mecanico = mecanicoResults[0];
+
+        // Consulta para buscar os veículos com inspeções em aberto (sem orçamento)
+        db.query(`
+           SELECT 
+    v.placa,
+    v.marca,
+    v.modelo,
+    v.cor,
+    v.ano,
+    im.id_inspecao_manutencao,
+    im.status
+FROM 
+    veiculo v
+JOIN 
+    inspecao_manutencao im ON v.placa = im.placa;
+        `, [cpfMecanico], (error, veiculoResults) => {
+            if (error) {
+                console.log('Erro ao buscar veículos:', error);
+                res.status(500).send('Erro ao buscar veículos');
+                return;
+            }
+
+            res.render('orcamentos_mecanico_adm', { 
+                mecanico: mecanico, // Dados do mecânico
+                veiculos: veiculoResults // Veículos com inspeções em aberto
+            });
+        });
+    });
+});
+
+// Rota para definir o preço do orçamento
+app.get('/definir_preco_orcamento/:placa', (req, res) => {
+    const placa = req.params.placa;
+
+    // Consulta no banco de dados para obter os dados do veículo e do cliente
+    db.query(`
+        SELECT 
+            v.placa, v.marca, v.modelo, v.cor, v.ano,
+            c.nome AS nome_cliente, c.telefone AS telefone_cliente, c.email AS email_cliente,
+            im.id_inspecao_manutencao
+        FROM 
+            veiculo v
+        JOIN 
+            cliente c ON v.cpfcliente = c.cpf_cliente
+        JOIN 
+            inspecao_manutencao im ON v.placa = im.placa
+        WHERE 
+            v.placa = ?
+    `, [placa], (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar dados do veículo e cliente:', error);
+            res.status(500).send('Erro ao buscar dados do veículo e cliente');
+            return;
+        }
+
+        if (results.length === 0) {
+            console.log('Veículo não encontrado');
+            res.status(404).send('Veículo não encontrado');
+            return;
+        }
+
+        const veiculo = results[0];
+
+        // Consulta para obter os serviços da inspeção de manutenção
+        db.query('SELECT * FROM servico WHERE id_inspecao_manutencao = ?', [veiculo.id_inspecao_manutencao], (error, servicos) => {
+            if (error) {
+                console.log('Erro ao buscar serviços:', error);
+                res.status(500).send('Erro ao buscar serviços');
+                return;
+            }
+
+            // Renderiza a view 'definir_preco_orcamento' com os dados do veículo, cliente e serviços
+            res.render('definir_preco_adm', {
+                veiculo: veiculo,
+                servicos: servicos
+            });
+        });
+    });
+});
+
+// 
+
+
+app.get('/servicos/:placa', (req, res) => {
+    const placa = req.params.placa;
+
+    // Query para buscar os serviços relacionados ao veículo
+    const sql = 'SELECT * FROM servico JOIN inspecao_manutencao ON servico.id_inspecao_manutencao = inspecao_manutencao.id_inspecao_manutencao JOIN veiculo ON inspecao_manutencao.placa = veiculo.placa WHERE veiculo.placa = ?';
+
+    db.query(sql, [placa], (err, result) => {
+        if (err) throw err;
+        
+        // Renderizando a página com os serviços do veículo
+        res.render('pagina-servico', {
+            veiculo: result[0], // Assumindo que 'veiculo' é o primeiro resultado
+            servicos: result // Passando todos os serviços encontrados
+        });
+    });
+});
+
+// Rota para o administrador atualizar os preços dos serviços
+app.post('/atualizar-preco', (req, res) => {
+    const { nome_servico, valor_servico } = req.body;
+
+    // Query para atualizar o preço do serviço
+    const sql = 'UPDATE servico SET valor_servico = ? WHERE nome_servico = ?';
+
+    db.query(sql, [valor_servico, nome_servico], (err, result) => {
+        if (err) throw err;
+        console.log('Preço atualizado com sucesso!');
+
+        // Redirecionar de volta para a página de serviços
+        res.redirect('/servicos');
+    });
+});

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orçamentos em aberto</title>
+    
+</head>
+
+<body>
+    <header>
+        <img src="/img/logo.png" alt="Logo Autofix">
+    </header>
+
+    <div class="title-container">
+        <button class="back-button">
+            <img src="/img/seta.png" alt="Voltar">
+        </button>
+        <div class="title">
+            Orçamentos em aberto 
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="mechanic-box">
+            <h2>Dados do Mecânico:</h2>
+            <div class="mechanic-info">
+                <p><strong>Nome:</strong> <%= mecanico.nome %></p>
+                <p><strong>Número:</strong> <%= mecanico.telefone %></p>
+                <p><strong>E-mail:</strong> <%= mecanico.email %></p>
+                <p><strong>CPF:</strong> <%= mecanico.cpf_mecanico %></p>
+            </div>
+        </div>
+
+        <div class="cards-section">
+            <h2>Realizar orçamento:</h2>
+            <div class="cards-container" id="cardsContainer">
+                <% veiculos.forEach((veiculo)=> { %>
+                    <a href="/definir_preco_orcamento/<%= veiculo.placa %>" class="card-link">
+                        <div class="card">
+                            <h3><%= veiculo.marca %> <%= veiculo.modelo %></h3>
+                            <h1><%= veiculo.placa %></h1>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
+           
+        </div>
+    </div>
+    
+</body>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-weight: normal;
+    }
+
+    header {
+        background-color: #860606;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+    }
+
+    header img {
+        width: 200px;
+        height: auto;
+    }
+
+    .title-container {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Centraliza ao meio */
+        margin: 20px auto;
+        width: 80%;
+        position: relative;
+    }
+
+    .back-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        left: -120px; /* Move a seta mais para a esquerda */
+    }
+
+    .back-button img {
+        width: 16px; /* Ajuste o tamanho da seta */
+        height: 16px;
+    }
+
+    .title {
+        font-size: 24px;
+        color: #333;
+        font-weight: bold; /* Título em negrito */
+    }
+
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start; /* Alinha os itens no topo */
+        margin: 20px;
+        height: 400px;
+        gap: 00px; /* Espaçamento entre os boxes */
+    }
+
+    .mechanic-box {
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 50px rgba(0, 0, 0, 0.1);
+        border: 2px solid #ccc;
+        width: 50%; /* Aumenta a largura do box */
+        height: 220px; /* Aumenta a altura do box */
+        box-sizing: border-box;
+        text-align: left; /* Alinha o texto à esquerda */
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza o conteúdo verticalmente */
+        margin: 50px; /* Adiciona uma margem superior para o alinhamento */
+    }
+
+    .mechanic-box h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: #000000;
+    }
+
+    .mechanic-info p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+    .cards-section {
+        width: 50%; /* Ajusta a largura da seção de cartões */
+        
+    }
+
+    .cards-section h2 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+        margin-left: 120px; /* Ajuste a margem esquerda aqui */
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(2, 250px); /* Duas colunas com largura fixa */
+        gap: 40px; /* Aumenta o espaçamento entre os cartões */
+        box-sizing: border-box;
+        align-items: start; /* Garante que todos os cartões comecem alinhados no topo */
+    }
+
+    .card-link {
+        text-decoration: none; /* Remove o sublinhado dos links */
+    }
+
+    .card {
+        background-color: #ffffff; /* Cor de fundo similar à imagem */
+        border: 5px solid #000000; /* Adiciona borda de 4px */
+        border-radius: 10px; /* Bordas levemente arredondadas */
+       
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 130px; /* Aumenta a altura dos cartões */
+        width: 240px; /* Ajusta a largura dos cartões */
+        font-size: 20px;
+        display: flex; /* Adiciona flexbox */
+        flex-direction: column; /* Direção da flexbox para vertical */
+        justify-content: flex-start; /* Alinha o conteúdo no topo */
+        transition: transform 0.2s; /* Adiciona a transição para animação */
+    }
+
+    .card:hover {
+        transform: translateY(-5px); /* Move o card para cima ao passar o mouse */
+    }
+
+    .card h3 {
+        margin: 0 0 0px 0;
+        font-size: 20px;
+        color: white; /* Cor do texto do título similar à imagem */
+        background-color: #003688; /* Cor de fundo do título similar à imagem */
+        padding: 5px;
+        align-self: stretch; /* Faz o título ocupar toda a largura do card */
+        border-radius: 3%;
+    }
+
+    .card h1 {
+        margin: 30px;
+        font-size: 40px;
+        font-style: bold;
+        color: black; /* Cor do texto do conteúdo similar à imagem */
+        justify-content: center;
+    }
+
+    footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        margin-top: auto;
+        font-weight: normal;
+    }
+
+    .mechanic-info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .mechanic-info strong {
+        font-weight: bold;
+    }
+</style>
+</html>

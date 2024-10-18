@@ -52,7 +52,27 @@
     });
 
     app.get('/home_mecanico', (req, res) => {
-        res.render('home_mecanico');
+        // Verifique se a sessão do mecânico está ativa
+        if (!req.session.cpfMecanico) {
+            return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
+        }
+    
+        const cpfMecanico = req.session.cpfMecanico;
+    
+        // Consulta o banco de dados para obter os dados do mecânico
+        db.query('SELECT * FROM mecanico WHERE cpf_mecanico = ?', [cpfMecanico], (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar dados do mecânico', error);
+                res.status(500).send('Erro ao buscar dados do mecânico');
+            } else {
+                if (results.length > 0) {
+                    const mecanico = results[0];
+                    res.render('home_mecanico', { mecanico: mecanico }); // Renderiza a view 'home_mecanico' com os dados do mecânico
+                } else {
+                    res.send('Mecânico não encontrado');
+                }
+            }
+        });
     });
 
 
@@ -65,7 +85,20 @@
     });
 
     app.get('/home_adm', (req, res) => {
-        res.render('home_adm');
+        // Consulta o banco de dados para obter os dados do administrador
+        db.query('SELECT * FROM administrador WHERE email = ?', [req.session.emailAdm], (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar dados do administrador', error);
+                res.status(500).send('Erro ao buscar dados do administrador');
+            } else {
+                if (results.length > 0) {
+                    const administrador = results[0];
+                    res.render('home_adm', { administrador: administrador }); 
+                } else {
+                    res.send('Administrador não encontrado');
+                }
+            }
+        });
     });
 
 
@@ -79,9 +112,6 @@
         res.render('orcamentos_adm');
     });
 
-    app.get('/fornecedor_adm', (req, res) => {
-        res.render('fornecedor_adm');
-    });
 
 
     app.get('/index1', (req, res) => {
@@ -144,11 +174,35 @@
     });
     });
 
+    app.get('/perfil_mecanico', (req, res) => {
+        // Verifique se a sessão do mecânico está ativa
+        if (!req.session.cpfMecanico) {
+            return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
+        }
+    
+        const cpfMecanico = req.session.cpfMecanico;
+    
+        // Consulta o banco de dados para obter os dados do mecânico
+        db.query('SELECT * FROM mecanico WHERE cpf_mecanico = ?', [cpfMecanico], (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar dados do mecânico', error);
+                res.status(500).send('Erro ao buscar dados do mecânico');
+            } else {
+                if (results.length > 0) {
+                    const mecanico = results[0];
+                    res.render('perfil_mecanico', { mecanico: mecanico }); // Renderiza a view 'perfil_mecanico' com os dados do mecânico
+                } else {
+                    res.send('Mecânico não encontrado');
+                }
+            }
+        });
+    });
+
     app.post('/loginAdm', (req,res)=>{
         const usuario = req.body.emailAdm
         const senha = req.body.senhaAdm
         const idoficina = req.body.id_oficina
-
+    
         db.query('select senha, idoficina from administrador where email = ?', [usuario], (error,results)=>{
         
             if(error){
@@ -160,17 +214,38 @@
                     
                     if(passwordDB == senha && idoficinaDB == idoficina ){
                         console.log('login bem sucedido ')
+                        // Armazene o email na sessão
+                        req.session.emailAdm = usuario; 
                         res.redirect('/home_adm')
                     }else{
                         console.log('email ou senha incorretos')
                     }
-
+    
                 }else{
                     console.log('usuário não cadastrado')
                 }
             }
         })
     });
+
+    // Rota para exibir o perfil do administrador
+app.get('/perfil_adm', (req, res) => {
+    // Consulta o banco de dados para obter os dados do administrador
+    db.query('SELECT * FROM administrador WHERE email = ?', [req.session.emailAdm], (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar dados do administrador', error);
+            res.status(500).send('Erro ao buscar dados do administrador');
+        } else {
+            if (results.length > 0) {
+                const administrador = results[0];
+                res.render('perfil_adm', { administrador: administrador }); // Renderiza a view 'perfil_adm' com os dados do administrador
+            } else {
+                res.send('Administrador não encontrado');
+            }
+        }
+    });
+});
+
 
     app.post('/loginCliente', (req, res) => {
         const usuario = req.body.emailCliente;
@@ -444,58 +519,173 @@
     });
     //
 
-    //rota funcionario 
-    app.get('/funcionarios_adm', (req, res) => {
-        db.query('SELECT * FROM mecanico ORDER BY data_criacao DESC', (error, results) => {
-            if (error) {
-                console.log('Erro ao buscar funcionario', error);
-                res.status(500).send('Erro ao buscar funcionario');
-            } else {
-                res.render('funcionarios_adm', { funcionarios: results });
-            }
-        });
-    });
-
-    app.post('/adicionarFuncionario', (req, res) => {
-        const cpf_mecanico = req.body.cpf_mecanico;
-        const nome = req.body.nome_mecanico;
-        const email = req.body.email_mecanico;
-        const telefone = req.body.telefone_mecanico;
-        const senha = req.body.senha_mecanico;
-        const id_oficina = req.body.id_oficina;
-        const cpf_adm = req.body.cpf_adm;
-    
-        db.query('INSERT INTO mecanico (cpf_mecanico, nome, email, telefone, senha, idoficina, cpfadm) VALUES  (?, ?, ?, ?, ?, ?, ?)', 
-        [cpf_mecanico, nome, email, telefone, senha, id_oficina, cpf_adm], (error, results) => {
-            if (error) {
-                console.log('Erro ao cadastrar mecanico', error);
-            } else {
-                console.log(results);
-                console.log('mecanico cadastrado com sucesso');
-                // Redireciona para a página de clientes
-                res.redirect('/funcionarios_adm');
-            }
-        });
-    });
-
-
-    app.post('/editarFuncionario', (req, res) =>{
-        const cpf_mecanico = parseInt(req.body.inputCpf_mecanico);
-        const nome = parseInt(req.body.inputNome);
-        const email = req.body.inputEmail;
-        const senha = parseInt(req.body.inputSenha);
-        const telefone = req.body.inputTelefone;
-        const id_oficina = req.body.textId_oficina;
-        db.query('update livro set cpf_mecanico = ?, nome = ?, email = ?, senha = ?, telefone = ?, id_oficina = ? where cpf_mecanico = ?', [cpf_mecanico, nome, email, senha, telefone, id_oficina, cpf_mecanico], (error, results) =>{
-        if(error){
-            console.log('Erro ao editar Funcionário');
+//rota funcionario 
+app.get('/funcionarios_adm', (req, res) => {
+    db.query('SELECT * FROM mecanico ORDER BY data_criacao DESC', (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar funcionario', error);
+            res.status(500).send('Erro ao buscar funcionario');
         } else {
+            res.render('funcionarios_adm', { funcionarios: results });
+        }
+    });
+});
+
+app.post('/adicionarFuncionario', (req, res) => {
+    const cpf_mecanico = req.body.cpf_mecanico;
+    const nome = req.body.nome_mecanico;
+    const email = req.body.email_mecanico;
+    const telefone = req.body.telefone_mecanico;
+    const senha = req.body.senha_mecanico;
+    const id_oficina = req.body.id_oficina;
+    const cpf_adm = req.body.cpf_adm;
+ 
+    db.query('INSERT INTO mecanico (cpf_mecanico, nome, email, telefone, senha, idoficina, cpfadm) VALUES  (?, ?, ?, ?, ?, ?, ?)', 
+    [cpf_mecanico, nome, email, telefone, senha, id_oficina, cpf_adm], (error, results) => {
+        if (error) {
+            console.log('Erro ao cadastrar mecanico', error);
+        } else {
+            console.log(results);
+            console.log('mecanico cadastrado com sucesso');
+            // Redireciona para a página de clientes
             res.redirect('/funcionarios_adm');
         }
-        });
     });
-    //
+ });
 
+
+
+ app.post('/editarFuncionario', (req, res) => {
+    const cpf_mecanico = req.body.cpf_mecanico; // CPF usado apenas no WHERE
+    const nome = req.body.nome;
+    const email = req.body.email;
+    const telefone = req.body.telefone;
+    const senha = req.body.senha;
+    const idoficina = req.body.id_oficina;
+    const cpfadm = req.body.cpf_adm;
+
+
+
+    db.query('update inspecao_manutencao set id_inspecao_manutencao, cpfmecanico, placa')
+
+    // Atualiza todos os campos, exceto o CPF
+    db.query('UPDATE mecanico SET nome = ?, email = ?, telefone = ?, senha = ?, idoficina = ?, cpfadm = ? WHERE cpf_mecanico = ?', 
+    [nome, email, telefone, senha, idoficina, cpfadm, cpf_mecanico], 
+    (error, results) => {
+      if (error) {
+        console.log('Erro ao editar funcionário:', error);
+        res.status(500).send('Erro ao editar funcionário');
+      } else {
+        res.redirect('/funcionarios_adm');
+        console.log(results);
+      }
+    });
+});
+
+app.post('/excluirFuncionario', (req, res) => {
+    const cpf_mecanico = req.body.cpf_mecanico;
+    const cpf_novo = req.body.cpf_novomec;
+
+    db.query('UPDATE inspecao_manutencao set cpfmecanico = ? where cpfmecanico = ?', [cpf_novo, cpf_mecanico], (error, results) => {
+        if(error) {
+            console.log('erro fazer o update', error);
+        } else {
+            console.log('Deu tudo certo');
+        }
+
+    
+
+    db.query('DELETE FROM mecanico WHERE cpf_mecanico = ?', [cpf_mecanico], (clienteError) => {
+        if (clienteError) {
+            console.log('Erro ao excluir funcionario', clienteError);
+            res.status(500).send('Erro ao excluir funcionario');
+            return;
+        }
+
+        console.log('Funcionario excluído com sucesso');
+        // Redireciona para a página de clientes
+        res.redirect('/funcionarios_adm');
+    });
+});
+
+});
+//
+app.get('/fornecedor_adm', (req, res) => {
+    db.query('SELECT * FROM fornecedor ORDER BY data_criacao DESC', (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar fornecedor', error);
+            res.status(500).send('Erro ao buscar fornecedor');
+        } else {
+            res.render('fornecedor_adm', { fornecedores: results });
+        }
+    });
+});
+
+
+
+app.post('/adicionarFornecedor', (req, res) => {
+    const cnpj_fornecedor = req.body.cnpj_fornecedor;
+    const nome = req.body.nome_fornecedor;
+    const email = req.body.email_fornecedor;
+    const telefone = req.body.telefone_fornecedor;
+    const endereco = req.body.endereco_fornecedor;
+    const id_oficina = req.body.id_oficina;
+ 
+    db.query('INSERT INTO fornecedor (cnpj, nome, telefone, email, endereco, idoficina) VALUES  (?, ?, ?, ?, ?, ?)', 
+    [cnpj_fornecedor, nome, telefone, email, endereco, id_oficina], (error, results) => {
+        if (error) {
+            console.log('Erro ao cadastrar fornecedor', error);
+        } else {
+            console.log(results);
+            console.log('fornecedor cadastrado com sucesso');
+            // Redireciona para a página de clientes
+            res.redirect('/fornecedor_adm');
+        }
+    });
+ });
+
+ 
+ app.post('/editarFornecedor', (req, res) =>{
+    const cnpj = req.body.cnpj_fornecedor;
+    const nome = req.body.nome_fornecedor;
+    const email = req.body.email_fornecedor;
+    const telefone = req.body.telefone_fornecedor;
+    const endereco = req.body.endereco_fornecedor;
+    const idoficina = req.body.id_oficina;
+
+    db.query('update fornecedor set cnpj = ?, nome = ?, telefone = ?, email = ?, endereco = ?, idoficina = ? where cnpj = ?', [cnpj, nome, telefone, email, endereco, idoficina, cnpj], (error, results) =>{
+      if(error){
+        console.log('Erro ao editar fornecedor');
+        console.log(error);
+        
+      } else {
+        res.redirect('/fornecedor_adm');
+        console.log(results);
+       
+      }
+    });
+  });
+
+
+  // Excluir fornecedor
+  
+  app.post('/excluirFornecedor', (req, res) => {
+    const cnpj = req.body.cnpj_fornecedor;
+
+            // Por fim, exclua o cliente
+            db.query('DELETE FROM fornecedor WHERE cnpj = ?', [cnpj], (clienteError) => {
+                if (clienteError) {
+                    console.log('Erro ao excluir fornecedor', clienteError);
+                    res.status(500).send('Erro ao excluir cliente');
+                    return;
+                }
+
+                console.log('Cliente excluído com sucesso');
+                // Redireciona para a página de clientes
+                res.redirect('/fornecedor_adm');
+            });
+        });
+        //
 
     app.get('/aprovar_entrada_cliente', (req, res) => {
         // Verifique se o cliente está autenticado
@@ -593,7 +783,7 @@ app.get('/ver_checklist_entrada', (req, res) => {
 
 
   app.get('/inspecao_manutencao_pendente', (req,res)=>{
-    db.query('SELECT cliente.nome AS nome_cliente, cliente.email, cliente.telefone, veiculo.marca, veiculo.modelo, veiculo.placa, inspecao_entrada.status FROM cliente JOIN veiculo ON cliente.cpf_cliente = veiculo.cpfcliente JOIN inspecao_entrada ON veiculo.placa = inspecao_entrada.placa  WHERE inspecao_entrada.status = "aprovado";', (error,results)=> {
+    db.query('SELECT cliente.nome AS nome_cliente, cliente.email, cliente.telefone, veiculo.marca, veiculo.modelo, veiculo.placa, inspecao_entrada.status FROM cliente JOIN veiculo ON cliente.cpf_cliente = veiculo.cpfcliente JOIN inspecao_entrada ON veiculo.placa = inspecao_entrada.placa LEFT JOIN inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa LEFT JOIN servico ON inspecao_manutencao.id_inspecao_manutencao = servico.id_inspecao_manutencao WHERE inspecao_entrada.status = "aprovado" AND servico.id_inspecao_manutencao IS NULL;', (error,results)=> {
         if(error){
             console.log('não foi possivel exibir os aprovados')
         }else{
@@ -601,7 +791,9 @@ app.get('/ver_checklist_entrada', (req, res) => {
         }
     })
   })
-  app.get('/realizar_inspecao_manutencao/:placa', (req, res) => {
+
+
+app.get('/realizar_inspecao_manutencao/:placa', (req, res) => {
     const placa = req.params.placa;
 
     // Consulta no banco de dados
@@ -627,20 +819,31 @@ app.get('/ver_checklist_entrada', (req, res) => {
 
         const veiculo = results[0];
 
-        // Renderiza o template com os dados do veículo e do cliente
-        res.render('realizar_inspecao_manutencao_mecanico', {
-            placa: veiculo.placa,
-            marca: veiculo.marca,
-            modelo: veiculo.modelo,
-            cor: veiculo.cor,
-            ano: veiculo.ano,
-            nome_cliente: veiculo.nome_cliente,
-            telefone_cliente: veiculo.telefone_cliente,
-            email_cliente: veiculo.email_cliente
+        // Obtenha o inspecaoId do banco de dados (adapte a consulta conforme necessário)
+        db.query('SELECT id_inspecao_manutencao FROM inspecao_manutencao WHERE placa = ?', [placa], (inspecaoError, inspecaoResults) => {
+            if (inspecaoError) {
+                console.error('Erro ao buscar inspecaoId:', inspecaoError);
+                res.status(500).send('Erro ao buscar inspecaoId.');
+                return;
+            }
+
+            const inspecaoId = inspecaoResults[0].id_inspecao_manutencao; // Obtenha o inspecaoId
+
+            // Renderiza o template com os dados do veículo, do cliente e o inspecaoId
+            res.render('realizar_inspecao_manutencao_mecanico', {
+                placa: veiculo.placa,
+                marca: veiculo.marca,
+                modelo: veiculo.modelo,
+                cor: veiculo.cor,
+                ano: veiculo.ano,
+                nome_cliente: veiculo.nome_cliente,
+                telefone_cliente: veiculo.telefone_cliente,
+                email_cliente: veiculo.email_cliente,
+                inspecaoId: inspecaoId // Passe o inspecaoId para o template
+            });
         });
     });
 });
-
 
 app.post('/realizar_inspecao_manutencao_a/:placa', (req, res) => {
     const placa = req.params.placa;
@@ -670,6 +873,7 @@ app.post('/realizar_inspecao_manutencao_a/:placa', (req, res) => {
         res.redirect('/loginMecanico'); 
     }
 });
+
 
 
 app.post('/cancelar_inspecao_manutencao/:placa', (req, res) => {
@@ -702,25 +906,36 @@ app.post('/cancelar_inspecao_manutencao/:placa', (req, res) => {
 });
 
 
-// Rota para salvar os serviços
 app.post('/salvar-servicos', (req, res) => {
-    const { nome_servico } = req.body;
-  
-    if (Array.isArray(nome_servico)) {
-      nome_servico.forEach(servico => {
-        const sql = 'INSERT INTO servico (nome_servico) VALUES (?)';
-        db.query(sql, [servico], (err, result) => {
-          if (err) throw err;
-          console.log('Serviço inserido:', servico);
+    const inspecaoId = req.body.inspecaoId; // Obtenha o inspecaoId do campo oculto
+    const servicos = req.body.nome_servico; // Obtenha os nomes dos serviços do array
+
+    // Verifique se a sessão existe e se a chave 'cpfMecanico' está presente
+    if (req.session.hasOwnProperty('cpfMecanico')) {
+        const cpfMecanico = req.session.cpfMecanico; 
+
+        // Itera sobre cada serviço e insere na tabela servico
+        servicos.forEach(nomeServico => {
+            const sqlInsert = `
+                INSERT INTO servico (nome_servico, valor_servico, id_inspecao_manutencao)
+                VALUES (?, 0.00, ?);
+            `;
+
+            db.query(sqlInsert, [nomeServico, inspecaoId], (err, result) => {
+                if (err) {
+                    console.error('Erro ao inserir serviço:', err);
+                    // Você pode lidar com o erro de forma mais robusta aqui
+                    // Por exemplo, enviar uma mensagem de erro para o usuário
+                } else {
+                    console.log('Serviço inserido com sucesso:', nomeServico);
+                }
+            });
         });
-      });
+
+        // Após inserir todos os serviços, redireciona para a página de inspeção pendente
+        res.redirect('/inspecao_manutencao_pendente');
     } else {
-      // Caso seja apenas um item
-      const sql = 'INSERT INTO servico (nome_servico) VALUES (?)';
-      db.query(sql, [nome_servico], (err, result) => {
-        if (err) throw err;
-        console.log('Serviço inserido:', nome_servico);
-      });
+        // Se a sessão não existir ou a chave não estiver presente, redirecione para o login
+        res.redirect('/loginMecanico'); 
     }
-  
-  });
+});

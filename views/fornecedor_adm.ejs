@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fornecedor - Autofix</title>
+    <title>Funcionários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Estilos gerais */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-weight: normal;
-        }
+  
+   /* Estilos gerais */
+   body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #333;
+    }
 
             header {
     background-color: #860606;
@@ -38,49 +34,54 @@
     display: block;
 }
 
-        .search-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 20px 0;
-        }
+        
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 25px;
+        margin-top: 20px;
+    }
 
-        .back-button {
-            margin-right: 15px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
+    .search-bar .back-button {
+        margin-right: 50px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
 
-        .back-button img {
-            width: 24px;
-            height: 24px;
-        }
+    .search-bar .back-button img {
+        width: 24px;
+        height: 24px;
+    }
 
-        .search-input-container {
-            position: relative;
-            width: 50%;
-            margin-right: 20px;
-        }
+    .search-bar .search-input-container {
+        position: relative;
+        width: 50%;
+    }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px 10px 10px 20px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            outline: none;
-        }
+    .search-bar input[type="text"] {
+        width: 100%;
+        padding: 10px 10px 10px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        outline: none;
+    }
 
-        .search-input-container img {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
-        }
+    .search-bar .search-input-container img {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+    .search-bar .new-client-button {
+        margin-left: 20px;
+    }
 
         .add-supplier, .button {
             padding: 10px 20px;
@@ -94,19 +95,19 @@
         }
 
         .add-supplier:hover, .button:hover {
-            background-color: #0726af;
+            background-color: #22394c;
             transform: translateY(-2px);
         }
 
         .title {
-            text-align: center;
-            font-size: 18px;
-            margin: 10px auto;
-            color: #333;
-            width: 80%;
-            display: flex;
-            justify-content: center;
-        }
+        text-align: center;
+        font-size: 24px;
+        margin: 20px auto;
+        color: #333;
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
 
         .container {
             width: 80%;
@@ -159,19 +160,58 @@
             cursor: pointer;
         }
 
-        .supplier-icons {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 10px;
-        }
-
-        .supplier-icons img {
-            width: 20px;
-            height: 20px;
+        .supplier-button2 {
+            padding: 10px 20px;
+            background-color: #ac0909;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
+
+        /* Container para os botões */
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; /* Espaço entre os botões */
+    position: absolute;
+    bottom: 20px; /* Alinhamento na parte inferior */
+    right: 20px; /* Alinhamento à direita */
+}
+
+/* Estilo do botão de excluir */
+.delete-client-button {
+    background-color: #ac0909;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.delete-client-button:hover {
+    background-color: rgb(121, 23, 33);
+    transform: translateY(-2px);
+}
+
+/* Estilo do botão de editar */
+.btn-editar {
+    background-color: #fa772a;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #ffffff;
+}
+
+.btn-editar:hover {
+    background-color: #b15621;
+    transform: translateY(-2px);
+}
+
 
         footer {
             background-color: #333;
@@ -183,102 +223,53 @@
         }
 
         /* Estilos do Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
         .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-            position: relative;
-        }
+        border-radius: 10px;
+    }
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .modal-header {
+        background-color: #005b71;
+        color: white;
+    }
 
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
+    .modal-header button {
+        color: white;
+    }
 
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    .modal-footer {
+        border-top: none;
+    }
 
-        .modal-header h2 {
-            margin: 0;
-        }
+    .modal-body input {
+        margin-bottom: 10px;
+    }
 
-        .modal-body {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    .modal-body {
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
 
-        .modal-body label {
-            font-weight: bold;
-        }
-
-        .modal-body input[type="text"],
-        .modal-body input[type="email"],
-        .modal-body input[type="tel"],
-        .modal-body input[type="number"],
-        .modal-body textarea {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .modal-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .modal-footer button {
-            padding: 10px 20px;
+    .new-fornecedor-button, .button {
+        padding: 10px 20px;
+            background-color: #005b71; /* Cor atualizada */
+            color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
+            margin-left: 20px; /* Espaço entre a barra de pesquisa e o botão */
+        transition: background-color 0.3s, transform 0.3s;
+    }
 
-        .modal-footer button.cancel {
-            background-color: #ccc;
-            color: #333;
-        }
-
-        .modal-footer button.save {
-            background-color: #005b71;
-            color: #fff;
-        }
+    .new-fornecedor-button:hover, .button:hover {
+        background-color: #033441;
+        transform: translateY(-2px);
+    }
     </style>
 </head>
+
 <body>
-    <header>
-        <img src="/img/Logo.png" alt="Logo">
+    <header class="text-white py-2" style="background-color: #860606;">
+       <a href="home_adm.html"><img src="../img/logo.png" alt="Logo Autofix" class="img-fluid" style="max-width: 200px; margin: 0 auto; display: block;"></a>
     </header>
 
     <div class="title">
@@ -286,127 +277,215 @@
     </div>
 
     <div class="search-bar">
-        <a href="/home_adm">
         <button class="back-button">
-            <img src="/img/seta.png" alt="Voltar">
+            <a href="/home_adm">  <img src="/img/seta.png" alt="Voltar"></a>
         </button>
-        </a>
         <div class="search-input-container">
-            <input type="text" placeholder="Buscar fornecedor">
-            <img src="/img/lupa.png" alt="Pesquisar">
+            <input type="text" id="searchInput" placeholder="Buscar funcionário">
+            <img src="/img/lupa.png" alt="Pesquisar" id="searchButton">
         </div>
-        <button class="add-supplier" onclick="document.getElementById('myModal').style.display = 'block'">Cadastrar Fornecedor</button>
+        <button class="new-client-button button" data-bs-toggle="modal" data-bs-target="#newClientModal">Novo Fornecedor</button>
     </div>
 
-    <div class="container">
-        <div class="supplier-list">
-            <div class="supplier-item">
-                <div class="supplier-info">
-                    <div class="supplier-name">AutoTech Peças S.A.</div>
-                </div>
-                <div class="supplier-details">
-                    <p>CNPJ: 12.345.678/0001-99</p>
-                    <p>Telefone: (11) 4000-1234</p>
-                    <p>E-mail: contato@autotechpecas.com.br</p>
-                </div>
-                <button class="supplier-button">Entrar em contato</button>
-                <div class="supplier-icons">
-                    <img src="/img/editar.jpg" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
-                    <img src="/img/excluir.jpg" alt="Excluir">
-                </div>
-            </div>
-            <div class="supplier-item">
-                <div class="supplier-info">
-                    <div class="supplier-name">MaxAuto Componentes Ltda.</div>
-                </div>
-                <div class="supplier-details">
-                    <p>CNPJ: 98.765.432/0001-11</p>
-                    <p>Telefone: (21) 3000-5678</p>
-                    <p>E-mail: atendimento@maxautocomponentes.com.br</p>
-                </div>
-                <button class="supplier-button">Entrar em contato</button>
-                <div class="supplier-icons">
-                    <img src="/img/editar.jpg" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
-                    <img src="/img/excluir.jpg" alt="Excluir">
-                </div>
-            </div>
-            <div class="supplier-item">
-                <div class="supplier-info">
-                    <div class="supplier-name">TurboParts Indústria e Comércio Ltda.</div>
-                </div>
-                <div class="supplier-details">
-                    <p>CNPJ: 45.678.910/0001-22</p>
-                    <p>Telefone: (31) 2500-4321</p>
-                    <p>E-mail: contato@turboparts.com.br</p>
-                </div>
-                <button class="supplier-button">Entrar em contato</button>
-                <div class="supplier-icons">
-                    <img src="/img/editar.jpg" alt="Editar" onclick="document.getElementById('editModal').style.display = 'block'">
-                    <img src="/img/excluir.jpg" alt="Excluir">
-                </div>
-            </div>
-        </div>
-    </div>
+    <main class="container">
+        <div class="row" id="fornecedorCards">
+            <!-- Cards de fornecedores serão adicionados aqui -->
+            <div class="supplier-list">
+                <% fornecedores.forEach((fornecedor) => { %>
+                    <div class="supplier-item">
+                        <div class="supplier-info" data-cnpj="<%= fornecedor.cnpj %>">
+                            <div class="card-body">
+                                <h3 class="card-title"><%= fornecedor.nome %></h3>
+                                <p class="card-text">CNPJ: <%= fornecedor.cnpj %></p>
+                                <p class="card-text">Email: <%= fornecedor.email %></p>
+                                <p class="card-text">Telefone: <%= fornecedor.telefone %></p>
+                                <!-- Ícone de editar com o CNPJ no atributo data-cnpj -->
+                                <div class="button-container">
+                                    <button class="btn-editar" alt="Editar" class="editar-button" data-bs-toggle="modal" data-bs-target="#editarPerfilModal-<%= fornecedor.cnpj %>">Editar</button>
+                                    <form action="/excluirFornecedor" method="post" id="deleteClientForm">
+                                        <input type="hidden" name="cnpj_fornecedor" value="<%= fornecedor.cnpj %>">
+                                        <button class="delete-client-button" type="submit">Excluir Fornecedor</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-    <!-- Modal para Cadastrar Fornecedor -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Novo Fornecedor</h2>
-                <span class="close" onclick="document.getElementById('myModal').style.display = 'none'">×</span>
-            </div>
-            <div class="modal-body">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome">
 
-                <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj" name="cnpj">
+                    <!-- Modal de Editar Perfil -->
 
-                <label for="telefone">Telefone:</label>
-                <input type="tel" id="telefone" name="telefone">
-
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email">
-
-                <label for="endereco">Endereço:</label>
-                <textarea id="endereco" name="endereco"></textarea>
-            </div>
-            <div class="modal-footer">
-                <button class="cancel" onclick="document.getElementById('myModal').style.display = 'none'">Cancelar</button>
-                <button class="save" onclick="document.getElementById('myModal').style.display = 'none'">Salvar</button>
+                    <div class="modal fade" id="editarPerfilModal-<%= fornecedor.cnpj %>" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editarPerfilModalLabel">Editar Fornecedor</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Formulário para editar o fornecedor -->
+                                    <form action="/editarFornecedor" method="post" id="editFornecedorForm">
+                                        <input type="hidden" name="cnpj" value="<%= fornecedor.cnpj %>">
+                                        <div class="mb-3">
+                                            <label for="nome_fornecedor" class="form-label">Nome:</label>
+                                            <input type="text" class="form-control" id="nome_fornecedor" name="nome_fornecedor" value="<%= fornecedor.nome %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="cnpj_fornecedor" class="form-label">CNPJ:</label>
+                                            <input type="text" class="form-control" id="cnpj_fornecedor" name="cnpj_fornecedor" value="<%= fornecedor.cnpj %>" readonly>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email_fornecedor" class="form-label">Email:</label>
+                                            <input type="email" class="form-control" id="email_fornecedor" name="email_fornecedor" value="<%= fornecedor.email %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="telefone_fornecedor" class="form-label">Telefone:</label>
+                                            <input type="text" class="form-control" id="telefone_fornecedor" name="telefone_fornecedor" value="<%= fornecedor.telefone %>" maxlength="13" pattern="\d{13}"  title="Digite exatamente 13 dígitos numéricos">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="endereco_fornecedor" class="form-label">Endereço:</label>
+                                            <input type="text" class="form-control" id="endereco_fornecedor" name="endereco_fornecedor" value="<%= fornecedor.endereco %>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="id_oficina_fornecedor" class="form-label">Número da Oficina:</label>
+                                            <input type="text" class="form-control" id="id_oficina" name="id_oficina" value="<%= fornecedor.idoficina %>">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="button">Salvar Alterações</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Modal para Editar Fornecedor -->
-    <div id="editModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Fornecedor</h2>
-                <span class="close" onclick="document.getElementById('editModal').style.display = 'none'">×</span>
+
+    <!-- Modal para cadastrar um novo funcionário -->
+    <div class="modal fade" id="newClientModal" tabindex="-1" aria-labelledby="newClientModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newClientModalLabel">Cadastrar Novo Funcionário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Preencha os campos abaixo para adicionar um novo funcionário:</p>
+                    <form action="/adicionarFornecedor" method="post" id="addFornecedorForm">
+                    <div class="mb-3">
+                        <label for="nome_fornecedor" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome"  name="nome_fornecedor" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cnpj-editar" class="form-label">CNPJ:</label>
+                        <input type="text" class="form-control" id="cnpj_fornecedor" name="cnpj_fornecedor" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email_fornecedor" class="form-label">Email:</label>
+                        <input type="email" class="form-control" id="email" name="email_fornecedor" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefone_fornecedor" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}" name="telefone_fornecedor" 
+                            title="Digite exatamente 13 dígitos numéricos" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="endereco_fornecedor" class="form-label">Endereço:</label>
+                        <input type="text" class="form-control" id="endereco"  name="endereco_fornecedor"  required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_oficina_fornecedor" class="form-label">Número da Oficina:</label>
+                        <input type="text" class="form-control" id="id_oficina" name="id_oficina"  required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="button">Finalizar</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" value="AutoTech Peças S.A.">
-
-                <label for="cnpj">CNPJ:</label>
-                <input type="text" id="cnpj" name="cnpj" value="12.345.678/0001-99">
-
-                <label for="telefone">Telefone:</label>
-                <input type="tel" id="telefone" name="telefone" value="(11) 4000-1234">
-
-                <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" value="contato@autotechpecas.com.br">
-
-                <label for="endereco">Endereço:</label>
-                <textarea id="endereco" name="endereco">Endereço do fornecedor</textarea>
-            </div>
-            <div class="modal-footer">
-                <button class="cancel" onclick="document.getElementById('editModal').style.display = 'none'">Cancelar</button>
-                <button class="save" onclick="document.getElementById('editModal').style.display = 'none'">Salvar</button>
-            </div>
+        </form>
         </div>
     </div>
+</div>
+    
+     
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            const funcionarioCards = document.querySelectorAll('#funcionarioCards .card');
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = searchInput.value.toLowerCase();
+
+                funcionarioCards.forEach(card => {
+                    const title = card.querySelector('.card-title').textContent.toLowerCase();
+                    const email = card.querySelectorAll('.card-text')[0].textContent.toLowerCase();
+                    const phone = card.querySelectorAll('.card-text')[1].textContent.toLowerCase();
+                    const cpf_mecanico = card.getAttribute('data-cpf').toLowerCase();
+
+                    if (title.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm) || cpf.includes(searchTerm)) {
+                        card.parentElement.style.display = ''; // Mantenha o cartão visível
+                    } else {
+                        card.parentElement.style.display = 'none'; // Oculte o cartão
+                    }
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Captura o evento de abrir o modal
+    var editarPerfilModal = document.getElementById('editarPerfilModal');
+    editarPerfilModal.addEventListener('show.bs.modal', function(event) {
+        // Botão que acionou o modal
+        var button = event.relatedTarget;
+        // Obtém o CNPJ do atributo data-cnpj
+        var cnpj = button.getAttribute('data-cnpj');
+
+        // Requisição AJAX para obter os dados do fornecedor
+        fetch(`/getFornecedor/${cnpj}`)
+            .then(response => response.json())
+            .then(data => {
+                // Preenche os campos do modal com os dados recebidos
+                document.getElementById('nome_fornecedor').value = data.nome;
+                document.getElementById('cnpj_fornecedor').value = data.cnpj;
+                document.getElementById('email_fornecedor').value = data.email;
+                document.getElementById('telefone_fornecedor').value = data.telefone;
+                document.getElementById('endereco_fornecedor').value = data.endereco;
+                document.getElementById('id_oficina_fornecedor').value = data.idoficina;
+            })
+            .catch(error => {
+                console.error('Erro ao buscar fornecedor:', error);
+            });
+    });
+});
+
+ // Função para confirmar e excluir o fornecedor
+ function openDeleteModal() {
+                document.getElementById('deleteModal').style.display = 'block';
+            }
+
+            function closeDeleteModal() {
+                document.getElementById('deleteModal').style.display = 'none';
+            }
+
+            function confirmDelete() {
+                // Lógica para exclusão do cliente
+                closeDeleteModal();
+                alert('Cliente excluído com sucesso!');
+            };
+</script>
 
 </body>
 </html>

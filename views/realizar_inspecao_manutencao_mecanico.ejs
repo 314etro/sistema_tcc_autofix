@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="adm.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
@@ -27,6 +26,8 @@
 
         
         <form action="/salvar-servicos" method="POST">
+            <input type="hidden" name="inspecaoId" value="<%= inspecaoId %>"> 
+
             <div class="inputs" id="inputs">
               <div class="form-group mt-4 d-flex align-items-center">
                 <input type="text" name="nome_servico[]" class="form-control flex-grow-1" placeholder="Digite um novo item...">
@@ -164,6 +165,13 @@ header img {
 
 .text-center {
     margin-top: 20px;
+    display: block; /* Exibe os botões em bloco, um embaixo do outro */
+}
+
+.text-center button {
+    display: block;
+    margin: 10px auto; /* Centraliza os botões e adiciona espaço entre eles */
+    margin-bottom: 30px
 }
 
 .inputs {
@@ -171,6 +179,7 @@ header img {
     width: 100%;
     max-width: 500px;
     align-items: center;
+    margin: 0 auto; /* Centraliza a div no meio */
 }
 
 .btn-success {

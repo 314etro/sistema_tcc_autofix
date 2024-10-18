@@ -62,24 +62,26 @@
     </div>
 
     <!-- Modal de Informações do Administrador -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userModalLabel">Informações do Administrador</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p><strong>Nome:</strong> Nome do Administrador</p>
-                    <p><strong>CPF:</strong> 000.000.000-00</p>
-                    <p><strong>Email:</strong> admin@example.com</p>
-                </div>
-            </div>
+   <!-- Modal de Informações do Mecânico -->
+<div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="userModalLabel">Informações do Mecânico</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+  
+            <p><strong>CPF:</strong> <%= administrador.cpf_adm %></p>
+            <p><strong>Email:</strong> <%= administrador.email %></p>
+          
         </div>
     </div>
+</div>
+</div>
 
     <!-- Modal de Confirmação de Saída -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
@@ -114,6 +116,31 @@
     /* Use a fonte Arvo */
 }
 
+
+/* Modal de Informações do Mecânico */
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.modal-body p {
+    font-size: 16px;
+    margin: 5px 0;
+}
 header {
     background-color: #860606;
     color: white;

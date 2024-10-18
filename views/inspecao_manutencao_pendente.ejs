@@ -18,199 +18,217 @@
         <img src="img/logo.png" alt="Logo">
     </header>
 
+    <!-- Título "Inspeção de Manutenção" -->
     <div class="title">
         Inspeção de manutenção
     </div>
 
+    <!-- Barra de Pesquisa e Botão de Voltar -->
     <div class="search-bar">
         <button class="back-button">
-            <a href="/home_mecanico">  <img src="img/seta.png" alt="Voltar"></a>
+            <a href="/home_mecanico">
+                <img src="img/seta.png" alt="Voltar">
+            </a>
         </button>
         <div class="search-input-container">
             <input type="text" placeholder="Buscar inspeção pendente">
             <img src="img/lupa.png" alt="Pesquisar">
         </div>
     </div>
-    <!--cabecalho acima-->
 
+    <!-- Espaço entre a Barra de Pesquisa e o Card -->
+    <div class="spacer"></div>
+
+    <!-- Cabecalho acima -->
     <main class="container">
         <div class="row" id="clientCards">
             <!-- Cards de clientes serão adicionados aqui -->
+            <% inspecao_manutencao.forEach((inspecao_manutencao) => { %>
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= inspecao_manutencao.nome_cliente %></h5>
+                            <p class="card-text">Email: <%= inspecao_manutencao.email %></p>
+                            <p class="card-text">Telefone: <%= inspecao_manutencao.telefone %></p>
+                            <p class="card-text">Modelo: <%= inspecao_manutencao.modelo %></p>
+                            <p class="card-text">Placa: <%= inspecao_manutencao.placa %></p>
 
-                 <!-- Cards de clientes serão adicionados aqui -->
-                 <% inspecao_manutencao.forEach((inspecao_manutencao) => { %>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title"><%= inspecao_manutencao.nome_cliente %></h5>   
-                                <p class="card-text">Email: <%= inspecao_manutencao.email %></p>
-                                <p class="card-text">Telefone: <%= inspecao_manutencao.telefone %></p>
-                                <p class="card-text">Modelo: <%= inspecao_manutencao.modelo %></p>
-                                <p class="card-text">Placa: <%= inspecao_manutencao.placa %></p>
-                
-
-                                <form action="/realizar_inspecao_manutencao_a/<%= inspecao_manutencao.placa %>" method="POST">
-                                    <button type="submit" class="btn btn-primary btn-inspecao">Realizar inspeção</button>
-                                </form>
-                                
-
-                               
-                
-                            </div>
+                            <form action="/realizar_inspecao_manutencao_a/<%= inspecao_manutencao.placa %>" method="POST">
+                                <button type="submit" class="btn btn-primary btn-inspecao">Realizar inspeção</button>
+                            </form>
                         </div>
                     </div>
-                <% }); %>
-                
+                </div>
+            <% }); %>
         </div>
     </main>
-    
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQS"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
 </body>
-<style>* {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arvo', serif;
-}
 
-header {
-    background-color: #000000;
-    color: white;
-    padding: 8px;
-    text-align: center;
-    position: relative;
-}
+<style>
+    /* Estilos Gerais */
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arvo', serif;
+    }
 
-header img {
-    width: 200px;
-    height: auto;
-}
+    header {
+        background-color: #000000;
+        color: white;
+        padding: 8px;
+        text-align: center;
+        position: relative;
+    }
 
-.search-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
+    header img {
+        width: 200px;
+        height: auto;
+    }
 
-.search-bar .back-button {
-    margin-right: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
+    /* Título */
+    .title {
+        text-align: center;
+        font-size: 24px;
+        margin: 20px auto;
+        color: #333;
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
 
-.search-bar .back-button img {
-    width: 24px;
-    height: 24px;
-}
+    /* Barra de Pesquisa */
+    .search-bar {
+        display: flex;
+        justify-content: flex-start; /* Alinha a seta e a barra à esquerda */
+        align-items: center;
+        width: 100%;
+        position: relative;
+        margin-top: 20px; /* Espaçamento superior */
+        padding-left: 15px; /* Ajuste para a tela pequena */
+        margin: 0 auto; /* Centraliza a barra */
+        max-width: auto; /* Limita a largura da barra para dispositivos pequenos */
+    }
 
-.search-bar .search-input-container {
-    position: relative;
-    width: 50%;
-}
+    /* Botão de Voltar (Seta) */
+    .search-bar .back-button {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        position: absolute;
+        left: 0; /* A seta vai ficar no início da barra de pesquisa */
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
 
-.search-bar input[type="text"] {
-    width: 100%;
-    padding: 10px 10px 10px 20px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
-}
+    .search-bar .back-button img {
+        width: 24px;
+        height: 24px;
+    }
 
-.search-bar .search-input-container img {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
+    /* Container da Barra de Pesquisa */
+    .search-bar .search-input-container {
+        position: relative;
+        width: 100%;
+        padding-left: 40px; /* Garante que o texto não fique sobre a seta */
+    }
 
-.title {
-    text-align: center;
-    font-size: 24px;
-    margin: 20px auto;
-    color: #333;
-    width: 80%;
-    display: flex;
-    justify-content: center;
-}
+    .search-bar input[type="text"] {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        outline: none;
+    }
 
-/* cabecalho acima */
+    .search-bar .search-input-container img {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
 
-.card {
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    
-    width: 100%; /* Ajuste a largura para preencher a coluna */
-    height: auto; /* Alterado para auto, para ajustar a altura conforme o conteúdo */
-    margin-top: 30px;
-    box-sizing: border-box; /* Garante que o padding e a borda sejam incluídos na largura e altura do elemento */
+    /* Espaço entre a Barra de Pesquisa e o Card */
+    .spacer {
+        height: 30px;
+    }
 
-    transition: transform 0.3s ease-in-out;
-    will-change: transform;
+    /* Estilos para telas pequenas (iPhone SE, XR, 12, 14, etc.) */
+    @media (max-width: 400px) {
+        .search-bar {
+            flex-direction: row; /* Mantém a seta e a barra de pesquisa lado a lado */
+            justify-content: flex-start; /* Alinha à esquerda */
+            padding-left: 5px; /* Menor padding para celular */
+        }
 
-    border-radius: 8px;
-}
+        .search-bar .back-button {
+            position: static; /* Não fixa a posição da seta em telas pequenas */
+            margin-top: 20px;
+            padding-left: 10px;
+            
+        }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+        .search-bar .search-input-container {
+            width: 100%;
+            padding-left: 30px; /* Ajusta o espaçamento entre a seta e a barra de pesquisa */
+        }
 
-.card-title {
-    font-size: 18px;
-    margin-bottom: 10px;
-    font-weight: bold; /* Adiciona negrito ao título */
-}
+        .search-bar input[type="text"] {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+    }
 
-.card-text {
-    margin-bottom: 10px;
-}
+    @media (max-width: 430px) {
+        .search-bar {
+            flex-direction: row; /* Mantém a seta e a barra de pesquisa lado a lado */
+            justify-content: flex; /* Alinha à esquerda */
+            padding-left: 5px; /* Menor padding para celular */
+            align-items: center;
+        }
+
+        .search-bar .back-button {
+            position: static; /* Não fixa a posição da seta em telas pequenas */
+            margin-top: 30px;
+            padding-left: 10px;
+            
+        }
+
+        .search-bar .search-input-container {
+            width: 90%;
+            padding-left: 10px; /* Ajusta o espaçamento entre a seta e a barra de pesquisa */
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+    }
 
 
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    transition: background-color 0.3s ease;
-    width: 160px; /* Faz o botão preencher a largura disponível */
-    padding: 10px; /* Adiciona padding interno para melhor aparência */
-    text-align: center; /* Centraliza o texto dentro do botão */
-}
+    /* Estilos para telas maiores (iPad Pro, etc.) */
+    @media (min-width: 1000px) {
+        .search-bar {
+            width: 80%;
+            margin: 0 auto;
+        }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
-}
-
-.card .btn-primary:hover {
-    background-color: #0050a7;
-    transform: translateY(-2px);
-}
-
-.button:hover {
-    background-color: #0726af;
-    transform: translateY(-2px);
-}
-
-.btn-inspecao {
-  
-     white-space: nowrap; /* Impede a quebra de linha */
-    padding: 8px 5px; /* Ajusta o padding para garantir espaço suficiente */
-    /* width: 220px; */ /* Remova a largura fixa */
-    text-align: center; /* Centraliza o texto no botão */
-    display: block; /* Faz o botão ocupar toda a largura do container */
-   
-}
+        .search-bar .search-input-container {
+            max-width: 100%;
+            padding-left: 50px;
+        }
+    }
 
 </style>
 

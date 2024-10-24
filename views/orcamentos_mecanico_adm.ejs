@@ -14,9 +14,10 @@
     </header>
 
     <div class="title-container">
-        <button class="back-button">
+        <button class="back-button" onclick="window.location.href='/orcamentos_adm';">
             <img src="/img/seta.png" alt="Voltar">
         </button>
+        
         <div class="title">
             Orçamentos em aberto 
         </div>
@@ -37,7 +38,7 @@
             <h2>Realizar orçamento:</h2>
             <div class="cards-container" id="cardsContainer">
                 <% veiculos.forEach((veiculo)=> { %>
-                    <a href="/definir_preco_orcamento/<%= veiculo.placa %>" class="card-link">
+                    <a href="/definir_preco_orcamento/<%= veiculo.placa %>/<%= veiculo.id_inspecao_manutencao %>" class="card-link">
                         <div class="card">
                             <h3><%= veiculo.marca %> <%= veiculo.modelo %></h3>
                             <h1><%= veiculo.placa %></h1>

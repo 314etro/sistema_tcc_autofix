@@ -1168,53 +1168,76 @@ app.post('/definir_valor_servico', (req, res) => {
 });
 
 
-
 app.get('/aprovar_orcamento_cliente', (req, res) => {
-    // Verifique se o cliente está autenticado
     if (!req.session.cpfCliente) {
-        return res.redirect('/loginCliente'); // Redirecione para o login se não estiver autenticado
+        return res.redirect('/loginCliente');
     }
 
-    // Consulta ao banco de dados para obter as informações de veículos, orçamento e cliente
+    // Consulta para obter veículos com orçamentos em aberto
     db.query(`
-          SELECT 
-    veiculo.placa,
-    veiculo.marca,
-    veiculo.modelo,
-    veiculo.cor,
-    veiculo.ano,
-    cliente.nome AS nome_cliente,
-    cliente.telefone AS telefone_cliente,
-    cliente.email AS email_cliente,
-    orcamento.id_orcamento,
-    orcamento.valor_total,
-    orcamento.status AS status_orcamento,
-    inspecao_manutencao.status AS status_inspecao,
-    inspecao_entrada.data_hora_entrada -- Adicionando a data e hora da inspeção de entrada
-FROM 
-    veiculo
-JOIN 
-    inspecao_manutencao ON veiculo.placa = inspecao_manutencao.placa
-JOIN 
-    orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
-JOIN 
-    cliente ON veiculo.cpfcliente = cliente.cpf_cliente
-JOIN 
-    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
-    WHERE 
-    cliente.cpf_cliente = ?; 
-`, [req.session.cpfCliente], (error, results) => {
-                if (error) {  
-                    console.log('Erro ao consultar dados:', error);
-                    return res.status(500).send('Erro ao consultar dados');
-                }
+        SELECT 
+            veiculo.placa,
+            veiculo.marca,
+            veiculo.modelo,
+            veiculo.cor,
+            veiculo.ano,
+            cliente.nome AS nome_cliente,
+            orcamento.id_orcamento,
+            orcamento.status AS status_orcamento,
+            inspecao_entrada.data_hora_entrada
+        FROM 
+            veiculo
+        JOIN 
+            inspecao_manutencao ON veiculo.placa = inspecao_manutencao.placa
+        JOIN 
+            orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
+        JOIN 
+            cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+        JOIN 
+            inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+        WHERE 
+            cliente.cpf_cliente = ?; 
+    `, [req.session.cpfCliente], (error, results) => {
+        if (error) {
+            console.log('Erro ao consultar dados:', error);
+            return res.status(500).send('Erro ao consultar dados');
+        }
 
-                // Passa os dados do cliente e dos veículos para o EJS renderizar
-                const cliente = {
-                    nome: results.length > 0 ? results[0].nome_cliente : 'Cliente não encontrado', // Verifica se o cliente existe
-                    email: results.length > 0 ? results[0].email_cliente : 'Email não encontrado' // Verifica se o cliente existe
-                };
+        // Consulta para obter veículos com inspeções de entrada há mais de um mês
+        db.query(`
+            SELECT 
+                veiculo.placa,
+                veiculo.marca,
+                veiculo.modelo,
+                veiculo.cor,
+                veiculo.ano,
+                cliente.nome AS nome_cliente,
+                inspecao_entrada.data_hora_entrada
+            FROM 
+                veiculo
+            JOIN 
+                cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+            JOIN 
+                inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+            WHERE 
+                cliente.cpf_cliente = ? AND 
+                inspecao_entrada.data_hora_entrada < DATE_SUB(NOW(), INTERVAL 1 MONTH);
+        `, [req.session.cpfCliente], (error, expiredResults) => {
+            if (error) {
+                console.log('Erro ao consultar dados expirados:', error);
+                return res.status(500).send('Erro ao consultar dados expirados');
+            }
 
-                res.render('aprovar_orcamento_cliente', { veiculos: results, cliente });
+            const cliente = {
+                nome: results.length > 0 ? results[0].nome_cliente : 'Cliente não encontrado',
+                email: results.length > 0 ? results[0].email_cliente : 'Email não encontrado'
+            };
+
+            res.render('aprovar_orcamento_cliente', { 
+                veiculos: results, 
+                cliente, 
+                veiculosExpirado: expiredResults // Passa os resultados expirados para a view
             });
+        });
+    });
 });

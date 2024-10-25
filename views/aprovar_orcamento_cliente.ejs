@@ -76,23 +76,33 @@
                 </a>
                 </div> 
                 <% }); %>
-        </div>
+             </div>
 
+             <% veiculosExpirado.forEach((veiculo) => { %>
                 <div class="card mb-3" style="width: 18rem;">
-                <div class="card-header" style="background-color: rgba(149, 0, 0, 1); color:#f8f8f8; text-align: center;">Orçamento expirado</div>
-                <div class="card-body">
-                    <div class="approval-card">
-                      <p class="card-text">Carro:</p>
-                      <p>Marca:</p>
-                      <p>Cor:</p>
-                      <p>Placa:</p>
-                      <p>Data de entrada:</p>
-                    </div>
-                    <a href="/checklist_aprovar_entrada">
-                    <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
-                </a>
-                </div> 
-        </div>
+                    <div class="card-header" style="background-color: rgba(149, 0, 0, 1); color:#f8f8f8; text-align: center;">Orçamento expirado</div>
+                    <div class="card-body">
+                        <div class="approval-card">
+                            <p class="card-text">Modelo: <%= veiculo.modelo %></p>
+                            <p>Marca: <%= veiculo.marca %></p>
+                            <p>Cor: <%= veiculo.cor %></p>
+                            <p>Placa: <%= veiculo.placa %></p>
+                            <p>Data de entrada: <%= new Date(veiculo.data_hora_entrada).toLocaleString('pt-BR', { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric', 
+                                hour: '2-digit', 
+                                minute: '2-digit', 
+                                hour12: false 
+                            }).replace(',', ' -') %></p>
+                        </div>
+                        <a href="/checklist_aprovar_entrada">
+                            <button class="button-orcamento" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
+                        </a>
+                    </div> 
+                </div>
+            <% }); %>
+                
         </div>
         </div>
         </div>

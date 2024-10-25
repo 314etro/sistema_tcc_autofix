@@ -18,7 +18,7 @@
 
     <div class="content">
         <div class="title">
-            <h1>Área do Cliente, aprovar orçamento</h1>
+            <h1>Área do Cliente</h1>
         </div>
                 
         <div class="icon">
@@ -41,7 +41,7 @@
     
 
         <div class="welcome">
-            <h2>Bem Vindo, Gustavo</h2>
+            <h2>Bem Vindo,  <%= cliente.nome %> </h2>
         </div>  
         
         <div class="menu">
@@ -50,20 +50,32 @@
         </div>
 
         <div class="cards">
+            <% veiculos.forEach((veiculo) => { %>
+            
                 <div class="card mb-3" style="width: 18rem;">
                 <div class="card-header" style="background-color: rgba(19, 129, 50, 1); color:#f8f8f8; text-align: center;">Orçamento em aberto</div>
                 <div class="card-body">
                     <div class="approval-card">
-                      <p class="card-text">Carro:</p>
-                      <p>Marca:</p>
-                      <p>Cor:</p>
-                      <p>Placa:</p>
-                      <p>Data de entrada:</p>
+
+                        <p class="card-text">Modelo: <%= veiculo.modelo %></p>
+                        <p>Marca: <%= veiculo.marca %></p>
+                        <p>Cor: <%= veiculo.cor %></p>
+                        <p>Placa: <%= veiculo.placa %></p>
+                        <p>Data de entrada: <%= new Date(veiculo.data_hora_entrada).toLocaleString('pt-BR', { 
+                            day: '2-digit', 
+                            month: '2-digit', 
+                            year: 'numeric', 
+                            hour: '2-digit', 
+                            minute: '2-digit', 
+                            hour12: false 
+                        }).replace(',', ' -') %></p>
+                        
                     </div>
                     <a href="/checklist_aprovar_entrada">
                     <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 
+                <% }); %>
         </div>
 
                 <div class="card mb-3" style="width: 18rem;">
@@ -93,8 +105,8 @@
         <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
         <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
         <br>
-        <p>Nome: Gustavo</p>
-        <p>Email: gustavo@email.com</p>
+        <p>Nome:  <%= cliente.nome %> </p>
+        <p>Email:  <%= cliente.email %> </p>
         <br>
         <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>

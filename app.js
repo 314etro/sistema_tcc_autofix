@@ -103,9 +103,7 @@ const res = require('express/lib/response');
         });
 
 
-        app.get('/aprovar_orcamento_cliente', (req, res) => {
-            res.render('aprovar_orcamento_cliente');
-        });
+      
 
 
 
@@ -115,9 +113,7 @@ const res = require('express/lib/response');
         });
 
 
-        app.get('/aprovar_orcamento_cliente', (req, res) => {
-            res.render('aprovar_orcamento_cliente');
-        });
+       
 
 
 
@@ -448,7 +444,7 @@ const res = require('express/lib/response');
         
 
             db.query(
-                'INSERT INTO inspecao_entrada (placa, pintura_padrao, limpador_de_para_brisa_dianteiro, marcacao_dos_pneus_traseiro, lentes_do_farol, luz_de_freio, lentes_de_lanterna, luz_de_direcao, nivel_de_agua_no_limpador_de_parabrisa, estado_dos_pneus, porta_traseira_esquerda, porta_traseira_direita, nivel_de_oleo, tag, cinto_de_seguranca, extintor_de_incendio, kit_multimidia_radio_am_fm, macaco, estepe, triangulo_de_seguranca, estofamento, chave_de_roda, certificado_ant, para_lama_dianteiro_direito, para_lama_traseiro_esquerdo, para_lama_traseiro_direito, teto, para_choque_dianteiro, capo_do_motor, para_brisa_dianteiro, vidro_lateral_esquerdo, vidro_lateral_direito, porta_dianteira_esquerda, porta_dianteira_direita, para_lama_dianteiro_esquerdo, para_choque_traseiro, para_brisa_traseiro, nivel_combustivel, tacografo, limpador_para_brisa_traseiro, luz_de_re, bateria, status, cpfmecanico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?)',
+                'INSERT INTO inspecao_entrada (placa, pintura_padrao, limpador_de_para_brisa_dianteiro, marcacao_dos_pneus_traseiro, lentes_do_farol, luz_de_freio, lentes_de_lanterna, luz_de_direcao, nivel_de_agua_no_limpador_de_parabrisa, estado_dos_pneus, porta_traseira_esquerda, porta_traseira_direita, nivel_de_oleo, tag, cinto_de_seguranca, extintor_de_incendio, kit_multimidia_radio_am_fm, macaco, estepe, triangulo_de_seguranca, estofamento, chave_de_roda, certificado_ant, para_lama_dianteiro_direito, para_lama_traseiro_esquerdo, para_lama_traseiro_direito, teto, para_choque_dianteiro, capo_do_motor, para_brisa_dianteiro, vidro_lateral_esquerdo, vidro_lateral_direito, porta_dianteira_esquerda, porta_dianteira_direita, para_lama_dianteiro_esquerdo, para_choque_traseiro, para_brisa_traseiro, nivel_combustivel, tacografo, limpador_para_brisa_traseiro, luz_de_re, bateria, data_hora_entrada, status, cpfmecanico) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  CURRENT_TIMESTAMP ,?, ?)',
                 
                 [
                     placa, // Adicione a placa aqui
@@ -1169,4 +1165,56 @@ app.post('/definir_valor_servico', (req, res) => {
             return res.status(404).send('Administrador não encontrado'); // Responde com erro
         }
     });
+});
+
+
+
+app.get('/aprovar_orcamento_cliente', (req, res) => {
+    // Verifique se o cliente está autenticado
+    if (!req.session.cpfCliente) {
+        return res.redirect('/loginCliente'); // Redirecione para o login se não estiver autenticado
+    }
+
+    // Consulta ao banco de dados para obter as informações de veículos, orçamento e cliente
+    db.query(`
+          SELECT 
+    veiculo.placa,
+    veiculo.marca,
+    veiculo.modelo,
+    veiculo.cor,
+    veiculo.ano,
+    cliente.nome AS nome_cliente,
+    cliente.telefone AS telefone_cliente,
+    cliente.email AS email_cliente,
+    orcamento.id_orcamento,
+    orcamento.valor_total,
+    orcamento.status AS status_orcamento,
+    inspecao_manutencao.status AS status_inspecao,
+    inspecao_entrada.data_hora_entrada -- Adicionando a data e hora da inspeção de entrada
+FROM 
+    veiculo
+JOIN 
+    inspecao_manutencao ON veiculo.placa = inspecao_manutencao.placa
+JOIN 
+    orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
+JOIN 
+    cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+JOIN 
+    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+    WHERE 
+    cliente.cpf_cliente = ?; 
+`, [req.session.cpfCliente], (error, results) => {
+                if (error) {  
+                    console.log('Erro ao consultar dados:', error);
+                    return res.status(500).send('Erro ao consultar dados');
+                }
+
+                // Passa os dados do cliente e dos veículos para o EJS renderizar
+                const cliente = {
+                    nome: results.length > 0 ? results[0].nome_cliente : 'Cliente não encontrado', // Verifica se o cliente existe
+                    email: results.length > 0 ? results[0].email_cliente : 'Email não encontrado' // Verifica se o cliente existe
+                };
+
+                res.render('aprovar_orcamento_cliente', { veiculos: results, cliente });
+            });
 });

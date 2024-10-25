@@ -48,9 +48,7 @@ const res = require('express/lib/response');
             res.render('index1');
         });
 
-        app.get('/checklist_aprovar_entrada', (req, res) => {
-            res.render('checklist_aprovar_entrada');
-        });
+       
 
         app.get('/home_mecanico', (req, res) => {
             // Verifique se a sessão do mecânico está ativa
@@ -1167,13 +1165,13 @@ app.post('/definir_valor_servico', (req, res) => {
     });
 });
 
-
 app.get('/aprovar_orcamento_cliente', (req, res) => {
+    // Verifique se o cliente está autenticado
     if (!req.session.cpfCliente) {
-        return res.redirect('/loginCliente');
+        return res.redirect('/loginCliente'); // Redirecione para o login se não estiver autenticado
     }
 
-    // Consulta para obter veículos com orçamentos em aberto
+    // Faça uma consulta ao banco de dados para obter os veículos com orçamentos em aberto
     db.query(`
         SELECT 
             veiculo.placa,
@@ -1181,7 +1179,6 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
             veiculo.modelo,
             veiculo.cor,
             veiculo.ano,
-            cliente.nome AS nome_cliente,
             orcamento.id_orcamento,
             orcamento.status AS status_orcamento,
             inspecao_entrada.data_hora_entrada
@@ -1196,7 +1193,8 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
         JOIN 
             inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
         WHERE 
-            cliente.cpf_cliente = ?; 
+            cliente.cpf_cliente = ? 
+            AND inspecao_entrada.data_hora_entrada >= DATE_SUB(NOW(), INTERVAL 1 MONTH);
     `, [req.session.cpfCliente], (error, results) => {
         if (error) {
             console.log('Erro ao consultar dados:', error);
@@ -1211,7 +1209,6 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
                 veiculo.modelo,
                 veiculo.cor,
                 veiculo.ano,
-                cliente.nome AS nome_cliente,
                 inspecao_entrada.data_hora_entrada
             FROM 
                 veiculo
@@ -1228,16 +1225,69 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
                 return res.status(500).send('Erro ao consultar dados expirados');
             }
 
-            const cliente = {
-                nome: results.length > 0 ? results[0].nome_cliente : 'Cliente não encontrado',
-                email: results.length > 0 ? results[0].email_cliente : 'Email não encontrado'
-            };
+            // Obtenha o nome do cliente
+            db.query('SELECT nome FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
+                if (nomeError) {
+                    console.log('Erro ao buscar nome do cliente', nomeError);
+                    return res.status(500).send('Erro ao buscar nome do cliente');
+                }
 
-            res.render('aprovar_orcamento_cliente', { 
-                veiculos: results, 
-                cliente, 
-                veiculosExpirado: expiredResults // Passa os resultados expirados para a view
+                // Passe os resultados da consulta e o nome do cliente para a view
+                const cliente = {
+                    nome: nomeResults.length > 0 ? nomeResults[0].nome : 'Cliente não encontrado',
+                };
+
+                res.render('aprovar_orcamento_cliente', { 
+                    veiculos: results, 
+                    cliente, 
+                    veiculosExpirado: expiredResults // Passa os resultados expirados para a view
+                });
             });
+        });
+    });
+});
+
+app.get('/checklist_aprovar_orcamento/:placa', (req, res) => {
+    const placa = req.params.placa;
+
+    db.query(`
+        SELECT 
+            s.nome_servico,
+            s.valor_servico,
+            c.nome AS nome_cliente,
+            c.email AS email_cliente,
+            o.valor_total
+        FROM 
+            veiculo v
+        JOIN 
+            inspecao_manutencao im ON v.placa = im.placa
+        JOIN 
+            servico s ON im.id_inspecao_manutencao = s.id_inspecao_manutencao
+        JOIN 
+            orcamento o ON im.id_inspecao_manutencao = o.id_inspecao_manutencao
+        JOIN 
+            cliente c ON v.cpfcliente = c.cpf_cliente
+        WHERE 
+            v.placa = ?`, [placa], (error, result) => {
+        if (error) {
+            console.error("Erro ao buscar dados:", error);
+            return res.status(500).send("Erro ao buscar dados.");
+        }
+
+        if (result.length === 0) {
+            return res.status(404).send("Nenhum orçamento encontrado para essa placa.");
+        }
+
+        // Calcula o valor total somando todos os serviços
+        const valorTotal = result.reduce((total, item) => total + parseFloat(item.valor_servico), 0);
+
+        res.render('checklist_aprovar_orcamento', {
+            servicos: result, // envia todos os serviços encontrados
+            cliente: {
+                nome: result[0].nome_cliente,
+                email: result[0].email_cliente,
+            },
+            valor_total: valorTotal.toFixed(2), // Define o valor total para exibir
         });
     });
 });

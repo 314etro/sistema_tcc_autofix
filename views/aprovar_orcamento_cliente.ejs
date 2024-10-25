@@ -41,7 +41,7 @@
     
 
         <div class="welcome">
-            <h2>Bem Vindo,  <%= cliente.nome %> </h2>
+            <h2>Bem Vindo,  <%=cliente.nome  %> </h2>
         </div>  
         
         <div class="menu">
@@ -71,7 +71,7 @@
                         }).replace(',', ' -') %></p>
                         
                     </div>
-                    <a href="/checklist_aprovar_entrada">
+                    <a href="/checklist_aprovar_orcamento/<%= veiculo.placa %>">
                     <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 

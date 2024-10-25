@@ -5,7 +5,44 @@
         const path = require('path');
         const { error } = require('console');
         const app = express();
-        const port = 3000;
+
+
+        
+
+
+        const mysql = require('mysql2')
+
+        const port = process.env.PORT || 3001;
+
+
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+const db = mysql.createPool({
+host: process.env.DB_HOST,
+user: process.env.DB_USERNAME,
+password: process.env.DB_PASSWORD,
+database: process.env.DB_DBNAME,
+waitForConnections: true,
+connectionLimit: 10,
+queueLimit: 0
+});
+
+const pool = mysql.createPool({
+host: process.env.DB_HOST,
+user: process.env.DB_USERNAME,
+password: process.env.DB_PASSWORD,
+database: process.env.DB_DBNAME,
+waitForConnections: true,
+connectionLimit: 10,
+queueLimit: 0
+});
+
+pool.getConnection((err, conn) => {
+if(err) console.log(err)
+console.log("Connected successfully")
+})
+
+module.exports = pool.promise()
 
         const session = require('express-session'); // Adicione o módulo express-session
 const res = require('express/lib/response');
@@ -16,25 +53,11 @@ const res = require('express/lib/response');
             saveUninitialized: true
         }));
 
-        const db = mysql.createConnection({
-            host:'localhost',
-            user:'root',
-            password:'',
-            database: 'autofix'
-        });
+        app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
 
-        db.connect((error)=>{
-            if(error){
-                console.log('erro ao conectar com banco de dados');
-            } else{
-                console.log('conectado ao mysql');
-            }
-        });
-
+      
         app.use(bodyParser.urlencoded({extended: true}));
-        app.listen(port, ()=> {
-            console.log(`Servidor rodando no endereço: http://localhost:${port}`);
-        })
+
 
         app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -1174,27 +1197,23 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
     // Faça uma consulta ao banco de dados para obter os veículos com orçamentos em aberto
     db.query(`
         SELECT 
-            veiculo.placa,
-            veiculo.marca,
-            veiculo.modelo,
-            veiculo.cor,
-            veiculo.ano,
-            orcamento.id_orcamento,
-            orcamento.status AS status_orcamento,
-            inspecao_entrada.data_hora_entrada
-        FROM 
-            veiculo
-        JOIN 
-            inspecao_manutencao ON veiculo.placa = inspecao_manutencao.placa
-        JOIN 
-            orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
-        JOIN 
-            cliente ON veiculo.cpfcliente = cliente.cpf_cliente
-        JOIN 
-            inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
-        WHERE 
-            cliente.cpf_cliente = ? 
-            AND inspecao_entrada.data_hora_entrada >= DATE_SUB(NOW(), INTERVAL 1 MONTH);
+    veiculo.placa,
+    veiculo.marca,
+    veiculo.modelo,
+    veiculo.cor,
+    veiculo.ano,
+    inspecao_entrada.data_hora_entrada,
+    inspecao_manutencao.id_inspecao_manutencao  
+FROM 
+    veiculo
+JOIN 
+    cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+JOIN 
+    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+JOIN 
+    inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa  -- Adicionando o JOIN
+WHERE 
+    cliente.cpf_cliente = ? AND     inspecao_entrada.data_hora_entrada >= DATE_SUB(NOW(), INTERVAL 1 MONTH);
     `, [req.session.cpfCliente], (error, results) => {
         if (error) {
             console.log('Erro ao consultar dados:', error);
@@ -1203,21 +1222,24 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
 
         // Consulta para obter veículos com inspeções de entrada há mais de um mês
         db.query(`
-            SELECT 
-                veiculo.placa,
-                veiculo.marca,
-                veiculo.modelo,
-                veiculo.cor,
-                veiculo.ano,
-                inspecao_entrada.data_hora_entrada
-            FROM 
-                veiculo
-            JOIN 
-                cliente ON veiculo.cpfcliente = cliente.cpf_cliente
-            JOIN 
-                inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
-            WHERE 
-                cliente.cpf_cliente = ? AND 
+           SELECT 
+    veiculo.placa,
+    veiculo.marca,
+    veiculo.modelo,
+    veiculo.cor,
+    veiculo.ano,
+    inspecao_entrada.data_hora_entrada,
+    inspecao_manutencao.id_inspecao_manutencao  
+FROM 
+    veiculo
+JOIN 
+    cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+JOIN 
+    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+JOIN 
+    inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa  -- Adicionando o JOIN
+WHERE 
+    cliente.cpf_cliente = ? AND 
                 inspecao_entrada.data_hora_entrada < DATE_SUB(NOW(), INTERVAL 1 MONTH);
         `, [req.session.cpfCliente], (error, expiredResults) => {
             if (error) {
@@ -1247,16 +1269,20 @@ app.get('/aprovar_orcamento_cliente', (req, res) => {
     });
 });
 
-app.get('/checklist_aprovar_orcamento/:placa', (req, res) => {
+app.get('/checklist_aprovar_orcamento/:placa/:id_inspecao_manutencao', (req, res) => {
     const placa = req.params.placa;
+    const idInspecaoManutencao = req.body.id_inspecao_manutencao;
 
+    // Consulta para obter os dados do veículo e do cliente
     db.query(`
         SELECT 
             s.nome_servico,
             s.valor_servico,
             c.nome AS nome_cliente,
             c.email AS email_cliente,
-            o.valor_total
+            o.valor_total,
+            v.placa, v.marca, v.modelo, v.cor, v.ano,
+            im.id_inspecao_manutencao
         FROM 
             veiculo v
         JOIN 
@@ -1268,7 +1294,8 @@ app.get('/checklist_aprovar_orcamento/:placa', (req, res) => {
         JOIN 
             cliente c ON v.cpfcliente = c.cpf_cliente
         WHERE 
-            v.placa = ?`, [placa], (error, result) => {
+            v.placa = ?
+    `, [placa], (error, result) => {
         if (error) {
             console.error("Erro ao buscar dados:", error);
             return res.status(500).send("Erro ao buscar dados.");
@@ -1281,6 +1308,16 @@ app.get('/checklist_aprovar_orcamento/:placa', (req, res) => {
         // Calcula o valor total somando todos os serviços
         const valorTotal = result.reduce((total, item) => total + parseFloat(item.valor_servico), 0);
 
+        // Inclua o objeto veiculo no contexto da view
+        const veiculo = {
+            placa: result[0].placa,
+            marca: result[0].marca,
+            modelo: result[0].modelo,
+            cor: result[0].cor,
+            ano: result[0].ano,
+            id_inspecao_manutencao: result[0].id_inspecao_manutencao
+        };
+
         res.render('checklist_aprovar_orcamento', {
             servicos: result, // envia todos os serviços encontrados
             cliente: {
@@ -1288,6 +1325,78 @@ app.get('/checklist_aprovar_orcamento/:placa', (req, res) => {
                 email: result[0].email_cliente,
             },
             valor_total: valorTotal.toFixed(2), // Define o valor total para exibir
+            veiculo: veiculo // Passe o objeto veiculo para a view
         });
     });
+});
+
+
+app.post('/aprovar_orcamento_clientee', (req, res) => {
+    console.log(req.body); // Verifique o que está sendo enviado
+
+    const servicos = req.body.servicos_selecionados; // Captura os serviços enviados pelo formulário
+    const idInspecaoManutencao = req.body.id_inspecao_manutencao; // Captura o ID da inspeção de manutenção do formulário
+    const valorTotal = parseFloat(req.body.valor_total); // Captura o valor total do formulário
+
+    if (!idInspecaoManutencao) {
+        return res.status(400).send('ID da inspeção de manutenção não fornecido'); // Retorna erro se o ID não for fornecido
+    }
+
+    const servicosSelecionados = JSON.parse(servicos).map(servico => servico.nome_servico); // Obter nomes dos serviços selecionados
+    const sqlDelete = 'DELETE FROM servico WHERE id_inspecao_manutencao = ? AND nome_servico NOT IN (?)';
+    
+    db.query(sqlDelete, [idInspecaoManutencao, servicosSelecionados], (err, result) => {
+        if (err) {
+            console.error('Erro ao excluir serviços:', err);
+            return res.status(500).send('Erro ao processar o orçamento');
+        }
+        console.log('Serviços não selecionados excluídos com sucesso');
+    });
+
+    // Inicialize `totalValue` antes do loop
+    let totalValue = 0;
+
+    // Atualiza os serviços selecionados e calcula o total
+    servicosSelecionados.forEach(nomeServico => {
+        const valorServico = parseFloat(servicos[nomeServico].replace('.', '').replace(',', '.'));
+        totalValue += valorServico;
+
+        const sqlUpdate = 'UPDATE servico SET valor_servico = ? WHERE nome_servico = ? AND id_inspecao_manutencao = ?';
+        db.query(sqlUpdate, [valorServico, nomeServico, idInspecaoManutencao], (err, result) => {
+            if (err) {
+                console.error('Erro ao atualizar o serviço:', err);
+                return res.status(500).send('Erro ao processar o orçamento');
+            }
+            console.log(`Serviço ${nomeServico} atualizado com sucesso`);
+        });
+    });
+
+   // Obtém o CPF do administrador e atualiza o orçamento
+   const sqlSelect = 'SELECT cpf_adm FROM administrador';
+   db.query(sqlSelect, (err, result) => {
+       if (err) {
+           console.error('Erro ao obter o CPF do administrador:', err);
+           return res.status(500).send('Erro ao processar o orçamento');
+       }
+
+       if (result.length > 0) {
+           const cpfAdm = result[0].cpf_adm;
+
+           // Atualiza o valor total do orçamento na tabela orcamento
+           const sqlUpdate = 'UPDATE orcamento SET valor_total = ? WHERE id_inspecao_manutencao = ?';
+           db.query(sqlUpdate, [valorTotal, idInspecaoManutencao], (err, result) => {
+               if (err) {
+                   console.error('Erro ao atualizar o valor total do orçamento:', err);
+                   return res.status(500).send('Erro ao processar o orçamento');
+               }
+               console.log('Valor total do orçamento atualizado com sucesso');
+
+               // Redireciona de volta para a página de orçamento após a atualização
+               res.redirect('/home_adm');
+           });
+       } else {
+           console.error('Nenhum administrador encontrado.');
+           return res.status(404).send('Administrador não encontrado');
+       }
+   });
 });

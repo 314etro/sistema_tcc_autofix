@@ -10,17 +10,17 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<div class="header">
-<div class="logo">
-        <img src="/img/logo.png" alt="Autofix Logo"> 
+    <div class="header">
+        <div class="logo">
+            <img src="/img/logo.png" alt="Autofix Logo"> 
         </div>
-</div>
+    </div>
 
     <div class="content">
         <div class="title">
             <h1>Área do Cliente</h1>
         </div>
-                
+        
         <div class="icon">
             <a href="/meu_veiculo_cliente">
                 <img src="/img/carroicon.png" alt="Meus Veículos">
@@ -33,115 +33,135 @@
                 <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
             </a>
         </div>
-
-
         
-        
-    
-    
-
         <div class="welcome">
-            <h2>Bem Vindo, <%= cliente.nome %> </h2>
+            <h2>Bem Vindo, <%= cliente.nome %></h2>
         </div>  
         
-        <div class="menu">
-            <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
-            <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
-        </div>
-
-
-        <% servicos.forEach((servico) => { %>
-        <div class="checklist">
-            <div class="checklist-item">
-                <span class="description"><%= servico.nome_servico %></span>
-                <input class="price" type="text" value="R$ <%= servico.valor_servico %>" data-price="<%= servico.valor_servico %>" readonly>
-                <button class="checkmark">✔</button>
-            </div>
-            
-           
-    
        
-        </div>
-        <% }); %>
 
+        <div class="checklist">
+            <% servicos.forEach((servico) => { %>
+                <div class="checklist-item" data-service-id="<%= servico.id_servico %>"> 
+                    <span class="description"><%= servico.nome_servico %></span>
+                    <input class="price" type="text" value="R$ <%= servico.valor_servico %>" data-price="<%= servico.valor_servico %>" readonly>
+                    <button class="checkmark" data-service-name="<%= servico.nome_servico %>" data-service-price="<%= servico.valor_servico %>">✔</button>
+                </div>
+                
+            <% }); %>
+        </div>
+
+        
         <div class="total">
-            Total: R$ <span id="total-price"><%= valor_total%></span> <!-- Exibe o valor total aqui -->
+            Total: R$ <span id="total-price">0.00</span>
         </div>
         
-         <div class="actions">
-            <a href="/aprovar_orcamento_cliente"><button class="reject">Rejeitar orçamento</button></a>
-            <a href="/aprovar_entrada_cliente"><button class="confirm">Confirmar</button></a>
+    
+        <form action="/aprovar_orcamento_clientee" method="POST">
+            <input type="hidden" name="id_inspecao_manutencao" value="<%= veiculo.id_inspecao_manutencao %>"> 
+            <input type="hidden" name="servicos_selecionados" id="servicos-selecionados" value="[]"> 
+            <input type="hidden" name="valor_total" id="valor-total" value=""> 
+            <button type="submit">Confirmar Orçamento</button>
+        </form>
+
         </div>
 
+        <!-- Modal de Perfil -->
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('profileModal')">×</span>
+                <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
+                <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
+                <br>
+                <p>Nome: <%= cliente.nome %></p>
+                <p>Email: <%= cliente.email %></p>
+                <br>
+                <a href="/editar_perfil_cliente">
+                    <p><button class="edit-profile" type="button" href="editar.html">Editar</button></p>
+                </a>
+            </div>
+        </div>
+        
+            <script>
+                // Obtém os elementos do DOM
+                const modal = document.getElementById("profileModal");
+                const profileIcon = document.getElementById("profileIcon");
+                const closeModalSpan = document.getElementsByClassName("close")[0];
+                const checkmarks = document.querySelectorAll('.checkmark');
+                const totalPriceSpan = document.getElementById('total-price');
+                const prices = document.querySelectorAll('.price');
+                const servicosSelecionadosInput = document.getElementById('servicos-selecionados');
 
-<!-- Modal de Perfil -->
-<div id="profileModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal('profileModal')">×</span>
-        <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
-        <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
-        <br>
-        <p>Nome: <%= cliente.nome %></p>
-        <p>Email: <%= cliente.email %></p>
-        <br>
-        <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
-    </div>
-</div>
-       
+                // Quando o usuário clica na imagem de perfil, abre o modal
+                profileIcon.onclick = function() {
+                    modal.style.display = "block";
+                }
 
+                // Quando o usuário clica no <span> (x), fecha o modal
+                closeModalSpan.onclick = function() {
+                    modal.style.display = "none";
+                }
 
-    <script>
-        // Obtém os elementos do DOM
-        const modal = document.getElementById("profileModal");
-        const profileIcon = document.getElementById("profileIcon");
-        const closeModalSpan = document.getElementsByClassName("close")[0];
-        const checkmarks = document.querySelectorAll('.checkmark');
-        const totalPriceSpan = document.getElementById('total-price');
-        const prices = document.querySelectorAll('.price');
+                // Quando o usuário clica fora do modal, fecha o modal
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
 
-        // Quando o usuário clica na imagem de perfil, abre o modal
-        profileIcon.onclick = function() {
-            modal.style.display = "block";
-        }
+                // Adiciona um event listener a cada checkmark
+                checkmarks.forEach(checkmark => {
+                    checkmark.addEventListener('click', () => {
+                        // Alterna a classe 'selected' no botão clicado
+                        checkmark.classList.toggle('selected');
+                        // Atualiza o preço total
+                        updateTotalPrice();
+                        // Atualiza a lista de serviços selecionados
+                        updateServicosSelecionados();
+                    });
+                });
 
-        // Quando o usuário clica no <span> (x), fecha o modal
-        closeModalSpan.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Quando o usuário clica fora do modal, fecha o modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
+                function updateTotalPrice() {
+        let total = 0;
+        // Itera apenas pelos preços dos itens que possuem a classe 'selected'
+        prices.forEach(price => {
+            const checkmark = price.closest('.checklist-item').querySelector('.checkmark');
+            if (checkmark.classList.contains('selected')) {
+                total += parseFloat(price.getAttribute('data-price')) || 0;
             }
-        }
-
-        // Adiciona um event listener a cada checkmark
-        checkmarks.forEach(checkmark => {
-            checkmark.addEventListener('click', () => {
-                // Alterna a classe 'selected' no botão clicado
-                checkmark.classList.toggle('selected');
-
-                // Atualiza o preço total
-                updateTotalPrice();
-            });
         });
+        totalPriceSpan.textContent = total.toFixed(2);
+        document.getElementById('valor-total').value = total.toFixed(2); // Atualiza o campo oculto
+    }
 
-      // Função para atualizar o preço total
-function updateTotalPrice() {
-    let total = 0;
-    // Itera apenas pelos preços dos itens que possuem a classe 'selected'
-    prices.forEach(price => {
-        const checkmark = price.closest('.checklist-item').querySelector('.checkmark');
-        if (checkmark.classList.contains('selected')) {
-            total += parseFloat(price.getAttribute('data-price')) || 0;
-        }
-    });
-    totalPriceSpan.textContent = total.toFixed(2);
-}
+            
 
 
-    </script>
+
+
+
+                // Função para atualizar a lista de serviços selecionados
+    function updateServicosSelecionados() {
+        let servicosSelecionados = [];
+        checkmarks.forEach(checkmark => {
+            if (checkmark.classList.contains('selected')) {
+                const serviceName = checkmark.getAttribute('data-service-name');
+                const servicePrice = checkmark.getAttribute('data-service-price');
+                servicosSelecionados.push({
+                    nome_servico: serviceName,
+                    valor_servico: servicePrice
+                });
+            }
+        });
+        // Atualiza o valor do input com JSON.stringify
+        servicosSelecionadosInput.value = JSON.stringify(servicosSelecionados); 
+    }
+            </script>
+
+
+
+
+
 </body>
 <style>
         body {

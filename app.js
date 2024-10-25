@@ -5,12 +5,7 @@
         const path = require('path');
         const { error } = require('console');
         const app = express();
-
-
-        
-
-
-        const mysql = require('mysql2')
+       
 
         const port = process.env.PORT || 3001;
 
@@ -27,25 +22,9 @@ connectionLimit: 10,
 queueLimit: 0
 });
 
-const pool = mysql.createPool({
-host: process.env.DB_HOST,
-user: process.env.DB_USERNAME,
-password: process.env.DB_PASSWORD,
-database: process.env.DB_DBNAME,
-waitForConnections: true,
-connectionLimit: 10,
-queueLimit: 0
-});
-
-pool.getConnection((err, conn) => {
-if(err) console.log(err)
-console.log("Connected successfully")
-})
-
-module.exports = pool.promise()
 
         const session = require('express-session'); // Adicione o módulo express-session
-const res = require('express/lib/response');
+        const res = require('express/lib/response');
 
         app.use(session({
             secret: 'your-secret-key', // Substitua por uma chave secreta forte
@@ -55,9 +34,7 @@ const res = require('express/lib/response');
 
         app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
 
-      
-        app.use(bodyParser.urlencoded({extended: true}));
-
+  
 
         app.use(bodyParser.urlencoded({ extended: true }));
 

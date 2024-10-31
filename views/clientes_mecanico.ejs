@@ -51,49 +51,55 @@
         </div>
     </main>
 
-    <div class="modal fade" id="newClientModal" tabindex="-1" aria-labelledby="newClientModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="newClientModalLabel">Cadastre um novo cliente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Preencha os campos abaixo para adicionar novo cliente</p>
-                    <form action="/adicionarCliente" method="post" id="addClientForm">
-                        <div class="mb-3">
-                            <label for="cpf" class="form-label">CPF:</label>
-                            <input type="text" class="form-control" id="cpf" maxlength="11" pattern="\d{11}" name="cpf_cliente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="nome" class="form-label">Nome:</label>
-                            <input type="text" class="form-control" id="nome" name="nome_cliente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email:</label>
-                            <input type="text" class="form-control" id="email" name="email_cliente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="senha" class="form-label">Senha:</label>
-                            <input type="text" class="form-control" id="senha" name="senha_cliente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="telefone" class="form-label">Telefone:</label>
-                            <input type="text" class="form-control" id="telefone" name="telefone_cliente">
-                        </div>
-                        <div class="mb-3">
-                            <label for="id_oficina" class="form-label">Código da Oficina:</label>
-                            <input type="text" class="form-control" id="id_oficina" maxlength="3" name="id_oficina">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="button" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="button">Finalizar</button>
-                        </div>
-                    </form>
-                </div>
+
+
+<!-- Modal para cadastrar um novo Cliente -->
+<div class="modal fade" id="newClientModal" tabindex="-1" aria-labelledby="newClientModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newClientModalLabel">Cadastre um novo cliente</h5>
+               
+            </div>
+            <div class="modal-body">
+                <p>Preencha os campos abaixo para adicionar novo cliente: </p>
+                <form action="/adicionarCliente" method="post" id="addClientForm">
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label">CPF:</label>
+                        <input type="text" class="form-control" id="cpf" maxlength="11" pattern="\d{11}" name="cpf_cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" class="form-control" id="nome" name="nome_cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="text" class="form-control" id="email" name="email_cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="senha" class="form-label">Senha:</label>
+                        <input type="text" class="form-control" id="senha" name="senha_cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone:</label>
+                        <input type="text" class="form-control" id="telefone" name="telefone_cliente">
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_oficina" class="form-label">Código da Oficina:</label>
+                        <input type="text" class="form-control" id="id_oficina" maxlength="3" name="id_oficina">
+                    </div>
+                
+
+                    <div class="modal-footer">
+                        <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="button3">Finalizar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
+
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -151,13 +157,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 25px;
-        margin-top: 20px;
+        margin: 20px 0 25px;
+        flex-direction: row;
     }
 
     .search-bar .back-button {
         margin-right: 30px;
-        /* Ajuste o valor conforme necessário */
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -165,20 +170,19 @@
 
     .search-bar .back-button img {
         width: 24px;
-        /* Tamanho original da imagem da setinha */
         height: 24px;
-        /* Tamanho original da imagem da setinha */
     }
 
     .search-bar .search-input-container {
         position: relative;
         width: 50%;
+        
     }
 
     .search-bar input[type="text"] {
         width: 100%;
         padding: 10px 10px 10px 20px;
-        font-size: 16px;
+        font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 20px;
         outline: none;
@@ -190,9 +194,7 @@
         top: 50%;
         transform: translateY(-50%);
         width: 20px;
-        /* Tamanho da lupa */
         height: 20px;
-        /* Tamanho da lupa */
         cursor: pointer;
     }
 
@@ -201,15 +203,27 @@
         /* Ajuste o valor conforme necessário */
     }
 
-    .title {
+    .new-client-button {
+        display: inline-block;
+        padding: 10px 10px;
+        border-radius: 15px;
+        background-color: #0D6EFD;
+        color: white;
         text-align: center;
-        font-size: 24px;
-        margin: 20px auto;
-        color: #333;
-        width: 80%;
-        display: flex;
-        justify-content: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s, transform 0.3s;
     }
+
+
+        .title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px auto;
+            color: #333;
+            width: 100%; /* Ocupa a largura total */
+        }
+
 
     /* Cabecalho acima */
 
@@ -235,11 +249,50 @@
         transition: background-color 0.3s, transform 0.3s;
     }
 
-    .new-client-button:hover,
-    .button:hover {
-        background-color: #0726af;
-        transform: translateY(-2px);
-    }
+    .new-client-button, .button {
+            padding: 10px 20px;
+            background-color: #0D6EFD;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button3 {
+            padding: 10px 20px;
+            background-color: #138132;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button3:hover {
+            background-color: #0b4b1d;
+            transform: translateY(-2px);
+        }
+
+
+        .supplier-button2 {
+            padding: 10px 20px;
+            background-color: #6c757d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .supplier-button2:hover {
+            background-color: #3c4146;
+            transform: translateY(-2px);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
 
     h4 {
         margin-right: 30px;
@@ -306,7 +359,7 @@
     }
 
     .modal-header {
-        background-color: #1540ff;
+        background-color: #3c4146;
         color: white;
     }
 

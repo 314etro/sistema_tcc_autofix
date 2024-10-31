@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Funcionários</title>
+    <title>Fornecedor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-  
-   /* Estilos gerais */
-   body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff;
-        color: #333;
-    }
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
 
-            header {
-    background-color: #860606;
-    color: white;
-    padding: 8px;
-    /* Reduzido o padding do cabeçalho */
-    text-align: center;
-    position: relative;
-            }
+        header {
+            background-color: #860606;
+            color: white;
+            padding: 20px; /* Padding reduzido para telas menores */
+            text-align: center;
+            position: relative;
+        }
 
-            header img {
-    max-width: 200px;
-    /* Ajuste o tamanho da logo conforme necessário */
-    height: auto;
-    /* Mantém a proporção da imagem */
-    margin-left: 50px;
-    /* arrumar a diferença de posicionamento da logo, por causa da barra de rolagem (caso precise) */
-    margin: 0 auto;
-    display: block;
-}
+        header img {
+            max-width: 150px; /* Tamanho da logo reduzido */
+            height: auto;
+            margin: 0 auto; /* Centraliza a logo */
+            display: block;
+        }
 
-        
-    .search-bar {
+        .search-bar {
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-bottom: 25px;
-        margin-top: 20px;
+        margin: 20px 0 25px;
+        flex-direction: row;
     }
 
     .search-bar .back-button {
-        margin-right: 50px;
+        margin-right: 30px;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -57,13 +51,14 @@
 
     .search-bar .search-input-container {
         position: relative;
-        width: 50%;
+        width: 46%;
+        
     }
 
     .search-bar input[type="text"] {
         width: 100%;
         padding: 10px 10px 10px 20px;
-        font-size: 16px;
+        font-size: 14px;
         border: 1px solid #ccc;
         border-radius: 20px;
         outline: none;
@@ -79,46 +74,80 @@
         cursor: pointer;
     }
 
-    .search-bar .new-client-button {
+    .search-bar .new-fornecedor-button {
         margin-left: 20px;
     }
 
-        .add-supplier, .button {
-            padding: 10px 20px;
-            background-color: #005b71;
+
+
+        .add-supplier, .button, .new-fornecedor-button, .supplier-button2, .delete-client-button, .btn-editar {
+            padding: 8px 15px; /* Padding reduzido para telas menores */
+            background-color: #0D6EFD;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            margin-left: 20px;
             transition: background-color 0.3s, transform 0.3s;
+            font-size: 1rem; /* Tamanho de fonte padrão */
         }
 
-        .add-supplier:hover, .button:hover {
-            background-color: #22394c;
+        .add-supplier:hover, .button:hover, .new-fornecedor-button:hover, .supplier-button2:hover, .delete-client-button:hover, .btn-editar:hover {
+            background-color: #094caf;
             transform: translateY(-2px);
         }
 
+        .button {
+            background-color: #138132;
+        }
+
+        .button:hover {
+            background-color: #0b4b1d;
+        }
+
+        .supplier-button2 {
+            background-color: #6C757D;
+        }
+
+        .supplier-button2:hover {
+            background-color: #3f4549;
+        }
+
+        .delete-client-button {
+            background-color: #b80303;
+        }
+
+        .delete-client-button:hover {
+            background-color: #8a0202;
+        }
+
+        .btn-editar {
+            background-color: #f56d13;
+        }
+
+        .btn-editar:hover {
+            background-color: #c75204;
+        }
+
         .title {
-        text-align: center;
-        font-size: 24px;
-        margin: 20px auto;
-        color: #333;
-        width: 80%;
-        display: flex;
-        justify-content: center;
-    }
+            text-align: center;
+            font-size: 24px;
+            margin: 20px auto;
+            color: #333;
+            width: 100%; /* Ocupa a largura total */
+        }
+
+        .card-text {
+            margin-top: 5px;
+        }
 
         .container {
-            width: 80%;
+            width: 90%; /* Largura ajustada */
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             position: relative;
         }
-
-
 
         .supplier-list {
             display: flex;
@@ -136,8 +165,8 @@
 
         .supplier-info {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column; /* Itens em coluna em telas menores */
+            gap: 10px;
         }
 
         .supplier-name {
@@ -151,67 +180,15 @@
             gap: 5px;
         }
 
-        .supplier-button {
-            padding: 10px 20px;
-            background-color: #22394c;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            position: relative; /* Posição ajustada */
+            bottom: auto; /* Remove o alinhamento inferior */
+            right: auto; /* Remove o alinhamento à direita */
+            
         }
-
-        .supplier-button2 {
-            padding: 10px 20px;
-            background-color: #ac0909;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Container para os botões */
-.button-container {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px; /* Espaço entre os botões */
-    position: absolute;
-    bottom: 20px; /* Alinhamento na parte inferior */
-    right: 20px; /* Alinhamento à direita */
-}
-
-/* Estilo do botão de excluir */
-.delete-client-button {
-    background-color: #ac0909;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-.delete-client-button:hover {
-    background-color: rgb(121, 23, 33);
-    transform: translateY(-2px);
-}
-
-/* Estilo do botão de editar */
-.btn-editar {
-    background-color: #fa772a;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s;
-    color: #ffffff;
-}
-
-.btn-editar:hover {
-    background-color: #b15621;
-    transform: translateY(-2px);
-}
-
 
         footer {
             background-color: #333;
@@ -224,53 +201,84 @@
 
         /* Estilos do Modal */
         .modal-content {
-        border-radius: 10px;
-    }
+            border-radius: 10px;
+        }
 
-    .modal-header {
-        background-color: #005b71;
-        color: white;
-    }
+        .modal-header {
+            background-color: #A60E0E;
+            color: white;
+        }
 
-    .modal-header button {
-        color: white;
-    }
+        .modal-header button {
+            color: white;
+        }
 
-    .modal-footer {
-        border-top: none;
-    }
+        .modal-footer {
+            border-top: none;
+        }
 
-    .modal-body input {
-        margin-bottom: 10px;
-    }
+        .modal-body input {
+            margin-bottom: 10px;
+        }
 
-    .modal-body {
-        background-color: #ffffff;
-        border-radius: 10px;
-    }
+        .modal-body {
+            background-color: #ffffff;
+            border-radius: 10px;
+        }
 
-    .new-fornecedor-button, .button {
-        padding: 10px 20px;
-            background-color: #005b71; /* Cor atualizada */
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-left: 20px; /* Espaço entre a barra de pesquisa e o botão */
-        transition: background-color 0.3s, transform 0.3s;
-    }
+        /* Media Queries para responsividade */
+        @media (max-width: 768px) {
+           
 
-    .new-fornecedor-button:hover, .button:hover {
-        background-color: #033441;
-        transform: translateY(-2px);
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .add-supplier, .supplier-button2, .delete-client-button, .btn-editar {
+                font-size: 0.9rem;
+            }
+
+            .supplier-item {
+                padding: 15px;
+            }
+
+            .supplier-name {
+                font-size: 1.1em;
+            }
+
+            .btn, .delete-client-button, .delete-client-button2 {
+                font-size: 0.9rem;
+                padding: 11px 15px;
+            }
+
+            .search-bar input[type="text"] {
+                font-size: 14px;
+            }
+
+            .new-fornecedor-button,
+    .button {
+    max-width: 150px; /* Ajuste conforme necessário */
+    padding: 10px 10px;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+.search-bar .back-button {
+        margin-right: 1rem;
+        /* Ajuste o valor conforme necessário */
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
     }
+        }
     </style>
 </head>
 
 <body>
     <header class="text-white py-2" style="background-color: #860606;">
-       <a href="home_adm.html"><img src="../img/logo.png" alt="Logo Autofix" class="img-fluid" style="max-width: 200px; margin: 0 auto; display: block;"></a>
-    </header>
+        <a href="home_adm.html"><img src="../img/logo.png" alt="Logo Autofix" class="img-fluid" style="max-width: 200px; margin: 0 auto; display: block;"></a>
+     </header>
 
     <div class="title">
         Fornecedor
@@ -278,18 +286,17 @@
 
     <div class="search-bar">
         <button class="back-button">
-            <a href="/home_adm">  <img src="/img/seta.png" alt="Voltar"></a>
+            <a href="/home_adm"><img src="/img/seta.png" alt="Voltar"></a>
         </button>
         <div class="search-input-container">
             <input type="text" id="searchInput" placeholder="Buscar funcionário">
             <img src="/img/lupa.png" alt="Pesquisar" id="searchButton">
         </div>
-        <button class="new-client-button button" data-bs-toggle="modal" data-bs-target="#newClientModal">Novo Fornecedor</button>
+        <button class="new-fornecedor-button" data-bs-toggle="modal" data-bs-target="#newClientModal">Novo Fornecedor</button>
     </div>
 
     <main class="container">
         <div class="row" id="fornecedorCards">
-            <!-- Cards de fornecedores serão adicionados aqui -->
             <div class="supplier-list">
                 <% fornecedores.forEach((fornecedor) => { %>
                     <div class="supplier-item">
@@ -299,21 +306,16 @@
                                 <p class="card-text">CNPJ: <%= fornecedor.cnpj %></p>
                                 <p class="card-text">Email: <%= fornecedor.email %></p>
                                 <p class="card-text">Telefone: <%= fornecedor.telefone %></p>
-                                <!-- Ícone de editar com o CNPJ no atributo data-cnpj -->
+                                <p class="card-text">Endereço: <%= fornecedor.endereco %></p>
                                 <div class="button-container">
-                                    <button class="btn-editar" alt="Editar" class="editar-button" data-bs-toggle="modal" data-bs-target="#editarPerfilModal-<%= fornecedor.cnpj %>">Editar</button>
-                                    <form action="/excluirFornecedor" method="post" id="deleteClientForm">
-                                        <input type="hidden" name="cnpj_fornecedor" value="<%= fornecedor.cnpj %>">
-                                        <button class="delete-client-button" type="submit">Excluir Fornecedor</button>
-                                    </form>
+                                    <button class="btn-editar" alt="Editar" data-bs-toggle="modal" data-bs-target="#editarPerfilModal-<%= fornecedor.cnpj %>">Editar</button>
+                                    <button class="delete-client-button" type="submit" data-bs-toggle="modal" data-bs-target="#excluirModal-<%= fornecedor.cnpj %>" data-id="<%= fornecedor.cnpj %>">Excluir Fornecedor</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
                     <!-- Modal de Editar Perfil -->
-
                     <div class="modal fade" id="editarPerfilModal-<%= fornecedor.cnpj %>" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -322,8 +324,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <!-- Formulário para editar o fornecedor -->
-                                    <form action="/editarFornecedor" method="post" id="editFornecedorForm">
+                                    <form action="/editarFornecedor" method="post">
                                         <input type="hidden" name="cnpj" value="<%= fornecedor.cnpj %>">
                                         <div class="mb-3">
                                             <label for="nome_fornecedor" class="form-label">Nome:</label>
@@ -358,134 +359,125 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="excluirModal-<%= fornecedor.cnpj %>" tabindex="-1" aria-labelledby="excluirfuncionarioModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="excluirfuncionarioModalLabel">Excluir Funcionário</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Você tem certeza que deseja excluir o fornecedor <strong><%= fornecedor.nome %></strong>?</p>
+                                    <div class="modal-footer">
+                                        <form action="/excluirFornecedor" method="post" id="excluirFuncionarioForm" value="<%= fornecedor.cnpj %>">
+                                            <input type="hidden" name="cnpj_fornecedor" value="<%= fornecedor.cnpj %>">
+                                            <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="delete-client-button">Excluir</button> 
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 <% }); %>
             </div>
         </div>
     </main>
 
-
-    <!-- Modal para cadastrar um novo funcionário -->
+    <!-- Modal para cadastrar um novo fornecedor -->
     <div class="modal fade" id="newClientModal" tabindex="-1" aria-labelledby="newClientModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="newClientModalLabel">Cadastrar Novo Funcionário</h5>
+                    <h5 class="modal-title" id="newClientModalLabel">Cadastrar Novo Fornecedor</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Preencha os campos abaixo para adicionar um novo funcionário:</p>
-                    <form action="/adicionarFornecedor" method="post" id="addFornecedorForm">
-                    <div class="mb-3">
-                        <label for="nome_fornecedor" class="form-label">Nome:</label>
-                        <input type="text" class="form-control" id="nome"  name="nome_fornecedor" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="cnpj-editar" class="form-label">CNPJ:</label>
-                        <input type="text" class="form-control" id="cnpj_fornecedor" name="cnpj_fornecedor" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="email_fornecedor" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email_fornecedor" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="telefone_fornecedor" class="form-label">Telefone:</label>
-                        <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}" name="telefone_fornecedor" 
-                            title="Digite exatamente 13 dígitos numéricos" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="endereco_fornecedor" class="form-label">Endereço:</label>
-                        <input type="text" class="form-control" id="endereco"  name="endereco_fornecedor"  required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="id_oficina_fornecedor" class="form-label">Número da Oficina:</label>
-                        <input type="text" class="form-control" id="id_oficina" name="id_oficina"  required>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="button">Finalizar</button>
-                    </div>
+                    <p>Preencha os campos abaixo para adicionar um novo fornecedor:</p>
+                    <form action="/adicionarFornecedor" method="post">
+                        <div class="mb-3">
+                            <label for="nome_fornecedor" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome_fornecedor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cnpj-editar" class="form-label">CNPJ:</label>
+                            <input type="text" class="form-control" id="cnpj_fornecedor" name="cnpj_fornecedor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_fornecedor" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email_fornecedor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="telefone_fornecedor" class="form-label">Telefone:</label>
+                            <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}" name="telefone_fornecedor" title="Digite exatamente 13 dígitos numéricos" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="endereco_fornecedor" class="form-label">Endereço:</label>
+                            <input type="text" class="form-control" id="endereco" name="endereco_fornecedor" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_oficina_fornecedor" class="form-label">Número da Oficina:</label>
+                            <input type="text" class="form-control" id="id_oficina" name="id_oficina" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="button">Finalizar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
         </div>
     </div>
-</div>
-    
-     
 
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchInput');
-            const funcionarioCards = document.querySelectorAll('#funcionarioCards .card');
+            const fornecedorCards = document.querySelectorAll('#fornecedorCards .supplier-item'); // Seletor atualizado
 
             searchInput.addEventListener('input', function() {
                 const searchTerm = searchInput.value.toLowerCase();
 
-                funcionarioCards.forEach(card => {
-                    const title = card.querySelector('.card-title').textContent.toLowerCase();
-                    const email = card.querySelectorAll('.card-text')[0].textContent.toLowerCase();
-                    const phone = card.querySelectorAll('.card-text')[1].textContent.toLowerCase();
-                    const cpf_mecanico = card.getAttribute('data-cpf').toLowerCase();
+                fornecedorCards.forEach(card => {
+                    const nome = card.querySelector('.card-title').textContent.toLowerCase();
+                    const cnpj = card.querySelector('.card-text:nth-child(1)').textContent.toLowerCase(); // Seleciona o primeiro .card-text
+                    const email = card.querySelector('.card-text:nth-child(2)').textContent.toLowerCase(); // Seleciona o segundo .card-text
+                    const telefone = card.querySelector('.card-text:nth-child(3)').textContent.toLowerCase(); // Seleciona o terceiro .card-text
 
-                    if (title.includes(searchTerm) || email.includes(searchTerm) || phone.includes(searchTerm) || cpf.includes(searchTerm)) {
-                        card.parentElement.style.display = ''; // Mantenha o cartão visível
+                    if (nome.includes(searchTerm) || cnpj.includes(searchTerm) || email.includes(searchTerm) || telefone.includes(searchTerm)) {
+                        card.style.display = ''; // Exibe o card
                     } else {
-                        card.parentElement.style.display = 'none'; // Oculte o cartão
+                        card.style.display = 'none'; // Oculta o card
                     }
                 });
             });
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-    // Captura o evento de abrir o modal
-    var editarPerfilModal = document.getElementById('editarPerfilModal');
-    editarPerfilModal.addEventListener('show.bs.modal', function(event) {
-        // Botão que acionou o modal
-        var button = event.relatedTarget;
-        // Obtém o CNPJ do atributo data-cnpj
-        var cnpj = button.getAttribute('data-cnpj');
+            var editarPerfilModal = document.getElementById('editarPerfilModal');
+            editarPerfilModal.addEventListener('show.bs.modal', function(event) {
+                var button = event.relatedTarget;
+                var cnpj = button.closest('.supplier-info').getAttribute('data-cnpj'); // Busca o data-cnpj no elemento pai
 
-        // Requisição AJAX para obter os dados do fornecedor
-        fetch(`/getFornecedor/${cnpj}`)
-            .then(response => response.json())
-            .then(data => {
-                // Preenche os campos do modal com os dados recebidos
-                document.getElementById('nome_fornecedor').value = data.nome;
-                document.getElementById('cnpj_fornecedor').value = data.cnpj;
-                document.getElementById('email_fornecedor').value = data.email;
-                document.getElementById('telefone_fornecedor').value = data.telefone;
-                document.getElementById('endereco_fornecedor').value = data.endereco;
-                document.getElementById('id_oficina_fornecedor').value = data.idoficina;
-            })
-            .catch(error => {
-                console.error('Erro ao buscar fornecedor:', error);
+                fetch(`/getFornecedor/${cnpj}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('nome_fornecedor').value = data.nome;
+                        document.getElementById('cnpj_fornecedor').value = data.cnpj;
+                        document.getElementById('email_fornecedor').value = data.email;
+                        document.getElementById('telefone_fornecedor').value = data.telefone;
+                        document.getElementById('endereco_fornecedor').value = data.endereco;
+                        document.getElementById('id_oficina_fornecedor').value = data.idoficina;
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar fornecedor:', error);
+                    });
             });
-    });
-});
-
- // Função para confirmar e excluir o fornecedor
- function openDeleteModal() {
-                document.getElementById('deleteModal').style.display = 'block';
-            }
-
-            function closeDeleteModal() {
-                document.getElementById('deleteModal').style.display = 'none';
-            }
-
-            function confirmDelete() {
-                // Lógica para exclusão do cliente
-                closeDeleteModal();
-                alert('Cliente excluído com sucesso!');
-            };
-</script>
-
+        });
+    </script>
 </body>
 </html>

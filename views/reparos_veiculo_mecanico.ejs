@@ -7,16 +7,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../public/css/reparos_veiculos_mecanico.css">
     <title>Reparos do veículo</title>
 </head>
 
 <body>
     <header>
-        <img src="../public/img/logo.png" alt="Logo">
+        <img src="/img/logo.png" alt="Logo">
     </header>
 
     <div class="title">
@@ -24,69 +22,81 @@
     </div>
     
     <div class="search-bar">
-        <button class="back-button">
-            <img src="../public/img/seta.png" alt="Voltar">
-        </button>
+        <a href="/manutencoes_andamento">
+            <button class="back-button">
+                <img src="/img/seta.png" alt="Voltar">
+            </button>
+        </a>
     </div>
 
     <div class="main-container">
         <div class="card-info">
             <div class="card-nome">
                 <h4>Nome:</h4>
-                <p>Geovana Vale</p>
+                <p><%= veiculo.nome_cliente %></p>
             </div>
             <div class="card-modelo">
-                <h4>Modelo:</h4>
-                <p>Tracker</p>
+                <h4>Carro:</h4>
+                <p><%= veiculo.marca %> <%= veiculo.modelo %></p>
             </div>
         </div>
 
-        <div class="card-container">
-            <div class="card-wrapper">
-                <input type="checkbox" id="check1">
-                <div class="card-content">
-                    <p>Trocar Disco de freio dianteiro esquerdo</p>
+       <form action="/finalizar_manutencao" method="post">
+        <input type="hidden" name="id_orcamento" value="<%= veiculo.id_orcamento %>"> <!-- Campo oculto para o id do orçamento -->
+        <input type="hidden" name="placa" value="<%= veiculo.placa %>"> <!-- Campo oculto para a placa do veículo -->
+        
+    <div class="card-container">
+        <% if (servicos.length === 0) { %>
+            <p>Nenhum serviço encontrado para este orçamento.</p>
+        <% } else { %>
+            <% servicos.forEach(servico => { %>
+                <div class="card-wrapper">
+                    <input type="checkbox" id="check_<%= veiculo.id_orcamento %>_<%= servico.id %>_<%= servico.nome_servico.replace(/\s+/g, '_') %>">
+                    <div class="card-content">
+                        <p><%= servico.nome_servico %></p>
+                    </div>
                 </div>
-            </div>
-            <div class="card-wrapper">
-                <input type="checkbox" id="check2">
-                <div class="card-content">
-                    <p>Trocar Pastilha de freio dianteira esquerda</p>
-                </div>
-            </div>
-            <div class="card-wrapper">
-                <input type="checkbox" id="check3">
-                <div class="card-content">
-                    <p>Trocar Velas queimadas</p>
-                </div>
-            </div>
-            <div class="card-wrapper">
-                <input type="checkbox" id="check4">
-                <div class="card-content">
-                    <p>Trocar roda dianteira esquerda</p>
-                </div>
-            </div>
-            <button class="button"  id="finalizarManutencao" >Finalizar manutenção</button>
-        </div>
+            <% }); %>
+        <% } %>
+        <button type="submit" class="button" id="finalizarManutencao">Finalizar manutenção</button>
     </div>
+</form>
+
 
     <script>
-        // Função para salvar as informações (implemente a lógica de salvamento)
-        function saveInfo(checkboxId, isChecked) {
-            // Aqui você implementaria a lógica para salvar as informações
-            // no banco de dados ou em um arquivo local.
-            console.log("Checkbox " + checkboxId + " está " + (isChecked ? "marcado" : "desmarcado"));
-        }
-
-        // Adiciona um evento de clique para cada checkbox
-        const checkboxes = document.querySelectorAll('.card-wrapper input[type="checkbox"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('click', () => {
-                saveInfo(checkbox.id, checkbox.checked);
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.card-wrapper input[type="checkbox"]');
+            const finalizarButton = document.getElementById('finalizarManutencao');
+    
+            // Função para verificar se todos os checkboxes estão marcados
+            function checkAllTicked() {
+                return Array.from(checkboxes).every(checkbox => checkbox.checked);
+            }
+    
+            // Verifica o estado do botão ao carregar a página
+            finalizarButton.disabled = !checkAllTicked();
+    
+            checkboxes.forEach(checkbox => {
+                const isChecked = localStorage.getItem(checkbox.id) === 'true';
+                checkbox.checked = isChecked;
+    
+                checkbox.addEventListener('click', () => {
+                    saveInfo(checkbox.id, checkbox.checked);
+                    finalizarButton.disabled = !checkAllTicked(); // Atualiza o botão
+                });
             });
         });
+    
+        function saveInfo(checkboxId, isChecked) {
+            localStorage.setItem(checkboxId, isChecked);
+            console.log("Checkbox " + checkboxId + " está " + (isChecked ? "marcado" : "desmarcado"));
+        }
     </script>
+    
+
+        
 </body>
+
 <style>
     * {
         margin: 0;
@@ -188,22 +198,24 @@
     }
 
     .card-wrapper {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        max-width: 600px; /* Define uma largura máxima para os cards */
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        position: relative; /* Adiciona posição relativa ao card-wrapper */
-    }
+    display: flex;
+    align-items: center;
+    width: 3000px;
+    max-width: 600px; /* Define uma largura máxima para os cards */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Adiciona posição relativa ao card-wrapper */
+}
 
-    .card-content {
-        flex: 1;
-        padding-left: 10px; /* Espaço para separar o checkbox do texto */
-    }
+.card-content {
+    flex: 1; /* Garante que ocupe todo o espaço disponível */
+    min-width: 150px; /* Define uma largura mínima */
+    padding-left: 10px; /* Espaço para separar o checkbox do texto */
+    word-wrap: break-word; /* Quebra a palavra caso seja muito longa */
+}
 
     .card-wrapper input[type="checkbox"] {
         -webkit-appearance: none; /* Remove o estilo padrão do checkbox */

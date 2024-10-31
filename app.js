@@ -75,13 +75,9 @@
             });
 
 
-            app.get('/manutencoes_andamento', (req, res) => {
-                res.render('manutencoes_andamento');
-            });
+          
 
-            app.get('/manutencoes_finalizadas_mecanico', (req, res) => {
-                res.render('manutencoes_finalizadas_mecanico');
-            });
+         
 
             app.get('/home_adm', (req, res) => {
                 // Consulta o banco de dados para obter os dados do administrador
@@ -947,22 +943,23 @@
         app.get('/orcamentos_adm', (req, res) => {
             // Consulta no banco de dados para obter os orçamentos pendentes
             db.query(`
-                SELECT 
-                    mecanico.nome AS nome_mecanico,
-                    mecanico.cpf_mecanico,
-                    COUNT(inspecao_manutencao.id_inspecao_manutencao) AS quantidade_inspecoes
-                FROM 
-                    mecanico
-                LEFT JOIN 
-                    inspecao_manutencao ON mecanico.cpf_mecanico = inspecao_manutencao.cpfmecanico
-                LEFT JOIN 
-                    orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
-                WHERE 
-                    inspecao_manutencao.id_inspecao_manutencao IS NOT NULL -- Garante que a inspeção de manutenção existe
-                GROUP BY 
-                    mecanico.nome, mecanico.cpf_mecanico
-                HAVING 
-                    COUNT(orcamento.id_orcamento) = 0; -- Somente mecânicos sem orçamento enviado
+                  SELECT 
+            mecanico.nome AS nome_mecanico,
+            mecanico.cpf_mecanico,
+            COUNT(inspecao_manutencao.id_inspecao_manutencao) AS quantidade_inspecoes
+        FROM 
+            mecanico
+        LEFT JOIN 
+            inspecao_manutencao ON mecanico.cpf_mecanico = inspecao_manutencao.cpfmecanico
+        LEFT JOIN 
+            orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
+        WHERE 
+            inspecao_manutencao.id_inspecao_manutencao IS NOT NULL -- Garante que a inspeção de manutenção existe
+        AND 
+            inspecao_manutencao.status = 'aguardando_aprovacao' -- Filtra apenas as inspeções com status 'aguardando_aprovacao'
+        GROUP BY 
+            mecanico.nome, mecanico.cpf_mecanico
+
 
             `, (error, results) => {
                 if (error) {
@@ -1027,7 +1024,8 @@
                     JOIN 
                         inspecao_manutencao im ON v.placa = im.placa
                     WHERE 
-                        im.cpfmecanico = ?;  -- Filtra pela condição do CPF do mecânico
+                        im.cpfmecanico = ? AND -- Filtra pela condição do CPF do mecânico
+                        im.status = 'aguardando_aprovacao'; -- Filtra apenas inspeções com status 'aguardando_aprovacao'
                 `, [cpfMecanico], (error, veiculoResults) => {
                     if (error) {
                         console.log('Erro ao buscar veículos:', error);
@@ -1108,21 +1106,21 @@
 
     app.post('/definir_valor_servico', (req, res) => {
         console.log(req.body); // Verifique o que está sendo enviado
-        
+    
         const servicos = req.body; // Captura os serviços enviados pelo formulário
         let totalValue = 0; // Inicializa o total
         const idInspecaoManutencao = req.body.id_inspecao_manutencao; // Captura o ID da inspeção de manutenção do formulário
-
+    
         if (!idInspecaoManutencao) {
             return res.status(400).send('ID da inspeção de manutenção não fornecido'); // Retorna erro se o ID não for fornecido
         }
-
+    
         // Itera pelos serviços e atualiza o valor no banco de dados
         for (const [nomeServico, valorServico] of Object.entries(servicos)) {
             if (nomeServico !== 'totalValue' && nomeServico !== 'id_inspecao_manutencao') { // Ignora os campos totalValue e id_inspecao_manutencao
                 const valorNumerico = parseFloat(valorServico.replace('.', '').replace(',', '.')); // Converte para número decimal
                 totalValue += valorNumerico; // Acumula o total
-
+    
                 // Atualiza o valor do serviço no banco de dados
                 const sqlUpdate = 'UPDATE servico SET valor_servico = ? WHERE nome_servico = ?';
                 db.query(sqlUpdate, [valorNumerico, nomeServico], (err, result) => {
@@ -1134,7 +1132,7 @@
                 });
             }
         }
-
+    
         // Obtém o CPF do administrador com uma consulta ao banco de dados
         const sqlSelect = 'SELECT cpf_adm FROM administrador'; // Seleciona o CPF do único administrador
         db.query(sqlSelect, (err, result) => {
@@ -1142,10 +1140,10 @@
                 console.error('Erro ao obter o CPF do administrador:', err);
                 return res.status(500).send('Erro ao processar o orçamento'); // Responde com erro
             }
-
+    
             if (result.length > 0) {
                 const cpfAdm = result[0].cpf_adm; // Obtém o CPF do primeiro (e único) administrador
-
+    
                 // Insere um novo orçamento na tabela orcamento
                 const sqlInsert = 'INSERT INTO orcamento (valor_total, status, id_administrador, id_inspecao_manutencao) VALUES (?, ?, ?, ?)';
                 db.query(sqlInsert, [totalValue, 'aguardando_aprovacao', cpfAdm, idInspecaoManutencao], (err, result) => {
@@ -1154,8 +1152,20 @@
                         return res.status(500).send('Erro ao processar o orçamento'); // Responde com erro
                     } else {
                         console.log('Orçamento inserido com sucesso');
-                        // Redireciona de volta para a página de orçamento após a atualização
-                        res.redirect('/home_adm');
+    
+                        // Atualiza o status da inspeção de manutenção para 'aprovado'
+                        const sqlUpdateInspecao = 'UPDATE inspecao_manutencao SET status = ? WHERE id_inspecao_manutencao = ?';
+                        db.query(sqlUpdateInspecao, ['aprovado', idInspecaoManutencao], (err, result) => {
+                            if (err) {
+                                console.error('Erro ao atualizar o status da inspeção de manutenção:', err);
+                                return res.status(500).send('Erro ao atualizar o status da inspeção de manutenção'); // Responde com erro
+                            } else {
+                                console.log('Status da inspeção de manutenção atualizado para aprovado');
+    
+                                // Redireciona de volta para a página de orçamento após a atualização
+                                res.redirect('/home_adm');
+                            }
+                        });
                     }
                 });
             } else {
@@ -1164,6 +1174,7 @@
             }
         });
     });
+    
 
     app.get('/aprovar_orcamento_cliente', (req, res) => {
         // Verifique se o cliente está autenticado
@@ -1377,5 +1388,169 @@
                 return res.status(404).send('Administrador não encontrado');
             }
         });
+    });
+    
+
+
+    app.get('/manutencoes_andamento', (req, res) => {
+        const cpfMecanico = req.session.cpfMecanico; // Obtenha o CPF do mecânico da sessão
+    
+        if (!cpfMecanico) {
+            return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
+        }
+    
+        // Consulta SQL para buscar manutenções em andamento (adaptada para o seu caso)
+        const sql = `
+            SELECT 
+        v.placa,
+        v.marca,
+        v.modelo,
+        v.cor,
+        v.ano,
+        o.id_orcamento,           -- Adicionando o ID do orçamento
+        o.status AS status_orcamento
+    FROM 
+        veiculo v
+    JOIN 
+        orcamento o ON o.id_inspecao_manutencao = (
+            SELECT id_inspecao_manutencao 
+            FROM inspecao_manutencao 
+            WHERE placa = v.placa
+        )
+    WHERE 
+        o.status = 'aprovado';
+
+        `;
+    
+        db.query(sql, (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar manutenções em andamento', error);
+                res.status(500).send('Erro ao buscar manutenções em andamento');
+            } else {
+                res.render('manutencoes_andamento', { veiculos: results }); // Corrigindo o nome da variável
+            }
+        });
+    });
+
+    app.get('/reparos_veiculo_mecanico/:id_orcamento', (req, res) => {
+        const idOrcamento = req.params.id_orcamento;
+    
+        // Primeira consulta para obter dados do veículo, cliente e orçamento
+        db.query(`
+            SELECT 
+                v.placa, v.marca, v.modelo, v.cor, v.ano,
+                c.nome AS nome_cliente, c.telefone AS telefone_cliente, c.email AS email_cliente,
+                o.id_orcamento, o.status AS status_orcamento,
+                im.id_inspecao_manutencao
+            FROM 
+                veiculo v
+            JOIN 
+                inspecao_manutencao im ON v.placa = im.placa
+            JOIN 
+                orcamento o ON im.id_inspecao_manutencao = o.id_inspecao_manutencao
+            JOIN 
+                cliente c ON v.cpfcliente = c.cpf_cliente
+            WHERE 
+                o.id_orcamento = ?
+        `, [idOrcamento], (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar dados do veículo e cliente:', error);
+                res.status(500).send('Erro ao buscar dados do veículo e cliente');
+                return;
+            }
+    
+            // Verifica se encontrou algum resultado
+            if (results.length === 0) {
+                console.log('Orçamento não encontrado');
+                res.status(404).send('Orçamento não encontrado');
+                return;
+            }
+    
+            const veiculo = results[0];
+            console.log('Dados do veículo e cliente:', veiculo);  // Exibe dados para depuração
+    
+            // Segunda consulta para obter serviços vinculados ao id_inspecao_manutencao
+            db.query('SELECT * FROM servico WHERE id_inspecao_manutencao = ?', [veiculo.id_inspecao_manutencao], (error, servicos) => {
+                if (error) {
+                    console.log('Erro ao buscar serviços:', error);
+                    res.status(500).send('Erro ao buscar serviços');
+                    return;
+                }
+    
+                console.log('Serviços encontrados:', servicos); // Exibe serviços para depuração
+    
+                // Renderiza a view 'reparos_veiculo_mecanico' com os dados do veículo, cliente e serviços
+                res.render('reparos_veiculo_mecanico', {
+                    veiculo: veiculo,
+                    servicos: servicos
+                });
+            });
+        });
+    });
+    
+
+    app.post('/finalizar_manutencao', (req, res) => {
+        if (!req.session.cpfMecanico) {
+            return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
+        }
+    
+        const cpfMecanico = req.session.cpfMecanico;
+        const { id_orcamento, placa } = req.body; // Extraindo id_orcamento e placa do corpo da requisição
+    
+        // Cria o comando SQL para inserir na tabela `manutencao`
+        const sql = `
+            INSERT INTO manutencao (status, data_fim, cpf_mecanico, id_orcamento, placa)
+            VALUES ('finalizado', NOW(), ?, ?, ?)
+        `;
+    
+        db.query(sql, [cpfMecanico, id_orcamento, placa], (error, results) => {
+            if (error) {
+                console.error('Erro ao inserir dados na tabela manutencao:', error);
+                return res.status(500).send('Erro ao finalizar a manutenção');
+            }
+    
+            // Redireciona para a página home do mecânico em caso de sucesso
+            res.redirect('home_mecanico');
+        });
+    });
+    
+    app.get('/manutencoes_finalizadas_mecanico', async (req, res) => {
+        try {
+            // Consulta para buscar os veículos e dados do cliente com manutenção finalizada
+            const query = `
+                SELECT 
+                    v.placa, 
+                    v.marca, 
+                    v.modelo, 
+                    v.cor, 
+                    v.ano,
+                    c.nome AS nome_cliente, 
+                    c.telefone AS telefone_cliente, 
+                    c.email AS email_cliente,
+                    m.status AS status_manutencao
+                FROM 
+                    veiculo v
+                JOIN 
+                    manutencao m ON v.placa = m.placa
+                JOIN 
+                    cliente c ON v.cpfcliente = c.cpf_cliente
+                WHERE 
+                    m.status = 'finalizado';
+            `;
+            
+            db.query(query, (error, results) => {
+                if (error) {
+                    console.log('Erro ao buscar manutenções finalizadas:', error);
+                    res.status(500).send('Erro ao buscar manutenções finalizadas');
+                    return;
+                }
+                
+                // Renderiza a página passando os dados das manutenções finalizadas
+                res.render('manutencoes_finalizadas_mecanico', { veiculos: results });
+            });
+        } catch (error) {
+            console.error('Erro no servidor:', error);
+            res.status(500).send('Erro interno do servidor');
+        }
     });
     

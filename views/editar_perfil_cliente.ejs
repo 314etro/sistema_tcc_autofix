@@ -30,11 +30,11 @@
 
             <div class="icon">
             <a href="/aprovar_entrada_cliente">
-                <img src="/img/back.png" alt="Meus Veículos">
+                <img src="/img/seta.png" alt="Meus Veículos">
             </a>
         </div>
 
-            <a class="active">Dados e Privacidade</a>
+            <a class="active">Editar Perfil</a>
         </div>
 
         <!-- Seção dos cards -->
@@ -42,24 +42,19 @@
             <div class="card-header">Informações Básicas</div>
             
             <div class="card-item">
-                <label>Foto do seu perfil</label>
-                <div class="profile-pic"></div>
+                <label>Nome: <%= cliente.nome%> </label>
             </div>
             
             <div class="card-item">
-                <label>Nome</label>
+                <label>Telefone: <%= cliente.telefone%></label>
             </div>
             
             <div class="card-item">
-                <label>Telefone</label>
+                <label>E-mail: <%= cliente.email%></label>
             </div>
             
             <div class="card-item">
-                <label>E-mail</label>
-            </div>
-            
-            <div class="card-item">
-                <label>Senha</label>
+                <label>Senha: <%= cliente.senha%></label>
                 <button class="edit-button" id="openModal">Editar senha</button>
             </div>
         </div>
@@ -69,22 +64,24 @@
         <!-- Modal -->
     <div id="editPasswordModal" class="modal">
         <div class="modal-content">
+            <form action="/editar_senha_cliente/<%= cliente.email %>" method="POST">
             <div class="modal-header">
                 Editar senha
             </div>
             <div class="modal-body">
                 <label for="newPassword">Nova senha</label>
-                <input type="password" id="newPassword" placeholder="Digite sua senha aqui">
-                <div class="error-message">Senha de no mínimo 8 caracteres</div>
+                <input type="password" id="newPassword" name="newPassword" required>
+                
 
                 <label for="confirmPassword">Confirme sua senha</label>
-                <input type="password" id="confirmPassword" placeholder="Digite sua senha aqui">
-                <div class="error-message">Senha de no mínimo 8 caracteres</div>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                
             </div>
             <div class="modal-footer">
                 <button class="close-button" id="closeModal">Cancelar</button>
                 <button class="save-button">Salvar senha</button>
             </div>
+        </form>
         </div>
     </div>
 
@@ -117,12 +114,28 @@
                 modal.style.display = "none";
             }
         }
+
+
+
+        
   </script>
 
 
 
 
         <style>
+            .icon {
+        margin-right: 30px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .icon img {
+    width: 20px; /* Diminui a largura do ícone */
+    height: auto; /* Mantém a proporção */
+}
+
  body {
             font-family: 'Arvo', serif;
             margin: 0;

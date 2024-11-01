@@ -3,97 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoFix - Civic - Type R</title>
-    <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
-    <!-- Adicionando o Bootstrap -->
+    <title>AutoFix - <%= veiculo.marca %> - <%= veiculo.modelo %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Cabeçalho -->
     <header>
         <img src="/img/logo.png" alt="Logo Autofix">
     </header>
 
-    <!-- Conteúdo da página -->
     <div class="container">
-        <h1 class="title"><%= veiculo.marca %> <%= veiculo.modelo %> <img src="/img/whatsapp-logo-png-0.png" alt="WhatsApp" class="whatsapp-icon"></h1>
+        <h1 class="title">
+            <%= veiculo.marca %> <%= veiculo.modelo %> 
+            <img src="/img/whatsapp-logo-png-0.png" alt="WhatsApp" class="whatsapp-icon" onclick="sendWhatsAppMessage()">
+        </h1>
+        
         <form id="service-form" action="/definir_valor_servico" method="POST">
             <% servicos.forEach(function(servico) { %>
                 <div class="form-group">
-                    <label for="<%= servico.nome_servico %>"><%= servico.nome_servico %></label>
-                    R$
-                    <input type="text" id="<%= servico.nome_servico %>" name="<%= servico.nome_servico %>" class="money-input"
-                    placeholder="0,00"
-                    value="<%= (typeof servico.valor_servico === 'number' && servico.valor_servico > 0 ? servico.valor_servico.toFixed(2) : '') %>"
-                    oninput="formatCurrency(this); calculateTotal()">
+                    <label for="<%= servico.nome_servico %>"><h4><%= servico.nome_servico %></h4></label>
+                    <div class="currency-input">
+                        <span class="currency-symbol">R$</span>
+                        <input type="text" id="<%= servico.nome_servico %>" name="<%= servico.nome_servico %>" class="money-input"
+                               placeholder="0,00"
+                               value="<%= (typeof servico.valor_servico === 'number' && servico.valor_servico > 0 ? servico.valor_servico.toFixed(2) : '') %>"
+                               oninput="formatCurrency(this); calculateTotal()">
+                    </div>
                 </div>
             <% }) %>
-
-            <!-- Campo oculto para armazenar o valor total -->
             <input type="hidden" name="id_inspecao_manutencao" value="<%= veiculo.id_inspecao_manutencao %>">
-
+        
             <div class="total-card">
                 <div class="total-amount">
                     Total: <span id="total">R$ 0,00</span>
                 </div>
                 <div class="buttons">
-                    <button type="button" class="btn btn-danger cancel-button" onclick="window.location.href = '/home_adm';">Cancelar</button>
-                    <button type="submit" class="btn btn-success submit-button">Enviar</button>
+                    <button type="button" class="button" onclick="window.location.href = '/home_adm';">Cancelar</button>
+                    <button type="submit" class="button2">Enviar</button>
                 </div>
             </div>
-        </form>
+        </form>        
+        
     </div>
 
-<script>
-    // Função para formatar o valor como moeda brasileira
-    function formatCurrency(input) {
-        let value = input.value;
-
-        // Remove qualquer caractere não numérico (exceto vírgulas e pontos)
-        value = value.replace(/\D/g, "");
-
-        // Adiciona a formatação de centavos
-        value = (value / 100).toFixed(2) + "";
-
-        // Adiciona o separador de milhar
-        value = value.replace(".", ",");
-
-        // Regex para separar milhares
-        value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-        // Atualiza o valor no campo de entrada
-        input.value = value;
-    }
-
-    // Função para calcular o total dos serviços
-    function calculateTotal() {
-        let total = 0;
-        const inputs = document.querySelectorAll('.money-input');
-
-        inputs.forEach(input => {
-            // Remove formatação e converte para número
-            let value = input.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-            if (value) {
-                total += parseFloat(value); // Converte para número e adiciona ao total
-            }
-        });
-
-        // Formata o total como moeda
-        total = (total / 100).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        
-        // Atualiza o elemento total
-        document.getElementById('total').textContent = `R$ ${total}`;
-
-        // Atualiza o campo oculto com o total calculado
-        document.getElementById('totalValue').value = (total.replace("R$ ", "")).replace(",", ".");
-    }
-</script>
+    <script>
+        // Função para formatar o valor como moeda brasileira
+        function formatCurrency(input) {
+            let value = input.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+            value = (value / 100).toFixed(2) + "";
+            value = value.replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            input.value = value;
+        }
+    
+        // Função para calcular o total dos serviços
+        function calculateTotal() {
+            let total = 0;
+            document.querySelectorAll('.money-input').forEach(input => {
+                let value = input.value.replace(/\D/g, '');
+                if (value) total += parseFloat(value);
+            });
+            total = (total / 100).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            document.getElementById('total').textContent = `R$ ${total}`;
+        }
+    
+        // Função para enviar a mensagem pelo WhatsApp
+        function sendWhatsAppMessage() {
+            let message = `AutoFix - Orçamento para o veículo ${"<%= veiculo.marca %>"} ${"<%= veiculo.modelo %>"}\n\n`;
+            
+            // Inclui os serviços e valores na mensagem
+            document.querySelectorAll('.form-group').forEach(service => {
+                let serviceName = service.querySelector('h4').textContent;
+                
+                message += `${serviceName} `;
+            });
+    
+    
+            // Codifica a mensagem para URL e redireciona para o WhatsApp
+            let encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+        }
+    </script>
 
     <!-- Adicionando o Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
 </body>
 <style>
+
+    .whatsapp-icon { 
+        position: absolute; 
+        right: 30px; 
+        top: 50%; 
+        transform: translateY(-50%); 
+        width: 46px; 
+        height: 46px; 
+        cursor: pointer; 
+    }
+
     body {
         font-family: 'Arvo', serif;
         margin: 0;
@@ -123,22 +131,63 @@ margin: 0 auto;
 display: block;
 }
 
+        .button {
+            padding: 10px 20px;
+            background-color: #6C757D;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #3f4549;
+            transform: translateY(-2px);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button2 {
+            padding: 10px 20px;
+            background-color: #138132;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .button2:hover {
+            background-color: #0b4b1d;
+            transform: translateY(-2px);
+        }
+
     /* Estilos do título */
     .title {
         text-align: center;
-        font-size: 26px;
-        margin: 10px auto;
-        color: #333;
+        font-size: 30px;
+        margin: 15px auto;
+        color: #000000;
         width: 100%;
-        
+        font-weight: bold;
         justify-content: center; /* Centraliza o título */
         position: relative; /* Adiciona posição relativa para o título */
+        margin-top: 10px;
     }
+
+    h4 {
+        margin-left: 10px;
+    }
+
+   
 
     /* Estilos do formulário */
     .container {
         max-width: 900px;
-        margin: 100px auto;
+        margin: 25px auto;
         background-color: #fff;
         padding: 20px;
         border-radius: 5px;
@@ -156,23 +205,41 @@ display: block;
     }
 
     /* Estilos para campos de dinheiro */
-    .money-input {
-        width: 95%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        box-sizing: border-box;
-        text-align: left; /* Alinha o texto à esquerda */
-    }
+    .input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
-    .money-input::placeholder {
-        text-align: left; /* Alinha o placeholder à esquerda */
-    }
+.currency-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.currency-symbol {
+    margin-right: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.money-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+
 
     /* Estilo para o ícone do WhatsApp menor */
     .whatsapp-icon {
         position: absolute;
-        right: 30px; /* Ajuste para mover o ícone mais para a direita */
+        right: 10px; /* Ajuste para mover o ícone mais para a direita */
         top: 50%;
         transform: translateY(-50%); /* Centraliza verticalmente */
         width: 46px; /* Ajuste o tamanho do ícone */
@@ -221,7 +288,7 @@ display: block;
         width: 100%;
         padding: 20px;
         background-color: #fff;
-        border-radius: 5px;
+        border-radius: 10px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin-top: 30px;
         margin-bottom: 30px;
@@ -230,7 +297,7 @@ display: block;
     .total-amount {
         text-align: center;
         margin-bottom: 20px;
-        font-size: 20px;
+        font-size: 25px;
         font-weight: bold;
     }
 

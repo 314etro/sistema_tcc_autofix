@@ -75,9 +75,6 @@
             });
 
 
-          
-
-         
 
             app.get('/home_adm', (req, res) => {
                 // Consulta o banco de dados para obter os dados do administrador
@@ -97,30 +94,12 @@
             });
 
 
-        
-
-
-
-
             app.get('/index1', (req, res) => {
                 res.render('index1');
             });
 
 
-        
-
-
-
-          
-
-
-            app.get('/editar_perfil_cliente', (req, res) => {
-                res.render('editar_perfil_cliente');
-            });
-            //
-
-
-
+    
             // Login
             app.post('/loginMecanico', (req, res) => {
                 const usuario = req.body.emailMecanico;
@@ -1567,45 +1546,115 @@ WHERE
 
 
 
-        app.get('/meu_veiculo_cliente', (req, res) => {
-            // Verifique se a sessão do cliente está ativa
-            if (!req.session.cpfCliente) {
-                return res.redirect('/loginCliente'); // Redireciona para o login se a sessão não existir
-            }
-        
-            const cpfCliente = req.session.cpfCliente;
-        
-            // Consulta o banco de dados para obter os veículos do cliente
-            db.query(`
+    app.get('/meu_veiculo_cliente', (req, res) => {
+        // Verifique se a sessão do cliente está ativa
+        if (!req.session.cpfCliente) {
+            return res.redirect('/loginCliente'); // Redireciona para o login se a sessão não existir
+        }
+    
+        const cpfCliente = req.session.cpfCliente;
+    
+        // Consulta o banco de dados para obter os veículos do cliente e os dados do cliente
+        db.query(`
             SELECT 
-        v.placa,
-        v.marca,
-        v.modelo,
-        v.cor,
-        v.ano,
-         ie.id_inspecao_entrada, -- Adicione este campo
-        ie.data_hora_entrada, -- Acessa a data e hora da entrada do carro
-        ie.status AS status_inspecao
-    FROM 
-        veiculo v
-    JOIN 
-        inspecao_entrada ie ON ie.placa = v.placa
-    WHERE 
-        v.cpfcliente = ? -- CPF específico do cliente
-        AND ie.status = 'Aprovado'; -- Condição para mostrar apenas veículos com status "Aprovado"
-            `, [cpfCliente], (error, veiculos) => {
-                if (error) {
-                    console.log('Erro ao buscar veículos do cliente', error);
-                    res.status(500).send('Erro ao buscar veículos do cliente');
-                } else {
-                    // Renderiza a página e passa os veículos para o template EJS
-                    res.render('meu_veiculo_cliente', { veiculos });
-                }
-            });
+                v.placa,
+                v.marca,
+                v.modelo,
+                v.cor,
+                v.ano,
+                ie.id_inspecao_entrada, -- Adicione este campo
+                ie.data_hora_entrada, -- Acessa a data e hora da entrada do carro
+                ie.status AS status_inspecao,
+                c.nome, -- Nome do cliente
+                c.email -- Email do cliente
+            FROM 
+                veiculo v
+            JOIN 
+                inspecao_entrada ie ON ie.placa = v.placa
+            JOIN 
+                cliente c ON c.cpf = v.cpfcliente -- JOIN para obter dados do cliente
+            WHERE 
+                v.cpfcliente = ? -- CPF específico do cliente
+                AND ie.status = 'Aprovado'; -- Condição para mostrar apenas veículos com status "Aprovado"
+        `, [cpfCliente], (error, results) => {
+            if (error) {
+                console.log('Erro ao buscar veículos e dados do cliente', error);
+                res.status(500).send('Erro ao buscar veículos e dados do cliente');
+            } else {
+                const veiculos = results.map(row => ({
+                    placa: row.placa,
+                    marca: row.marca,
+                    modelo: row.modelo,
+                    cor: row.cor,
+                    ano: row.ano,
+                    id_inspecao_entrada: row.id_inspecao_entrada,
+                    data_hora_entrada: row.data_hora_entrada,
+                    status_inspecao: row.status_inspecao
+                }));
+    
+                // Dados do cliente
+                const cliente = {
+                    nome: results[0]?.nome, // Garante que pegue o nome do primeiro resultado
+                    email: results[0]?.email // Garante que pegue o email do primeiro resultado
+                };
+    
+                // Renderiza a página e passa os veículos e o cliente para o template EJS
+                res.render('meu_veiculo_cliente', { veiculos, cliente });
+            }
         });
+    });
+    
         
 
+
+    app.get('/editar_perfil_cliente/:email', (req, res) => {
+        const email = req.params.email; // Acessa o email do cliente
+    
+        db.query(`SELECT * FROM cliente WHERE email = ?`, [email], (error, results) => {
+            if (error) {
+                console.log('deu erro');
+            } else {
+                // Verifica se há resultados e passa o primeiro elemento como cliente
+                if (results.length > 0) {
+                    res.render('editar_perfil_cliente', { cliente: results[0] });
+                } else {
+                    // Trate o caso em que nenhum cliente é encontrado, se necessário
+                    console.log('Cliente não encontrado');
+                    res.send('Cliente não encontrado');
+                }
+            }
+        });
+    });
+    
+    
+
+
+    app.post('/editar_senha_cliente/:email', (req, res) => {
+        const email = req.params.email;
+        const novaSenha = req.body.newPassword;
+        const confirmaSenha = req.body.confirmPassword;
+      
+        // Verifica se as duas senhas são iguais
+        if (novaSenha !== confirmaSenha) {
+          // Se as senhas não forem iguais, exibe uma mensagem de erro
+          return res.render('editar_perfil_cliente', { cliente: { email: email }, erro: 'As senhas não coincidem!' });
+        }
+      
+        // Atualiza a senha do cliente no banco de dados
+        const sql = 'UPDATE cliente SET senha = ? WHERE email = ?';
+        db.query(sql, [novaSenha, email], (error, results) => {
+          if (error) {
+            console.log('Erro ao atualizar a senha do cliente:', error);
+            return res.status(500).send('Erro ao atualizar a senha');
+          }
+      
+          // Redireciona para a página de perfil do cliente
+          res.redirect(`/editar_perfil_cliente/${email}`);
+        });
+      });
         
         app.get('/acompanhar_cliente/:id_inspecao_entrada', (req, res) => {
             res.render('acompanhar_cliente');
         });
+
+

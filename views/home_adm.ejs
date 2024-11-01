@@ -10,19 +10,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
+        <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
 
     <title>Home Administrador</title>
 </head>
 
 <body>
-    <header>
-        <img src="/img/logo.png" alt="Logo">
+    <header class="text-white py-2">
+        <img src="/img/logo.png" alt="Logo AutoFix" class="img-fluid">
+
+
+        <div class="all-icons">
         <div class="user-icon" data-toggle="modal" data-target="#userModal">
-            <img src="/img/user.png" alt="Ícone de usuário">
+            <img src="/img/user.png" alt="Ícone de usuário" class="icon-user">
         </div>
+
+
         <div class="user-icon2" data-toggle="modal" data-target="#logoutModal">
-            <img src="/img/sair.png" alt="Ícone de Sair">
+            <img src="/img/sair.png" alt="Ícone de Sair" class="icon-back">
         </div>
+        </div>
+
     </header>
 
     <div class="title">
@@ -109,12 +117,15 @@ aria-hidden="true">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
-<style>* {
+<style>
+
+* {
     margin: 0;
     padding: 0;
     font-family: 'Arvo', serif;
     /* Use a fonte Arvo */
 }
+
 
 
 /* Modal de Informações do Mecânico */
@@ -142,17 +153,59 @@ aria-hidden="true">
     margin: 5px 0;
 }
 header {
-    background-color: #860606;
-    color: white;
-    padding: 8px;
-    text-align: center;
-    position: relative;
+    background-color: #860606; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    height: 87px; /* Define a altura do cabeçalho */
+    padding: 16px 1rem !important; /* Forçar o padding desejado */
+    position: fixed; /* Mantém o header fixo no topo */
+    top: 0; /* Fixa no topo */
+    left: 0; /* Fixa à esquerda */
+    right: 0; /* Fixa à direita */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
+    
 }
 
-header img {
-    width: 200px;
-    height: auto;
-}
+
+    header .img-fluid {
+        width: 200px;
+        height: auto;
+        display: flex; /* Para alinhar o logo e manter sua posição */
+        align-items: center;
+      
+    }
+
+    .user-icon img {
+        width: 35px;
+        height: 35px;
+        color: #fff;
+        cursor: pointer;
+        
+    }
+
+
+    .user-icon2 img {
+        width: 35px;
+        height: 34px;
+        color: #fff;
+        cursor: pointer;
+        
+    }
+
+    .all-icons {
+        position: absolute; /* Para posicionar no canto direito */
+        right: 5%; /* Ajuste conforme necessário */
+        display: flex; /* Flexbox para alinhar os ícones */
+        gap: 10px; /* Espaçamento entre os ícones */
+        background-color: #ffffff00;
+        border-radius: 50%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
 
 body {
     margin: 0;
@@ -199,49 +252,6 @@ header, .container, .content {
 }
 
 
-.user-icon {
-    cursor: pointer; /* Adiciona a mãozinha ao passar o mouse */
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: #ffffff00;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-icon img {
-    width: 40px;
-    height: 40px;
-    color: #fff;
-    margin-top: 50px;
-    margin-right: 150px;
-}
-
-.user-icon2 {
-       cursor: pointer; /* Adiciona a mãozinha ao passar o mouse para o botão de sair */
-    position: absolute;
-    top: 0px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: #ffffff00;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-icon2 img {
-    width: 35px;
-    height: 35px;
-    color: #fff;
-    margin-top: 50px;
-    margin-right: 60px;
-}
 
 .search-bar {
     display: flex;

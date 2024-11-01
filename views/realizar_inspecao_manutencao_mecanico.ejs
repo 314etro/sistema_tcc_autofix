@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
+        <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
 
     <title>Inspeção</title>
 </head>
@@ -183,17 +184,13 @@ header img {
 }
 
 .btn-success {
-    margin-top: 20px;
-    width: 100px;
-    height: 40px; /* Ajuste a altura do botão */
+    border-radius: 5px; /* Aumenta o arredondamento das bordas */
+    width: 120px; /* Ajuste a largura se necessário */
+    height: 45px; /* Ajuste a altura se necessário */
     background-color: #138132;
-    color: aliceblue;
-    border-radius: 5px;
+    color: white;
     border: none;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    cursor: pointer; /* Adiciona um cursor para indicar que é clicável */
+    cursor: pointer;
 }
 
 .btn-danger {
@@ -267,14 +264,30 @@ header img {
 /* Estilos para o botão "Excluir" */
 /* Estilos para o botão "Excluir" */
 .remove-item-button {
-    margin-left: 5px; /* Ajuste o valor conforme necessário */
+    margin-left: 5px;
     border: none;
-    background-color: #cc0606; /* Cor de fundo do botão */
-    color: white; /* Cor do texto do botão */
+    background-color: #cc0606;
+    color: white;
     cursor: pointer;
-    display: flex; /* Centraliza o "X" dentro do botão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Deixa o botão completamente redondo */
+    width: 30px; /* Ajuste o tamanho para ficar proporcional */
+    height: 30px; /* Ajuste o tamanho para ficar proporcional */
+}
+
+#addInput {
+    border-radius: 50%; /* Deixa o botão redondo */
+    width: 40px; /* Ajuste o tamanho para ficar proporcional */
+    height: 40px; /* Ajuste o tamanho para ficar proporcional */
+    background-color: #007bff; /* Cor azul */
+    color: white;
+    border: none;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
+
 </style>
 </html>

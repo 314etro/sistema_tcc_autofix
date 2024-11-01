@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orçamentos</title>
+    <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -21,16 +22,16 @@
             <h1>Área do Cliente</h1>
         </div>
                 
-        <div class="icon">
+        <div class="icon" style="display: flex; align-items: center; gap: 10px;">
+            <a href="/aprovar_entrada_cliente">
+                <img src="/img/home.png" alt="Home" title="Home" style="width: 32px; height: 32px; object-fit: contain; margin-top: 2px;">
+            </a>
             <a href="/meu_veiculo_cliente">
-                <img src="/img/carroicon.png" alt="Meus Veículos">
+                <img src="/img/carroicon.png" alt="Meus Veículos" title="Meus Veículos" style="width: 24px; height: 24px; object-fit: contain;">
             </a>
-            <a href="/acompanhar_cliente">
-                <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
-            </a>
-            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+            <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="width: 24px; height: 24px; object-fit: contain;" title="Perfil" >
             <a href="/index1">
-                <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
+                <img src="/img/sair-preto.png" alt="Sair" title="Sair" style="width: 24px; height: 24px; object-fit: contain;">
             </a>
         </div>
 
@@ -46,8 +47,9 @@
         
         <div class="menu">
             <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
-            <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
+            <a href="/aprovar_orcamento_cliente" class="active bold">Aprovar Orçamento</a>
         </div>
+        
 
         <div class="cards">
             <% veiculos.forEach((veiculo) => { %>
@@ -149,6 +151,10 @@
     </script>
 </body>
 <style>
+
+#profileIcon{
+            cursor: pointer;
+        }
         body {
             font-family: 'Arvo', serif;
             margin: 0;
@@ -230,42 +236,34 @@
             border: none;
         }
         .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1; 
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto; 
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: #fff;
-            margin: 15% auto; 
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%; 
-            max-width: 400px; 
-            border-radius: 10px;
-        }
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 400px; 
+    border-radius: 10px;
+}
 
         .modal .title-profile {
             color: #7c0808;
         }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
+        .modal .title-profile {
+    color: #7c0808;
+}
+      
         .card-button {
             background-color: rgba(19, 129, 50, 1);
             color: white;
@@ -318,19 +316,60 @@
 }
  
 .edit-profile {
-            background-color: #950000;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 300px;
-            align-items: center;
-            margin-left: 30px;
-           
-        }
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Ajuste para ocupar toda a largura disponível */
+    max-width: 300px; /* Limite máximo para telas maiores */
+    display: block;
+    margin: 0 auto; /* Centraliza o botão */
+}
 
-        .edit-profile:hover {
-            background-color: #7a0000;
-        }
+@media (max-width: 414px) { /* Alvo para iPhone XR e dispositivos similares */
+    .modal-content {
+        width: 90%; /* Ajusta a largura do modal para caber melhor na tela */
+    }
+    .edit-profile {
+        width: 100%; /* Garante que o botão ocupe toda a largura do modal */
+        padding: 12px; /* Aumenta o padding para uma aparência melhor em telas menores */
+    }
+}
+
+.edit-profile:hover {
+    background-color: #d35800;
+}
+
+   .modal-content p {
+    text-align: left; /* Alinha os parágrafos à esquerda */
+    margin-left: 10px; /* Espaçamento à esquerda */
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    left: 10px; /* Define o "X" no canto superior esquerdo */
+    top: 10px;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+        .menu a.bold {
+        font-weight: bold;
+    }
+
+    .menu a:not(.bold) {
+        font-weight: normal;
+    }
 </style>

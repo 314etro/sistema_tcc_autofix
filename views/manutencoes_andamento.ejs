@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
     <title>Manutenções em andamento</title>
-  
 </head>
 
 <body>
-    
+
     <header>
         <img src="img/logo.png" alt="Logo">
     </header>
@@ -31,25 +31,27 @@
             <img src="img/lupa.png" alt="Pesquisar">
         </div>
     </div>
-    
-    
-    <div class="container">
-        <% veiculos.forEach(veiculo => { %>
-            <div class="card">
-              <div class="card-body">
-                <h3 class="card-title text-warning"><b>Em Andamento</b></h3>
-                <h5 class="h5"><b>Modelo:</b> <%= veiculo.modelo %></h5>
-                <h5 class="h5"><b>Marca:</b> <%= veiculo.marca %></h5>
-                <h5 class="h5"><b>Placa:</b> <%= veiculo.placa %></h5>
-                <h5 class="h5"><b>Cor:</b> <%= veiculo.cor %></h5>
-                <a href="/reparos_veiculo_mecanico/<%= veiculo.id_orcamento %>">Realizar Manutenção</a>
 
-             
-              
-              </div>
-            </div>
-          <% }); %>
-    </div>
+    <main class="container">
+        <div class="row">
+            <% veiculos.forEach(veiculo => { %>
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title "><b>Em Manutenção</b></h5>
+                            <p class="card-text"><b>Modelo:</b> <%= veiculo.modelo %></p>
+                            <p class="card-text"><b>Marca:</b> <%= veiculo.marca %></p>
+                            <p class="card-text"><b>Placa:</b> <%= veiculo.placa %></p>
+                            <p class="card-text"><b>Cor:</b> <%= veiculo.cor %></p>
+                            <a href="/reparos_veiculo_mecanico/<%= veiculo.id_orcamento %>">
+                                <button class="btn btn-primary">Realizar Manutenção</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </main>
 </body>
 
 <style>
@@ -125,16 +127,22 @@
     }
 
     .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 20px auto;
+        padding: 20px;
     }
 
     .card {
-        max-width: 18rem;
-        margin: 10px;
-        border: 3px solid orange; /* Cor da borda do card */
+        background-color: #ffffff;
+        
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-bottom: 20px;
+        width: 100%; /* Ajuste para ocupar toda a largura disponível */
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
 
     .card-body {
@@ -142,13 +150,32 @@
     }
 
     .card-title {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #ffa600;
     }
 
-    .text-warning {
-        color: orange; /* Texto do card em laranja */
+    .card-text {
+        font-size: 1rem;
+        margin-bottom: 10px;
+        color: #000000;
     }
+
+    .card .btn-primary {
+        background-color: #ffa600;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .card .btn-primary:hover {
+        background-color: #ffa600 ;
+        transform: translateY(-2px);
+    }
+
 </style>
 
 </html>

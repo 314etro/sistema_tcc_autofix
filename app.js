@@ -111,13 +111,8 @@
 
 
 
-            app.get('/meu_veiculo_cliente', (req, res) => {
-                res.render('meu_veiculo_cliente');
-            });
+          
 
-            app.get('/acompanhar_cliente', (req, res) => {
-                res.render('acompanhar_cliente');
-            });
 
             app.get('/editar_perfil_cliente', (req, res) => {
                 res.render('editar_perfil_cliente');
@@ -669,38 +664,40 @@
                 });
                 //
 
-            app.get('/aprovar_entrada_cliente', (req, res) => {
-                // Verifique se o cliente está autenticado
-                if (!req.session.cpfCliente) {
-                    return res.redirect('/loginCliente'); // Redirecione para o login se não estiver autenticado
-                }
-            
-                // Faça uma consulta ao banco de dados para obter os veículos
-                db.query(
-                    `SELECT v.placa, v.marca, v.modelo, v.cor, v.ano, c.cpf_cliente, c.nome AS cliente_nome, ie.* 
-                    FROM veiculo v 
-                    JOIN cliente c ON v.cpfcliente = c.cpf_cliente 
-                    JOIN inspecao_entrada ie ON v.placa = ie.placa 
-                    WHERE ie.status = 'aguardando_aprovacao' AND v.cpfcliente = ?`,  [req.session.cpfCliente],
-                    (error, results) => {
-                    if (error) {
-                        console.log('Erro ao buscar veiculos', error);
-                        res.status(500).send('Erro ao buscar veiculos');
-                    } else {
-                        // Obtenha o nome do cliente
-                        db.query('SELECT nome FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
-                        if (nomeError) {
-                            console.log('Erro ao buscar nome do cliente', nomeError);
-                        } else {
-                            // Passe os resultados da consulta e o nome do cliente para a view
-                            res.render('aprovar_entrada_cliente', { veiculos: results, nomeCliente: nomeResults[0].nome }); 
+                app.get('/aprovar_entrada_cliente', (req, res) => {
+                    // Verifique se o cliente está autenticado
+                    if (!req.session.cpfCliente) {
+                        return res.redirect('/loginCliente'); // Redirecione para o login se não estiver autenticado
+                    }
+                
+                    // Faça uma consulta ao banco de dados para obter os veículos
+                    db.query(
+                        `SELECT v.placa, v.marca, v.modelo, v.cor, v.ano, c.cpf_cliente, c.nome AS cliente_nome, ie.* 
+                        FROM veiculo v 
+                        JOIN cliente c ON v.cpfcliente = c.cpf_cliente 
+                        JOIN inspecao_entrada ie ON v.placa = ie.placa 
+                        WHERE ie.status = 'aguardando_aprovacao' AND v.cpfcliente = ?`,  [req.session.cpfCliente],
+                        (error, veiculos) => {
+                            if (error) {
+                                console.log('Erro ao buscar veiculos', error);
+                                res.status(500).send('Erro ao buscar veiculos');
+                            } else {
+                                // Obtenha o nome do cliente
+                                db.query('SELECT nome,email FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
+                                    if (nomeError) {
+                                        console.log('Erro ao buscar nome do cliente', nomeError);
+                                    } else {
+                                        // Pass both vehicles and client data to the template
+                                        res.render('aprovar_entrada_cliente', { 
+                                            veiculos: veiculos, 
+                                            cliente: nomeResults[0] 
+                                        });
+                                    }
+                                });
+                            }
                         }
-                        });
-                    }
-                    }
-                );
-            });
-            
+                    );
+                });
             app.post('/aprovar_entrada', (req, res) => {
                 const placa = req.body.placa;
                 console.log('Placa recebida para aceitação:', placa); // Adicione este console.log
@@ -1184,24 +1181,30 @@
 
         // Faça uma consulta ao banco de dados para obter os veículos com orçamentos em aberto
         db.query(`
-            SELECT 
-        veiculo.placa,
-        veiculo.marca,
-        veiculo.modelo,
-        veiculo.cor,
-        veiculo.ano,
-        inspecao_entrada.data_hora_entrada,
-        inspecao_manutencao.id_inspecao_manutencao  
-    FROM 
-        veiculo
-    JOIN 
-        cliente ON veiculo.cpfcliente = cliente.cpf_cliente
-    JOIN 
-        inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
-    JOIN 
-        inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa  -- Adicionando o JOIN
-    WHERE 
-        cliente.cpf_cliente = ? AND     inspecao_entrada.data_hora_entrada >= DATE_SUB(NOW(), INTERVAL 1 MONTH);
+          SELECT 
+    veiculo.placa,
+    veiculo.marca,
+    veiculo.modelo,
+    veiculo.cor,
+    veiculo.ano,
+    inspecao_entrada.data_hora_entrada,
+    inspecao_manutencao.id_inspecao_manutencao  
+FROM 
+    veiculo
+JOIN 
+    cliente ON veiculo.cpfcliente = cliente.cpf_cliente
+JOIN 
+    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa
+JOIN 
+    inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa
+JOIN 
+    orcamento ON inspecao_manutencao.id_inspecao_manutencao = orcamento.id_inspecao_manutencao
+WHERE 
+    cliente.cpf_cliente = ? 
+    AND inspecao_entrada.data_hora_entrada >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+    AND orcamento.status != 'aprovado'; -- Condição para excluir orçamentos com status "aprovado"
+
+
         `, [req.session.cpfCliente], (error, results) => {
             if (error) {
                 console.log('Erro ao consultar dados:', error);
@@ -1236,7 +1239,7 @@
                 }
 
                 // Obtenha o nome do cliente
-                db.query('SELECT nome FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
+                db.query('SELECT nome, email FROM cliente WHERE cpf_cliente = ?', [req.session.cpfCliente], (nomeError, nomeResults) => {
                     if (nomeError) {
                         console.log('Erro ao buscar nome do cliente', nomeError);
                         return res.status(500).send('Erro ao buscar nome do cliente');
@@ -1245,6 +1248,7 @@
                     // Passe os resultados da consulta e o nome do cliente para a view
                     const cliente = {
                         nome: nomeResults.length > 0 ? nomeResults[0].nome : 'Cliente não encontrado',
+                        email: nomeResults.length > 0 ? nomeResults[0].email : 'Email não encontrado',
                     };
 
                     res.render('aprovar_orcamento_cliente', { 
@@ -1393,44 +1397,48 @@
 
 
     app.get('/manutencoes_andamento', (req, res) => {
-        const cpfMecanico = req.session.cpfMecanico; // Obtenha o CPF do mecânico da sessão
-    
-        if (!cpfMecanico) {
-            return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
-        }
-    
-        // Consulta SQL para buscar manutenções em andamento (adaptada para o seu caso)
-        const sql = `
-            SELECT 
-        v.placa,
-        v.marca,
-        v.modelo,
-        v.cor,
-        v.ano,
-        o.id_orcamento,           -- Adicionando o ID do orçamento
-        o.status AS status_orcamento
-    FROM 
-        veiculo v
-    JOIN 
-        orcamento o ON o.id_inspecao_manutencao = (
-            SELECT id_inspecao_manutencao 
-            FROM inspecao_manutencao 
-            WHERE placa = v.placa
-        )
-    WHERE 
-        o.status = 'aprovado';
+    const cpfMecanico = req.session.cpfMecanico; // Obtenha o CPF do mecânico da sessão
 
-        `;
-    
-        db.query(sql, (error, results) => {
-            if (error) {
-                console.log('Erro ao buscar manutenções em andamento', error);
-                res.status(500).send('Erro ao buscar manutenções em andamento');
-            } else {
-                res.render('manutencoes_andamento', { veiculos: results }); // Corrigindo o nome da variável
-            }
-        });
+    if (!cpfMecanico) {
+        return res.redirect('/loginMecanico'); // Redireciona para o login se a sessão não existir
+    }
+
+    // Consulta SQL para buscar manutenções em andamento
+    const sql = `
+     SELECT 
+            v.placa,
+            v.marca,
+            v.modelo,
+            v.cor,
+            v.ano,
+            o.id_orcamento,
+            o.status AS status_orcamento
+        FROM 
+            veiculo v
+        JOIN 
+            orcamento o ON o.id_inspecao_manutencao = (
+                SELECT id_inspecao_manutencao 
+                FROM inspecao_manutencao 
+                WHERE placa = v.placa
+            )
+        WHERE 
+            o.status = 'aprovado'
+            AND NOT EXISTS (
+                SELECT 1
+                FROM manutencao m
+                WHERE m.id_orcamento = o.id_orcamento
+            ); -- Verifica se não existe uma entrada na tabela manutencao com o mesmo id_orcamento
+    `;
+
+    db.query(sql, (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar manutenções em andamento', error);
+            res.status(500).send('Erro ao buscar manutenções em andamento');
+        } else {
+            res.render('manutencoes_andamento', { veiculos: results }); // Renderiza a página com os resultados
+        }
     });
+});
 
     app.get('/reparos_veiculo_mecanico/:id_orcamento', (req, res) => {
         const idOrcamento = req.params.id_orcamento;
@@ -1554,3 +1562,50 @@
         }
     });
     
+
+
+
+
+
+        app.get('/meu_veiculo_cliente', (req, res) => {
+            // Verifique se a sessão do cliente está ativa
+            if (!req.session.cpfCliente) {
+                return res.redirect('/loginCliente'); // Redireciona para o login se a sessão não existir
+            }
+        
+            const cpfCliente = req.session.cpfCliente;
+        
+            // Consulta o banco de dados para obter os veículos do cliente
+            db.query(`
+            SELECT 
+        v.placa,
+        v.marca,
+        v.modelo,
+        v.cor,
+        v.ano,
+         ie.id_inspecao_entrada, -- Adicione este campo
+        ie.data_hora_entrada, -- Acessa a data e hora da entrada do carro
+        ie.status AS status_inspecao
+    FROM 
+        veiculo v
+    JOIN 
+        inspecao_entrada ie ON ie.placa = v.placa
+    WHERE 
+        v.cpfcliente = ? -- CPF específico do cliente
+        AND ie.status = 'Aprovado'; -- Condição para mostrar apenas veículos com status "Aprovado"
+            `, [cpfCliente], (error, veiculos) => {
+                if (error) {
+                    console.log('Erro ao buscar veículos do cliente', error);
+                    res.status(500).send('Erro ao buscar veículos do cliente');
+                } else {
+                    // Renderiza a página e passa os veículos para o template EJS
+                    res.render('meu_veiculo_cliente', { veiculos });
+                }
+            });
+        });
+        
+
+        
+        app.get('/acompanhar_cliente/:id_inspecao_entrada', (req, res) => {
+            res.render('acompanhar_cliente');
+        });

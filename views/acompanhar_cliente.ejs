@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aprovação de entrada</title>
+    <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -21,16 +22,16 @@
         <h1>Área do Cliente</h1>
     </div>
 
-    <div class="icon">
+    <div class="icon" style="display: flex; align-items: center; gap: 10px;">
+        <a href="/aprovar_entrada_cliente">
+            <img src="/img/home.png" alt="Home" title="Home" style="width: 32px; height: 32px; object-fit: contain; margin-top: 2px;">
+        </a>
         <a href="/meu_veiculo_cliente">
-            <img src="/img/carroicon.png" alt="Meus Veículos">
+            <img src="/img/carroicon.png" alt="Meus Veículos" title="Meus Veículos" style="width: 24px; height: 24px; object-fit: contain;">
         </a>
-        <a href="/acompanhar_cliente">
-            <img src="/img/ampulhetaicon.png" alt="Acompanhar Serviço">
-        </a>
-        <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="cursor: pointer; width:24px; height:24px">
+        <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="width: 24px; height: 24px; object-fit: contain;" title="Perfil">
         <a href="/index1">
-            <img src="/img/sair-preto.png" alt="Acompanhar Serviço">
+            <img src="/img/sair-preto.png" alt="Sair" title="Sair" style="width: 24px; height: 24px; object-fit: contain;">
         </a>
     </div>
 
@@ -38,10 +39,6 @@
         <h2>Bem Vindo, Gustavo</h2>
     </div>  
     
-    <div class="menu">
-        <a href="/aprovar_entrada_cliente" class="active">Aprovar Entrada</a>
-        <a href="/aprovar_orcamento_cliente" class="active">Aprovar Orçamento</a>
-    </div>
 
     <div class="progress-container">  
         <div class="progress-step" id="step-entrada">  
@@ -83,20 +80,18 @@
     </div>  
 </div> 
 
-<!-- Modal -->
 <div id="profileModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('profileModal')">×</span>
         <img src="/img/user-icon.png" style="width:50px; height:50px; margin-left: 150px;">
         <h4 class="title-profile" style="text-align:center;">Perfil do Usuário</h4>
         <br>
-        <p>Nome: Gustavo</p>
-        <p>Email: gustavo@email.com</p>
+        <p>Nome:   </p>
+        <p>Email:   </p>
         <br>
         <a href="/editar_perfil_cliente">  <p><button class="edit-profile" type="button" href="editar.html" >Editar </button></p> </a>
     </div>
 </div>
-
 
 
 <script>
@@ -230,7 +225,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 100px;
     padding-bottom: 20px;
     width: 80%;
     margin-left: auto;
@@ -314,23 +309,60 @@ h1 {
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Centraliza o conteúdo dentro do modal */
+    align-items: center; /* Centraliza o conteúdo dentro do modal */
     justify-content: center;
+}
+
+.modal-content img {
+    margin: 0 auto; /* Centraliza o ícone */
+}
+
+.title-profile {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.modal-content p {
+    text-align: left; /* Alinha os parágrafos à esquerda */
+    width: 100%; /* Garante que os parágrafos usem toda a largura */
+    margin-left: 10px; /* Pequeno espaçamento à esquerda */
+}
+
+.edit-profile {
+    background-color: #FF6B00;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Ajuste para ocupar toda a largura disponível */
+    max-width: 300px; /* Limite máximo para telas maiores */
+    display: block;
+    margin: 0 auto; /* Centraliza o botão */
+    min-width: 300px; /* Define uma largura mínima */
+}
+
+.edit-profile:hover {
+    background-color: #d35800;
 }
 
 .close {
     color: #aaa;
-    float: right;
     font-size: 28px;
     font-weight: bold;
+    position: absolute;
+    left: 10px; /* Define o "X" no canto superior esquerdo */
+    top: 10px;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #000;
     text-decoration: none;
     cursor: pointer;
 }
+
 
 .logout-btn {
     background-color: #f44336;
@@ -344,21 +376,7 @@ h1 {
     background-color: #d32f2f;
 }
 
-.edit-profile {
-    background-color: #950000;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 300px;
-    align-items: center;
-    margin-left: 30px;
-}
 
-.edit-profile:hover {
-    background-color: #7a0000;
-}
 
 /* Ajuste para os botões "aprovar entrada" e "aprovar orçamento" ficarem lado a lado */
 .approval-buttons {
@@ -549,9 +567,17 @@ h1 {
 }
 
 
-        .edit-profile:hover {
-            background-color: #7a0000;
-        }
+
+@media (max-width: 414px) { /* Alvo para iPhone XR e dispositivos similares */
+    .modal-content {
+        width: 90%; /* Ajusta a largura do modal para caber melhor na tela */
+    }
+    .edit-profile {
+        width: 100%; /* Garante que o botão ocupe toda a largura do modal */
+        padding: 12px; /* Aumenta o padding para uma aparência melhor em telas menores */
+    }
+}
+
 </style>
 </body>
 </html>

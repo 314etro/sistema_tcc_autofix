@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
 
-    <title>Manutenções finalizadas</title>
+    <title>Inspeções de manutenção</title>
 </head>
 
 <body>
@@ -47,7 +47,7 @@
                             <p class="card-text">Modelo: <%= inspecao_manutencao.modelo %></p>
                             <p class="card-text">Placa: <%= inspecao_manutencao.placa %></p>
 
-                            <form action="/realizar_inspecao_manutencao_a/<%= inspecao_manutencao.placa %>" method="POST">
+                            <form action="/realizar_inspecao_manutencao_a/<%= inspecao_manutencao.id_inspecao_entrada  %>" method="POST">
                                 <button type="submit" class="btn btn-primary btn-inspecao">Realizar inspeção</button>
                             </form>
                         </div>

@@ -180,366 +180,395 @@
        
     </body>
     <style>
-    /* Reset Básico */
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Arvo', serif;
-    }
-
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-
-    header {
-        background-color: #000000;
-        color: white;
-        padding: 8px;
-        text-align: center;
-        position: relative;
-    }
-
-    header img {
-        width: 200px;
-        height: auto;
-    }
-
-    .search-bar {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 20px 0 25px;
-        flex-direction: row;
-    }
-
-    .search-bar .back-button {
-        margin-right: 30px;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    .search-bar .back-button img {
-        width: 24px;
-        height: 24px;
-    }
-
-    .search-bar .search-input-container {
-        position: relative;
-        width: 50%;
-        
-    }
-
-    .search-bar input[type="text"] {
-        width: 100%;
-        padding: 10px 10px 10px 20px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        outline: none;
-    }
-
-    .search-bar .search-input-container img {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        cursor: pointer;
-    }
-
-    .search-bar .new-car-button {
-        margin-left: 20px;
-        /* Ajuste o valor conforme necessário */
-    }
-
-    .new-car-button {
-        display: inline-block;
-        padding: 10px 10px;
-        border-radius: 15px;
-        background-color: #0D6EFD;
-        color: white;
-        text-align: center;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-    .new-car-button:hover {
-        background-color: #0726af;
-        transform: translateY(-2px);
-    }
-
-    .new-car-button,
-    .button {
-        display: inline-block;
-        padding: 10px 10px;
-        border-radius: 15px;
-        background-color: #0D6EFD;
-        color: white;
-        text-align: center;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s, transform 0.3s;
-    }
-
-    .new-car-button, .button {
-            padding: 10px 20px;
-            background-color: #0D6EFD;
-            color: #fff;
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arvo', serif;
+        }
+    
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+    
+        header {
+            background-color: #000000;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            position: relative;
+        }
+    
+        header img {
+            width: 200px;
+            height: auto;
+        }
+    
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0 25px;
+            flex-direction: row;
+        }
+    
+        .search-bar .back-button {
+            margin-right: 30px;
+            background-color: transparent;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
+        }
+    
+        .search-bar .back-button img {
+            width: 24px;
+            height: 24px;
+        }
+    
+        .search-bar .search-input-container {
+            position: relative;
+            width: 50%;
+            
+        }
+    
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px 10px 10px 20px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+    
+        .search-bar .search-input-container img {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+    
+        .search-bar .new-car-button {
+            margin-left: 20px;
+            /* Ajuste o valor conforme necessário */
+        }
+    
+        .new-car-button {
+            display: inline-block;
+            padding: 10px 10px;
+            border-radius: 15px;
+            background-color: #0D6EFD;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
             transition: background-color 0.3s, transform 0.3s;
         }
-
-    /* Main Content */
-    .main-content {
-        display: flex;
-        flex-direction: row;
-        gap: 200px;
-        padding: 20px;
-    }
-
-    .mechanic-box {
-        flex: 1;
-        padding: 20px;
-        background-color: #fff;
+        .new-car-button:hover {
+            background-color: #0726af;
+            transform: translateY(-2px);
+        }
+    
+        .new-car-button,
+        .button {
+            display: inline-block;
+            padding: 10px 10px;
+            border-radius: 15px;
+            background-color: #0D6EFD;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+    
+        .new-car-button, .button {
+                padding: 10px 20px;
+                background-color: #0D6EFD;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.3s;
+            }
+    
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            padding: 20px;
+        }
+    
+        .mechanic-box {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+            overflow: auto;
+            margin-left: 400px; /* Ajuste o valor conforme necessário */
+        }
+    
+    
+        /* Cards Section */
+        .cards-section {
+            flex: 2;
+            padding: 20px;
+        }
+    
+        .cards-section h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 10px;
+            box-sizing: border-box;
+        }
+        /* Card */.card {
+        background-color: #ffffff;
+        border: 5px solid #000000;
         border-radius: 10px;
+        text-align: center;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border: 2px solid #ccc;
-        box-sizing: border-box;
-        overflow: auto;
-        margin-left: 400px; /* Ajuste o valor conforme necessário */
-    }
-
-
-    /* Cards Section */
-    .cards-section {
-        flex: 2;
-        padding: 20px;
-    }
-
-    .cards-section h2 {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 10px;
-        color: #333;
-    }
-
-    .cards-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 10px;
-        box-sizing: border-box;
-    }
-    /* Card */.card {
-    background-color: #ffffff;
-    border: 5px solid #000000;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 130px;
-    width: 100%;
-    max-width: 240px;
-    font-size: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    cursor: pointer; /* Indica que é clicável */
-}
-
-/* Placa do veículo */
-.card h1 {
-    margin: 20px;
-    font-size: 35px;
-    font-weight: bold;
-    color: black;
-    text-decoration: none; /* Sem sublinhado inicial */
-    text-decoration-color: transparent; /* Cor do sublinhado invisível inicialmente */
-    transition: text-decoration-color 0.3s ease, color 0.3s ease; /* Transição suave para cor e sublinhado */
-}
-
-/* Estilo ao passar o mouse sobre o card */
-.card:hover h1 {
-    text-decoration: underline; /* Define o sublinhado */
-    text-decoration-color: black; /* Cor do sublinhado */
-}
-
-
-
-    .card h3 {
-        margin: 0;
+        height: 130px;
+        width: 100%;
+        max-width: 240px;
         font-size: 20px;
-        color: white;
-        background-color: #003688;
-        padding: 5px;
-        border-radius: 3%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        cursor: pointer; /* Indica que é clicável */
     }
-
+    
+    /* Placa do veículo */
     .card h1 {
         margin: 20px;
         font-size: 35px;
         font-weight: bold;
         color: black;
+        text-decoration: none; /* Sem sublinhado inicial */
+        text-decoration-color: transparent; /* Cor do sublinhado invisível inicialmente */
+        transition: text-decoration-color 0.3s ease, color 0.3s ease; /* Transição suave para cor e sublinhado */
     }
-
-    /* Delete Button */
-    .delete-client-button {
-        background-color: #b80303;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        padding: 10px 15px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-        margin-top: 20px;
+    
+    /* Estilo ao passar o mouse sobre o card */
+    .card:hover h1 {
+        text-decoration: underline; /* Define o sublinhado */
+        text-decoration-color: black; /* Cor do sublinhado */
     }
-
-    .delete-client-button:hover {
-        background-color: #8a0202;
-    }
-
-    /* Modals */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4);
-        padding-top: 60px;
-    }
-
-    .modal-content {
-        background-color: #fff;
-        margin: auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%;
-        max-width: 500px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    /* Modal Header */
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .modal-header h2 {
-        margin: 0;
-        color: #9e0505;
-        text-align: center;
-    }
-
-    /* Modal Body */
-    .modal-body {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .modal-body input {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-    }
-
-    .modal-body input:focus {
-        outline: none;
-        border-color: #003688;
-    }
-
-    /* Modal Footer */
-    .modal-footer {
-        display: flex;
-        justify-content: center;
-        margin-top: 20px;
-    }
-
-    .modal-footer button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s;
-        margin-left: 10px;
-    }
-
-    .modal-footer .btn-cancel {
-        background-color: #6c757d;
-        color: white;
-    }
-
-    .modal-footer .btn-cancel:hover {
-        background-color: #3c4146;
-    }
-
-    .modal-footer .btn-delete {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    .modal-footer .btn-delete:hover {
-        background-color: #c82333;
-    }
-
-    .modal-footer .btn-primary {
-        background-color: #138132;
-        color: white;
-    }
-
-    .modal-footer .btn-primary:hover {
-        background-color: #0b4b1d;
-    }
-
-    /* Media Queries */
-    @media (max-width: 768px) {
-        .main-content {
+    
+    
+    
+        .card h3 {
+            margin: 0;
+            font-size: 20px;
+            color: white;
+            background-color: #003688;
+            padding: 5px;
+            border-radius: 3%;
+        }
+    
+        .card h1 {
+            margin: 20px;
+            font-size: 35px;
+            font-weight: bold;
+            color: black;
+        }
+    
+        /* Delete Button */
+        .delete-client-button {
+            background-color: #b80303;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+    
+        .delete-client-button:hover {
+            background-color: #8a0202;
+        }
+    
+        /* Modals */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+    
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+    
+        /* Modal Header */
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    
+        .modal-header h2 {
+            margin: 0;
+            color: #9e0505;
+            text-align: center;
+        }
+    
+        /* Modal Body */
+        .modal-body {
+            display: flex;
             flex-direction: column;
+            gap: 10px;
         }
-
-        .mechanic-box {
-            margin-left: 0;
-            max-width: 100%;
+    
+        .modal-body input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
         }
-
-        .new-car-button,
-    .button {
-    max-width: 150px; /* Ajuste conforme necessário */
-    padding: 10px 10px;
-    font-size: 14px;
-    white-space: nowrap;
-}
-
-.search-bar .back-button {
-        margin-right: 1rem;
-        /* Ajuste o valor conforme necessário */
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
+    
+        .modal-body input:focus {
+            outline: none;
+            border-color: #003688;
+        }
+    
+        /* Modal Footer */
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    
+        .modal-footer button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-left: 10px;
+        }
+    
+        .modal-footer .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+        }
+    
+        .modal-footer .btn-cancel:hover {
+            background-color: #3c4146;
+        }
+    
+        .modal-footer .btn-delete {
+            background-color: #dc3545;
+            color: white;
+        }
+    
+        .modal-footer .btn-delete:hover {
+            background-color: #c82333;
+        }
+    
+        .modal-footer .btn-primary {
+            background-color: #138132;
+            color: white;
+        }
+    
+        .modal-footer .btn-primary:hover {
+            background-color: #0b4b1d;
+        }
+    
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+    
+            .mechanic-box {
+                margin-left: 0;
+                max-width: 100%;
+            }
+    
+            .new-car-button,
+        .button {
+        max-width: 150px; /* Ajuste conforme necessário */
+        padding: 10px 10px;
+        font-size: 14px;
+        white-space: nowrap;
     }
-}
-
-    </style>
-
-    </html>
+    
+    .search-bar .back-button {
+            margin-right: 1rem;
+            /* Ajuste o valor conforme necessário */
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+    }
+    
+    @media (max-width: 900px) {
+        .main-content {
+            flex-direction: column; /* Organiza as seções em coluna */
+            gap: 20px;
+            align-items: center; /* Centraliza os elementos em telas menores */
+        }
+    
+        .mechanic-box, .cards-section {
+            max-width: 50%; /* Limita a largura para caber melhor em telas menores */
+            width: 100%; /* Faz com que cada seção ocupe toda a largura disponível */
+            margin: 0 auto; /* Centraliza horizontalmente */
+        }
+    }
+    
+    @media (max-width: 1024px) {
+        .main-content {
+            flex-direction: column; /* Organiza as seções em coluna */
+            gap: 20px;
+            align-items: center; /* Centraliza os elementos em telas menores */
+        }
+    
+        .mechanic-box, .cards-section {
+            max-width: 80%; /* Limita a largura para caber melhor em telas menores */
+            width: 100%; /* Faz com que cada seção ocupe toda a largura disponível */
+            margin: 0 auto; /* Centraliza horizontalmente */
+        }
+    }
+    
+    
+        </style>
+    
+        </html>

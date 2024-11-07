@@ -258,7 +258,12 @@
                         return;
                     }
 
-                    db.query('SELECT * FROM veiculo WHERE cpfcliente = ?', [cpfCliente], (veiculoError, veiculoResults) => {
+                    db.query(`SELECT v.*
+                        FROM veiculo v
+                        JOIN cliente c ON c.cpf_cliente = v.cpfcliente
+                        LEFT JOIN inspecao_entrada ie ON ie.placa = v.placa AND ie.status = 'aguardando_aprovacao'
+                        WHERE c.cpf_cliente = ? -- CPF do cliente desejado
+                        AND ie.id_inspecao_entrada IS NULL;` , [cpfCliente], (veiculoError, veiculoResults) => {
                         if (veiculoError) {
                             console.log('Erro ao buscar veículos do cliente', veiculoError);
                             return;
@@ -743,64 +748,82 @@
             const cpfMecanico = req.session.cpfMecanico; // Pega o CPF do mecânico da sessão
         
             db.query(
-                `SELECT cliente.nome AS nome_cliente, cliente.email, cliente.telefone, 
-                        veiculo.marca, veiculo.modelo, veiculo.placa, inspecao_entrada.status 
-                FROM cliente 
-                JOIN veiculo ON cliente.cpf_cliente = veiculo.cpfcliente 
-                JOIN inspecao_entrada ON veiculo.placa = inspecao_entrada.placa 
-                LEFT JOIN inspecao_manutencao ON inspecao_entrada.placa = inspecao_manutencao.placa 
-                LEFT JOIN servico ON inspecao_manutencao.id_inspecao_manutencao = servico.id_inspecao_manutencao 
-                WHERE inspecao_entrada.status = "aprovado" 
-                AND servico.id_inspecao_manutencao IS NULL 
-                AND inspecao_entrada.cpfmecanico = ?`, [cpfMecanico], // Adiciona a condição para o CPF do mecânico
+                `
+SELECT 
+    cliente.nome AS nome_cliente, 
+    cliente.email, 
+    cliente.telefone, 
+    veiculo.marca, 
+    veiculo.modelo, 
+    veiculo.placa, 
+    inspecao_entrada.status, 
+    inspecao_entrada.id_inspecao_entrada 
+FROM 
+    cliente 
+JOIN 
+    veiculo ON cliente.cpf_cliente = veiculo.cpfcliente 
+JOIN 
+    inspecao_entrada ON veiculo.placa = inspecao_entrada.placa 
+LEFT JOIN 
+    inspecao_manutencao ON inspecao_entrada.id_inspecao_entrada = inspecao_manutencao.id_inspecao_entrada 
+LEFT JOIN 
+    servico ON inspecao_manutencao.id_inspecao_manutencao = servico.id_inspecao_manutencao 
+WHERE 
+    inspecao_entrada.status = "aprovado" 
+    AND servico.id_inspecao_manutencao IS NULL 
+    AND inspecao_entrada.cpfmecanico = ?;
+`, 
+                [cpfMecanico], // Adiciona a condição para o CPF do mecânico
                 (error, results) => {
                     if (error) {
                         console.log('Não foi possível exibir os aprovados');
                     } else {
+                        console.log(results)
                         res.render('inspecao_manutencao_pendente', { inspecao_manutencao: results });
                     }
                 }
             );
         });
         
+        
 
-        app.get('/realizar_inspecao_manutencao/:placa', (req, res) => {
-            const placa = req.params.placa;
-
-            // Consulta no banco de dados
-            const sql = `
-                SELECT v.*, c.nome AS nome_cliente, c.telefone AS telefone_cliente, c.email AS email_cliente
+        app.get('/realizar_inspecao_manutencao/:id_inspecao_entrada', (req, res) => {
+            const idInspecaoEntrada = req.params.id_inspecao_entrada; // Recebe o parâmetro id_inspecao_entrada da URL
+            
+            // Consulta no banco de dados para obter as informações do veículo e do cliente com base no id_inspecao_entrada
+            const sql = `SELECT v.*, c.nome AS nome_cliente, c.telefone AS telefone_cliente, c.email AS email_cliente, ie.id_inspecao_entrada
                 FROM veiculo v
                 JOIN cliente c ON v.cpfcliente = c.cpf_cliente
-                WHERE v.placa = ?;
+                JOIN inspecao_entrada ie ON ie.placa = v.placa
+                WHERE ie.id_inspecao_entrada = ?;
             `;
-            const values = [placa];
-
+            const values = [idInspecaoEntrada];
+            
             db.query(sql, values, (err, results) => {
                 if (err) {
                     console.error(err);
                     res.status(500).send('Erro ao buscar dados do veículo.');
                     return;
                 }
-
+                
                 if (results.length === 0) {
-                    res.status(404).send('Veículo não encontrado.');
+                    res.status(404).send('Inspeção de entrada não encontrada.');
                     return;
                 }
-
+                
                 const veiculo = results[0];
-
+                
                 // Obtenha o inspecaoId do banco de dados (adapte a consulta conforme necessário)
-                db.query('SELECT id_inspecao_manutencao FROM inspecao_manutencao WHERE placa = ?', [placa], (inspecaoError, inspecaoResults) => {
+                db.query('SELECT id_inspecao_manutencao FROM inspecao_manutencao WHERE id_inspecao_entrada = ?', [idInspecaoEntrada], (inspecaoError, inspecaoResults) => {
                     if (inspecaoError) {
-                        console.error('Erro ao buscar inspecaoId:', inspecaoError);
-                        res.status(500).send('Erro ao buscar inspecaoId.');
+                        console.error('Erro ao buscar id_inspecao_manutencao:', inspecaoError);
+                        res.status(500).send('Erro ao buscar id_inspecao_manutencao.');
                         return;
                     }
-
-                    const inspecaoId = inspecaoResults[0].id_inspecao_manutencao; // Obtenha o inspecaoId
-
-                    // Renderiza o template com os dados do veículo, do cliente e o inspecaoId
+                
+                    const inspecaoId = inspecaoResults.length > 0 ? inspecaoResults[0].id_inspecao_manutencao : null;
+                
+                    // Renderiza o template com os dados do veículo, do cliente e o id_inspecao_manutencao
                     res.render('realizar_inspecao_manutencao_mecanico', {
                         placa: veiculo.placa,
                         marca: veiculo.marca,
@@ -810,41 +833,43 @@
                         nome_cliente: veiculo.nome_cliente,
                         telefone_cliente: veiculo.telefone_cliente,
                         email_cliente: veiculo.email_cliente,
-                        inspecaoId: inspecaoId // Passe o inspecaoId para o template
+                        inspecaoId: inspecaoId // Passe o id_inspecao_manutencao para o template
                     });
                 });
             });
         });
         
+        
 
-        app.post('/realizar_inspecao_manutencao_a/:placa', (req, res) => {
-            const placa = req.params.placa;
-
+        app.post('/realizar_inspecao_manutencao_a/:id_inspecao_entrada', (req, res) => {
+            const idInspecaoEntrada = req.params.id_inspecao_entrada; // Pega o id_inspecao_entrada da URL
+        
             // Verifique se a sessão existe e se a chave 'cpfMecanico' está presente
             if (req.session.hasOwnProperty('cpfMecanico')) {
-                const cpfMecanico = req.session.cpfMecanico; 
-
-                // Inserir dados na tabela inspecao_manutencao
+                const cpfMecanico = req.session.cpfMecanico;
+        
+                // Inserir dados na tabela inspecao_manutencao com id_inspecao_entrada em vez de placa
                 const sqlInsert = `
-                    INSERT INTO inspecao_manutencao (status, cpfmecanico, placa)
+                    INSERT INTO inspecao_manutencao (status, cpfmecanico, id_inspecao_entrada)
                     VALUES ('aguardando_aprovacao', ?, ?);
                 `;
-
-                db.query(sqlInsert, [cpfMecanico, placa], (err, result) => {
+        
+                db.query(sqlInsert, [cpfMecanico, idInspecaoEntrada], (err, result) => {
                     if (err) {
                         console.error('Erro ao inserir inspeção:', err);
                         res.status(500).send('Erro ao processar inspeção.');
                         return;
                     }
-
+        
                     // Redirecionar para a página de realizar inspeção após a inserção
-                    res.redirect(`/realizar_inspecao_manutencao/${placa}`);
+                    res.redirect(`/realizar_inspecao_manutencao/${idInspecaoEntrada}`);
                 });
             } else {
                 // Se a sessão não existir ou a chave não estiver presente, redirecione para o login
-                res.redirect('/loginMecanico'); 
+                res.redirect('/loginMecanico');
             }
         });
+        
 
 
 
@@ -987,21 +1012,24 @@
         
                 // Consulta para buscar os veículos com inspeções em aberto (sem orçamento) para o mecânico específico
                 db.query(`
-                    SELECT 
-                        v.placa,
-                        v.marca,
-                        v.modelo,
-                        v.cor,
-                        v.ano,
-                        im.id_inspecao_manutencao,
-                        im.status
-                    FROM 
-                        veiculo v
-                    JOIN 
-                        inspecao_manutencao im ON v.placa = im.placa
-                    WHERE 
-                        im.cpfmecanico = ? AND -- Filtra pela condição do CPF do mecânico
-                        im.status = 'aguardando_aprovacao'; -- Filtra apenas inspeções com status 'aguardando_aprovacao'
+                        SELECT 
+                    v.placa,
+                    v.marca,
+                    v.modelo,
+                    v.cor,
+                    v.ano,
+                    im.id_inspecao_manutencao,
+                    im.status
+                FROM 
+                    veiculo v
+                JOIN 
+                    inspecao_entrada ie ON v.placa = ie.placa
+                JOIN 
+                    inspecao_manutencao im ON ie.id_inspecao_entrada = im.id_inspecao_entrada
+                WHERE 
+                    ie.cpfmecanico = ? -- Filtra pela condição do CPF do mecânico na inspeção de entrada
+                    AND im.status = 'aguardando_aprovacao'; -- Filtra apenas inspeções com status 'aguardando_aprovacao'
+
                 `, [cpfMecanico], (error, veiculoResults) => {
                     if (error) {
                         console.log('Erro ao buscar veículos:', error);

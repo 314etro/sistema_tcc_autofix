@@ -30,7 +30,7 @@
                 <img src="/img/carroicon.png" alt="Meus Veículos" title="Meus Veículos" style="width: 24px; height: 24px; object-fit: contain;">
             </a>
             <img src="/img/perfilicon.png" alt="Perfil" id="profileIcon" style="width: 24px; height: 24px; object-fit: contain;" title="Perfil" >
-            <a href="/index1">
+            <a href="/index1" id="logoutIcon">
                 <img src="/img/sair-preto.png" alt="Sair" title="Sair" style="width: 24px; height: 24px; object-fit: contain;">
             </a>
         </div>
@@ -73,7 +73,7 @@
                         }).replace(',', ' -') %></p>
                         
                     </div>
-                    <a href="/checklist_aprovar_orcamento/<%= veiculo.placa %>/<%= veiculo.id_inspecao_manutencao %>">  <!-- Adicione o ID aqui -->
+                    <a href="/checklist_aprovar_orcamento/<%= veiculo.id_inspecao_manutencao %>">  <!-- Adicione o ID aqui -->
                     <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 
@@ -124,6 +124,18 @@
     </div>
 </div>
        
+<!-- Modal de Confirmação de Saída -->
+<div id="logoutModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('logoutModal')">×</span>
+        <h4 class="title-profile" style="text-align:center;">Confirmação de Saída</h4>
+        <p style="text-align: center;">Você tem certeza que deseja sair?</p>
+        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+            <button onclick="closeModal('logoutModal')" class="button-common button-reject">Cancelar</button>
+            <a href="/index1" class="button-common button-accept">Sair</a>
+        </div>
+    </div>
+</div>
 
 
     <script>
@@ -148,9 +160,55 @@
                 modal.style.display = "none";
             }
         }
+
+         // Função para abrir o modal
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = "block";
+    }
+}
+
+// Função para fechar o modal
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+// Abre o modal de logout ao clicar no ícone de sair
+document.getElementById("logoutIcon").addEventListener("click", function (event) {
+    event.preventDefault(); // Evita o redirecionamento imediato
+    openModal('logoutModal'); // Abre o modal de logout
+});
     </script>
 </body>
 <style>
+
+#logoutModal .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    text-align: center;
+}
+
+#logoutModal .button-reject {
+    background-color: rgb(108, 117, 125);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#logoutModal .button-accept {
+    background-color: rgb(220, 53, 69);
+    color: rgb(255, 255, 255);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
 
 #profileIcon{
             cursor: pointer;

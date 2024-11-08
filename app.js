@@ -571,83 +571,8 @@ const { isReadable } = require('stream');
         });
 
         });
-        //
-        app.get('/fornecedor_adm', (req, res) => {
-            db.query('SELECT * FROM fornecedor ORDER BY data_criacao DESC', (error, results) => {
-                if (error) {
-                    console.log('Erro ao buscar fornecedor', error);
-                    res.status(500).send('Erro ao buscar fornecedor');
-                } else {
-                    res.render('fornecedor_adm', { fornecedores: results });
-                }
-            });
-        });
-
-
-
-        app.post('/adicionarFornecedor', (req, res) => {
-            const cnpj_fornecedor = req.body.cnpj_fornecedor;
-            const nome = req.body.nome_fornecedor;
-            const email = req.body.email_fornecedor;
-            const telefone = req.body.telefone_fornecedor;
-            const endereco = req.body.endereco_fornecedor;
-            const id_oficina = req.body.id_oficina;
         
-            db.query('INSERT INTO fornecedor (cnpj, nome, telefone, email, endereco, idoficina) VALUES  (?, ?, ?, ?, ?, ?)', 
-            [cnpj_fornecedor, nome, telefone, email, endereco, id_oficina], (error, results) => {
-                if (error) {
-                    console.log('Erro ao cadastrar fornecedor', error);
-                } else {
-                    console.log(results);
-                    console.log('fornecedor cadastrado com sucesso');
-                    // Redireciona para a página de clientes
-                    res.redirect('/fornecedor_adm');
-                }
-            });
-        });
-
-        
-        app.post('/editarFornecedor', (req, res) =>{
-            const cnpj = req.body.cnpj_fornecedor;
-            const nome = req.body.nome_fornecedor;
-            const email = req.body.email_fornecedor;
-            const telefone = req.body.telefone_fornecedor;
-            const endereco = req.body.endereco_fornecedor;
-            const idoficina = req.body.id_oficina;
-
-            db.query('update fornecedor set cnpj = ?, nome = ?, telefone = ?, email = ?, endereco = ?, idoficina = ? where cnpj = ?', [cnpj, nome, telefone, email, endereco, idoficina, cnpj], (error, results) =>{
-            if(error){
-                console.log('Erro ao editar fornecedor');
-                console.log(error);
-                
-            } else {
-                res.redirect('/fornecedor_adm');
-                console.log(results);
-            
-            }
-            });
-        });
-
-
-        // Excluir fornecedor
-        
-        app.post('/excluirFornecedor', (req, res) => {
-            const cnpj = req.body.cnpj_fornecedor;
-
-                    // Por fim, exclua o cliente
-                    db.query('DELETE FROM fornecedor WHERE cnpj = ?', [cnpj], (clienteError) => {
-                        if (clienteError) {
-                            console.log('Erro ao excluir fornecedor', clienteError);
-                            res.status(500).send('Erro ao excluir cliente');
-                            return;
-                        }
-
-                        console.log('Cliente excluído com sucesso');
-                        // Redireciona para a página de clientes
-                        res.redirect('/fornecedor_adm');
-                    });
-                });
-                //
+       
 
                 app.get('/aprovar_entrada_cliente', (req, res) => {
                     // Verifique se o cliente está autenticado

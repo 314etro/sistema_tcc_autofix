@@ -196,20 +196,20 @@
 </body>
 <style>
 .botoes {
-    display: flex;              
-    justify-content: space-between;
-    gap: 10px;                  /* Menor espaçamento entre os botões */
+    display: flex;
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    gap: 200px; /* Define um espaçamento entre os botões */
+    margin-top: 20px; /* Adiciona um pequeno espaçamento acima */
 }
 
-
 .button-container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;  /* Menor espaço entre o total e os botões */
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline-block; /* Torna os botões mais compactos */
+}
+
+.reject,
+.confirm-budget {
+    width: auto; /* Remove a largura fixa */
+    padding: 10px 20px; /* Define um espaçamento interno */
 }
 
 button {

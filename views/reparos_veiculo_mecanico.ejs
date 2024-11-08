@@ -32,15 +32,19 @@
 
     <div class="main-container">
         <div class="card-info">
-            <div class="card-nome">
+            <div class="card-detalhes">
+                <div class="info-column">
                 <h4>Nome:</h4>
                 <p><%= veiculo.nome_cliente %></p>
-            </div>
-            <div class="card-modelo">
+               </div>
+                <div class="info-column">
                 <h4>Carro:</h4>
                 <p><%= veiculo.marca %> <%= veiculo.modelo %></p>
+                </div>
             </div>
         </div>
+    </div>
+   
 
        <form action="/finalizar_manutencao" method="post">
         <input type="hidden" name="id_orcamento" value="<%= veiculo.id_orcamento %>"> <!-- Campo oculto para o id do orçamento -->
@@ -52,7 +56,7 @@
         <% } else { %>
             <% servicos.forEach(servico => { %>
                 <div class="card-wrapper">
-                    <input type="checkbox" id="check_<%= veiculo.id_orcamento %>_<%= servico.id %>_<%= servico.nome_servico.replace(/\s+/g, '_') %>">
+                    <input type="checkbox" id="check_<%= veiculo.id_orcamento %><%= servico.id %><%= servico.nome_servico.replace(/\s+/g, '_') %>">
                     <div class="card-content">
                         <p><%= servico.nome_servico %></p>
                     </div>
@@ -144,6 +148,14 @@
         height: 24px;
     }
 
+    .search-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
     .search-bar .search-input-container {
         margin-left: 40px; /* Espaço para o botão de voltar */
         width: 60%;
@@ -157,6 +169,7 @@
         width: 80%;
         display: flex;
         justify-content: center;
+        margin-top: 100px;
     }
 
     .main-container {
@@ -178,6 +191,97 @@
         
     }
 
+
+    /* Card de detalhes */
+    .card-detalhes {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+/* Definindo colunas */
+.info-column {
+    flex: 1; /* Cada coluna ocupa metade do espaço */
+    text-align: center;
+}
+
+/* Títulos e texto */
+.info-column h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.info-column p {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+/* Estilo dos campos de serviço */
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.card-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    min-height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.card-wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: #fff;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.card-wrapper input[type="checkbox"]:checked {
+    background-color: green;
+}
+
+.card-wrapper input[type="checkbox"]:checked::before {
+    content: '\2713';
+    display: block;
+    color: white;
+    font-size: 15px;
+}
+
+.card-content {
+    padding-left: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    word-wrap: break-word;
+    font-size: 16px; /* Ajuste o tamanho da fonte se necessário */
+}
+
+.button {
+    margin-top: 30px; /* Menor margem para o botão */
+}
+
     .card-nome, .card-modelo {
         background-color: #fff;
         border: 1px solid #ccc;
@@ -190,33 +294,7 @@
         margin-bottom: 30px;
     }
 
-    .card-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px; /* Define o espaço entre os cards */
-        width: 100%;
-    }
-
-    .card-wrapper {
-    display: flex;
-    align-items: center;
-    width: 3000px;
-    max-width: 600px; /* Define uma largura máxima para os cards */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* Adiciona posição relativa ao card-wrapper */
-}
-
-.card-content {
-    flex: 1; /* Garante que ocupe todo o espaço disponível */
-    min-width: 150px; /* Define uma largura mínima */
-    padding-left: 10px; /* Espaço para separar o checkbox do texto */
-    word-wrap: break-word; /* Quebra a palavra caso seja muito longa */
-}
+    
 
     .card-wrapper input[type="checkbox"] {
         -webkit-appearance: none; /* Remove o estilo padrão do checkbox */

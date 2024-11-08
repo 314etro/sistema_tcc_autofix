@@ -1,6 +1,5 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png"  href="/img/icone_logo3.png">
+    <link rel="icon" type="image/png" href="/img/icone_logo3.png">
 
     <title>Manutenções finalizadas</title>
 </head>
@@ -19,28 +18,25 @@
         <img src="img/logo.png" alt="Logo">
     </header>
 
-    <div class="title">
-        Manutenções finalizadas
-    </div>
+    <div class="title">Manutenções finalizadas</div>
 
     <div class="search-bar">
         <button class="back-button">
             <a href="/home_mecanico"><img src="img/seta.png" alt="Voltar"></a>
         </button>
         <div class="search-input-container">
-            <input type="text" placeholder="Buscar manutenção finalizada">
+            <input type="text" id="search-input" placeholder="Buscar manutenção finalizada" onkeyup="filterCards()">
             <img src="img/lupa.png" alt="Pesquisar">
         </div>
     </div>
 
-
     <main class="container">
-        <div class="row">
+        <div class="row" id="cards-container">
             <% veiculos.forEach(veiculo => { %>
-                <div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3 card-container" data-placa="<%= veiculo.placa %>">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title "><b>Finalizado</b></h5>
+                            <h5 class="card-title"><b>Finalizado</b></h5>
                             <p class="card-text"><b>Modelo:</b> <%= veiculo.modelo %></p>
                             <p class="card-text"><b>Marca:</b> <%= veiculo.marca %></p>
                             <p class="card-text"><b>Placa:</b> <%= veiculo.placa %></p>
@@ -52,7 +48,27 @@
         </div>
     </main>
 
+    <script>
+        function filterCards() {
+            const searchInput = document.getElementById("search-input").value.toLowerCase();
+            const cards = document.querySelectorAll(".card-container");
 
+            cards.forEach(card => {
+                const placa = card.getAttribute("data-placa").toLowerCase();
+                if (placa.includes(searchInput)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            const visibleCards = Array.from(cards).filter(card => card.style.display === "block");
+            if (visibleCards.length > 0) {
+                const firstCard = visibleCards[0];
+                firstCard.parentNode.insertBefore(firstCard, visibleCards[0]);
+            }
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQS" crossorigin="anonymous"></script>
 </body>

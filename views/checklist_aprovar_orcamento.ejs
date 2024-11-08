@@ -71,6 +71,16 @@
         </div>
 
         <div class="botoes">
+
+            <form action="/rejeitar_orcamento_cliente" method="POST">
+                <input type="hidden" name="id_inspecao_manutencao" value="<%= veiculo.id_inspecao_manutencao %>">
+                <input type="hidden" name="id_inspecao_entrada" value="<%= veiculo.id_inspecao_entrada %>">
+              
+
+                <div class="button-container">
+                    <button type="submit" class="reject">Rejeitar Orçamento</button>
+                </div>
+            </form>
             <form action="/aprovar_orcamento_cliente" method="POST">
                 <input type="hidden" name="id_inspecao_manutencao" value="<%= veiculo.id_inspecao_manutencao %>">
                 <input type="hidden" name="servicos_selecionados" id="servicos-selecionados" value="[]">
@@ -81,15 +91,7 @@
                     <button type="submit" class="confirm-budget">Confirmar Orçamento</button>
                 </div>
             </form>
-            <form action="/rejeitar_orcamento_cliente" method="POST">
-                <input type="hidden" name="id_inspecao_manutencao" value="<%= veiculo.id_inspecao_manutencao %>">
-                <input type="hidden" name="id_inspecao_entrada" value="<%= veiculo.id_inspecao_entrada %>">
-              
-
-                <div class="button-container">
-                    <button type="submit" class="reject">Rejeitar Orçamento</button>
-                </div>
-            </form>
+           
         </div>
 
 

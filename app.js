@@ -1655,6 +1655,7 @@ WHERE
         `, [cpfCliente], (error, results) => {
             if (error) {
                 console.log('Erro ao buscar veículos e dados do cliente', error);
+                console.log(db.query)
                 res.status(500).send('Erro ao buscar veículos e dados do cliente');
             } else {
                 const veiculos = results.map(row => ({
@@ -1729,7 +1730,10 @@ WHERE
         });
       });
         
-        app.get('/acompanhar_cliente', (req, res) => {
+        app.get('/acompanhar_cliente/:id_inspecao_entrada', (req, res) => {
+
+      
+          
             res.render('acompanhar_cliente');
         });
 

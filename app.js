@@ -1,54 +1,52 @@
-    const express = require('express');
-    const bodyParser = require('body-parser');
-    const mysql = require('mysql2');
-    const ejs = require('ejs');
-    const path = require('path');
-    const { error } = require('console');
-    const app = express();
-    const port = 3000;
+const express = require('express');
+const bodyParser = require('body-parser');
+const mysql = require('mysql2');
+const ejs = require('ejs');
+const path = require('path');
+const { error } = require('console');
+const app = express();
 
-    const session = require('express-session'); // Adicione o módulo express-session
-    const res = require('express/lib/response');
-const { isReadable } = require('stream');
 
-    app.use(session({
-        secret: 'your-secret-key', // Substitua por uma chave secreta forte
-        resave: false,
-        saveUninitialized: true
-    }));
+const port = process.env.PORT || 3001;
 
-    const db = mysql.createConnection({
-        host:'localhost',
-        user:'root',
-        password:'',
-        database: 'autofix'
-    });
 
-    db.connect((error)=>{
-        if(error){
-            console.log('erro ao conectar com banco de dados');
-        } else{
-            console.log('conectado ao mysql');
-        }
-    });
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
-    app.use(bodyParser.urlencoded({extended: true}));
-    app.listen(port, ()=> {
-        console.log(`Servidor rodando no endereço: http://localhost:${port}`);
-    })
+const db = mysql.createPool({
+host: process.env.DB_HOST,
+user: process.env.DB_USERNAME,
+password: process.env.DB_PASSWORD,
+database: process.env.DB_DBNAME,
+waitForConnections: true,
+connectionLimit: 10,
+queueLimit: 0
+});
 
-    app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.use(express.static('public'));
-    app.set('view engine', 'ejs');
-    app.set('views', path.join(__dirname, 'views'));
-    app.use(express.static(__dirname + '/public'));
+const session = require('express-session'); // Adicione o módulo express-session
+const res = require('express/lib/response');
 
-            //rotas
-            app.get('/', (req, res) => {
-                res.render('index1');
-            });
+app.use(session({
+    secret: 'your-secret-key', // Substitua por uma chave secreta forte
+    resave: false,
+    saveUninitialized: true
+}));
 
+app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
+
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));
+
+//rotas
+app.get('/', (req, res) => {
+    res.render('index1');
+});
         
 
             app.get('/home_mecanico', (req, res) => {

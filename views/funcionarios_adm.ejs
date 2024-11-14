@@ -59,7 +59,15 @@
                                 </div>
                                 <div class="modal-body">
                                     <form action="/editarFuncionario" method="post" id="addFuncionarioForm">
-                                        <input type="hidden" name="cpf_mecanico" value="<%= mecanico.cpf_mecanico %>">
+                                     
+                                        <input type="hidden" name="nome" value="<%= mecanico.nome %>">
+                                        <input type="hidden" name="email" value="<%= mecanico.email %>">
+                                        <input type="hidden" name="telefone" value="<%= mecanico.telefone %>">
+                                        <input type="hidden" name="senha" value="<%= mecanico.senha %>">
+                                        <input type="hidden" name="idoficina" value="<%= mecanico.idoficina %>">
+                                        <input type="hidden" name="cpfAdm" value="<%= mecanico.cpfadm %>"> 
+
+
                                         <div class="mb-3">
                                             <label for="nome-editar" class="form-label">Nome:</label>
                                             <input type="text" class="form-control" id="nome-editar" name="nome_mecanico" value="<%= mecanico.nome %>">
@@ -217,6 +225,8 @@
             });
         });
     });
+
+    
 </script>
 
 <style>

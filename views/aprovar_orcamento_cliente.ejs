@@ -74,7 +74,7 @@
                         
                     </div>
                     <a href="/checklist_aprovar_orcamento/<%= veiculo.id_inspecao_manutencao %>">  <!-- Adicione o ID aqui -->
-                    <button class="button-orcamento" class="button" href="" style="background-color: rgba(19, 129, 50, 1); border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
+                    <button class="button-orcamento" class="button" href="" style="background-color: #f56d13; border-radius:5px; height:40px; border:none; color:#f8f8f8">Ver orçamento</button> 
                 </a>
                 </div> 
                 <% }); %>
@@ -374,16 +374,20 @@ document.getElementById("logoutIcon").addEventListener("click", function (event)
 }
  
 .edit-profile {
-    background-color: #FF6B00;
+    background-color: #0D6EFD; /* Nova cor */
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Ajuste para ocupar toda a largura disponível */
-    max-width: 300px; /* Limite máximo para telas maiores */
+    width: 100%;
+    max-width: 300px;
     display: block;
-    margin: 0 auto; /* Centraliza o botão */
+    margin: 0 auto;
+}
+
+.edit-profile:hover {
+    background-color: #0b5ed7; /* Um tom ligeiramente mais escuro para o efeito hover */
 }
 
 @media (max-width: 414px) { /* Alvo para iPhone XR e dispositivos similares */
@@ -396,9 +400,6 @@ document.getElementById("logoutIcon").addEventListener("click", function (event)
     }
 }
 
-.edit-profile:hover {
-    background-color: #d35800;
-}
 
    .modal-content p {
     text-align: left; /* Alinha os parágrafos à esquerda */

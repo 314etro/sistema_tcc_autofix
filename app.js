@@ -5,11 +5,26 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-const port = 3000;
+
+
+const port = process.env.PORT || 3001;
+
+
+const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
+const db = mysql.createPool({
+host: process.env.DB_HOST,
+user: process.env.DB_USERNAME,
+password: process.env.DB_PASSWORD,
+database: process.env.DB_DBNAME,
+waitForConnections: true,
+connectionLimit: 10,
+queueLimit: 0
+});
+
 
 const session = require('express-session'); // Adicione o módulo express-session
 const res = require('express/lib/response');
-const { isReadable } = require('stream');
 
 app.use(session({
     secret: 'your-secret-key', // Substitua por uma chave secreta forte
@@ -17,25 +32,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
-const db = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database: 'autofix'
-});
+app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
 
-db.connect((error)=>{
-    if(error){
-        console.log('erro ao conectar com banco de dados');
-    } else{
-        console.log('conectado ao mysql');
-    }
-});
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.listen(port, ()=> {
-    console.log(`Servidor rodando no endereço: http://localhost:${port}`);
-})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -44,10 +43,10 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
-        //rotas
-        app.get('/', (req, res) => {
-            res.render('index1');
-        });
+//rotas
+app.get('/', (req, res) => {
+    res.render('index1');
+});
 
     
 
@@ -532,33 +531,31 @@ app.get('/funcionarios_adm', (req, res) => {
 
 
 
-        app.post('/editarFuncionario/:cpfAdm', (req, res) => {
-            const cpf_mecanico = req.body.cpf_mecanico; // CPF usado apenas no WHERE
-            const nome = req.body.nome;
-            const email = req.body.email;
-            const telefone = req.body.telefone;
-            const senha = req.body.senha;
+        app.post('/editarFuncionario', (req, res) => {
+            const cpf_mecanico = req.body.cpf_mecanico;
+            const nome = req.body.nome_mecanico;
+            const email = req.body.email_mecanico;
+            const telefone = req.body.telefone_mecanico;
+            const senha = req.body.senha_mecanico;
             const idoficina = req.body.id_oficina;
-            const cpfadm = req.params.cpf_adm;
-
-
-
-            db.query('update inspecao_manutencao set id_inspecao_manutencao, cpfmecanico, placa')
-
+            const cpfAdm = req.body.cpfAdm; // Certifique-se de que o nome do campo seja "cpfAdm"
+        
+            console.log("Dados recebidos:", cpf_mecanico, nome, email, telefone, senha, idoficina, cpfAdm);
+        
             // Atualiza todos os campos, exceto o CPF
-            db.query('UPDATE mecanico SET nome = ?, email = ?, telefone = ?, senha = ?, idoficina = ?, cpfadm = ? WHERE cpf_mecanico = ?', 
-            [nome, email, telefone, senha, idoficina, cpfadm, cpf_mecanico], 
-            (error, results) => {
-            if (error) {
-                console.log('Erro ao editar funcionário:', error);
-                res.status(500).send('Erro ao editar funcionário');
-            } else {
-                res.redirect('/funcionarios_adm');
-                console.log(results);
-            }
-            });
+            db.query('UPDATE mecanico SET nome = ?, email = ?, telefone = ?, senha = ?, idoficina = ?, cpf_mecanico = ? WHERE cpfadm = ? AND cpf_mecanico = ?',
+                [nome, email, telefone, senha, idoficina, cpf_mecanico ,cpfAdm, cpf_mecanico], // Passe cpfadm como parâmetro
+                (error, results) => {
+                    if (error) {
+                        console.log('Erro ao editar funcionário:', error);
+                        res.status(500).send('Erro ao editar funcionário');
+                    } else {
+                        res.redirect('/funcionarios_adm');
+                        console.log(results);
+                    }
+                }
+            );
         });
-
         app.post('/excluirFuncionario', (req, res) => {
             const cpf_mecanico = req.body.cpf_mecanico;
             const cpf_novo = req.body.cpf_novomec;

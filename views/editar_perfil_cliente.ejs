@@ -55,7 +55,7 @@
             
             <div class="card-item">
                 <label>Senha: <%= cliente.senha%></label>
-                <button class="edit-button" id="openModal">Editar senha</button>
+                <button class="edit-button" id="openModal" name="senha" value="<%= cliente.senha%>">Editar senha</button>
             </div>
         </div>
 
@@ -118,6 +118,69 @@
 
 
         
+  </script>
+
+<script>
+    // Obtém os elementos do DOM
+    var modal = document.getElementById("editPasswordModal");
+    var openModalBtn = document.getElementById("openModal");
+    var closeModalBtn = document.getElementById("closeModal");
+  
+    // Abre o modal quando o botão "Editar senha" é clicado
+    openModalBtn.onclick = function() {
+      modal.style.display = "block";
+    }
+  
+    // Fecha o modal quando o botão "Cancelar" é clicado
+    closeModalBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+  
+    // Fecha o modal ao clicar fora do conteúdo
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  
+    // Adiciona um listener de evento para o formulário de edição de senha
+    document.querySelector('#editPasswordModal form').addEventListener('submit', function(event) {
+      event.preventDefault(); // Impede o envio padrão do formulário
+  
+      // Obtém os valores dos campos de senha
+      const novaSenha = document.getElementById('newPassword').value;
+      const confirmaSenha = document.getElementById('confirmPassword').value;
+  
+      // Verifica se as senhas são iguais
+      if (novaSenha !== confirmaSenha) {
+        // Se as senhas não forem iguais, exibe uma mensagem de erro
+        alert('As senhas não coincidem!');
+        return;
+      }
+  
+      // Envia uma requisição AJAX para o servidor para atualizar a senha
+      fetch('/editar_senha_cliente/<%= cliente.email %>', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `newPassword=${novaSenha}`
+      })
+      .then(response => {
+        // Verifica se a resposta do servidor foi bem-sucedida
+        if (response.ok) {
+          // Redireciona para a página de perfil do cliente
+          window.location.href = '/editar_perfil_cliente/<%= cliente.email %>';
+        } else {
+          // Exibe uma mensagem de erro se a atualização da senha falhou
+          alert('Erro ao atualizar a senha!');
+        }
+      })
+      .catch(error => {
+        // Exibe uma mensagem de erro se ocorreu um erro na requisição AJAX
+        alert('Erro ao atualizar a senha!');
+      });
+    });
   </script>
 
 
@@ -266,7 +329,7 @@
         }
 
         .edit-button {
-            background-color: #A00;
+            background-color: #0D6EFD;
             color: white;
             border: none;
             border-radius: 5px;
@@ -276,8 +339,8 @@
         }
 
         .edit-button:hover {
-            background-color: #900;
-        }
+            background-color: #0c5dd8;
+        } **
         
         .modal {
             display: none;

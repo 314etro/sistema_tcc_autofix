@@ -61,7 +61,7 @@
                             <p>Placa: <%= veiculo.placa %></p>
                         </div>
                         <a href="/ver_checklist_entrada?placa=<%= veiculo.placa %>" class="btn btn-checklist">Visualizar Checklist</a>
-                        <button class="openModalButton" data-previous-url="/aprovar_entrada_cliente" data-placa="<%= veiculo.placa %>" data-cpfCliente="<%= veiculo.cpf_cliente %>">Mais informações</button>
+                        <button class="openModalButton" data-previous-url="/aprovar_entrada_cliente" data-placa="<%= veiculo.placa %>" data-cpfCliente="<%= veiculo.cpf_cliente %>">Aprovar ou Rejeitar</button>
                     </div>
                 </div>
             <% }); %>
@@ -275,8 +275,8 @@ document.querySelectorAll('.openModalButton').forEach(button => {
     }
 
 
-.btn-checklist {
-    background-color: orange;
+    .btn-checklist {
+    background-color: #f56d13;
     color: white;
     border: none;
     border-radius: 5px; /* Bordas arredondadas */
@@ -287,6 +287,7 @@ document.querySelectorAll('.openModalButton').forEach(button => {
     transition: transform 0.1s ease;
     margin-top: 10px; /* Espaço entre o texto e o botão */
     width: 100%; /* Mesma largura do botão "Mais informações" */
+    text-decoration: none;
 }
 
 .btn-checklist:hover {
@@ -343,7 +344,7 @@ document.querySelectorAll('.openModalButton').forEach(button => {
 }
 
     .openModalButton {
-        background-color: rgba(19, 129, 50, 1); /* Verde */
+        background-color: #0D6EFD; /* azul */
         color: white;
         padding: 10px 15px;
         border: none;
@@ -508,16 +509,20 @@ document.querySelectorAll('.openModalButton').forEach(button => {
     }
 
     .edit-profile {
-    background-color: #FF6B00;
+    background-color: #0D6EFD; /* Nova cor */
     color: white;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%; /* Ajuste para ocupar toda a largura disponível */
-    max-width: 300px; /* Limite máximo para telas maiores */
+    width: 100%;
+    max-width: 300px;
     display: block;
-    margin: 0 auto; /* Centraliza o botão */
+    margin: 0 auto;
+}
+
+.edit-profile:hover {
+    background-color: #0b5ed7; /* Um tom ligeiramente mais escuro para o efeito hover */
 }
 
 @media (max-width: 414px) { /* Alvo para iPhone XR e dispositivos similares */
@@ -530,9 +535,6 @@ document.querySelectorAll('.openModalButton').forEach(button => {
     }
 }
 
-.edit-profile:hover {
-    background-color: #d35800;
-}
 
    .modal-content p {
     text-align: left; /* Alinha os parágrafos à esquerda */

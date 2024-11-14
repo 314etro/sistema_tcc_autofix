@@ -72,7 +72,7 @@
                     
                 </div>
                 
-                <div class="card-footer bg-transparent" style="text-align: center;" background-color:'#f56d13><div style="text-align: center; margin-top: 10px;">
+                <div class="card-footer bg-transparent">
                     <a href="/acompanhar_cliente/<%= veiculo.id_inspecao_entrada%>">
                     <button class="btn btn-primary btn-block" onclick="window.location.href='pagina-acompanhar.html'">Acompanhar</button>
                 </a>
@@ -192,6 +192,28 @@ document.getElementById("logoutIcon").addEventListener("click", function (event)
     border-radius: 5px;
 }
 
+.btn-primary {
+    background-color: #FF6B00; /* Cor laranja */
+    border-color: #FF6B00;
+    color: white;
+    text-decoration: none; /* Remove a linha azul */
+}
+
+.btn-primary:hover {
+    background-color: #d35800; /* Laranja mais escuro para o efeito hover */
+    border-color: #d35800;
+    color: white;
+    text-decoration: none; /* Garante que não apareça sublinhado no hover */
+}
+
+.btn-primary:focus, .btn-primary:active {
+    background-color: #FF6B00; /* Cor laranja */
+    border-color: #FF6B00;
+    color: white;
+    outline: none; /* Remove o contorno azul */
+    box-shadow: none; /* Remove o efeito de sombra */
+    text-decoration: none; /* Remove o sublinhado ao clicar */
+}
 
         body {
             font-family: 'Arvo', serif;

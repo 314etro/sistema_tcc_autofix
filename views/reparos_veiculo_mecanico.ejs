@@ -26,6 +26,7 @@
     </a>
 
     <div class="title">
+        
         Reparos do veículo
     </div>
     
@@ -135,7 +136,7 @@
 
 
      .back-button {
-        position: absolute;
+        position: fixed;
         left: 0;
         margin-left: 650px;
         background-color: transparent;
@@ -343,5 +344,42 @@
     .button:hover {
         background-color: #0c5320; /* Muda a cor ao passar o mouse */
     }
+
+    .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px; /* Espaço abaixo do header */
+}
+
+.back-button {
+    background-color: transparent;
+    border: none;
+    margin-right: 10px; /* Espaço entre a seta e o título */
+}
+
+.back-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.title {
+    font-size: 24px;
+    color: #333333;
+    text-align: center;
+}
+
+/* Adicione media queries para telas menores */
+@media (max-width: 768px) {
+    .header-container {
+        justify-content: flex-start; /* Mantém alinhado à esquerda */
+        padding: 0 10px; /* Adiciona um pouco de margem lateral */
+    }
+
+    .title {
+        font-size: 20px; /* Reduz o tamanho do título em telas pequenas */
+    }
+}
+
 </style>
 </html>

@@ -41,7 +41,7 @@
                                 <h5 class="card-title"><%= mecanico.nome %></h5>
                                 <p class="card-text">Email: <%= mecanico.email %></p>
                                 <p class="card-text">Telefone: <%= mecanico.telefone %></p>
-                                <button class="btn btn-primary editar-button" data-bs-toggle="modal" data-bs-target="#editarPerfilModal-<%= mecanico.cpf_mecanico %>" data-id="<%= mecanico.cpf_mecanico %>">Editar</button>
+                                <button class="btn btn-primary editar-button" data-bs-toggle="modal" data-bs-target="#editarPerfilModal-<%= mecanico.cpf_mecanico %>" data-id="<%= mecanico.cpf_mecanico %>" value="<%= cpfAdm %>">Editar</button>
                                 <button class="delete-client-button" type="submit" data-bs-toggle="modal" data-bs-target="#excluirModal-<%= mecanico.cpf_mecanico %>" data-id="<%= mecanico.cpf_mecanico %>">
                                     Excluir Funcionário
                                 </button>
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="telefone-editar" class="form-label">Telefone:</label>
-                                            <input type="text" class="form-control" id="telefone-editar" name="telefone_mecanico" maxlength="13" pattern="\d{13}" title="Digite exatamente 13 dígitos numéricos" value="<%= mecanico.telefone %>">
+                                            <input type="text" class="form-control" id="telefone-editar" name="telefone_mecanico" maxlength="11" pattern="\d{11}" title="Digite exatamente 11 dígitos numéricos" value="<%= mecanico.telefone %>">
                                         </div>
                                         <div class="mb-3">
                                             <label for="senha_mecanico" class="form-label">Senha:</label>
@@ -84,10 +84,7 @@
                                             <label for="cpf-editar" class="form-label">CPF do Mecânico:</label>
                                             <input type="text" class="form-control" id="cpf_mecanico" name="cpf_mecanico" maxlength="11" pattern="\d{11}" title="Digite exatamente 11 dígitos numéricos" value="<%= mecanico.cpf_mecanico %>">
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="cpf-editar" class="form-label">CPF do Administrador:</label>
-                                            <input type="text" class="form-control" id="cpf_adm" name="cpf_adm" maxlength="11" pattern="\d{11}" title="Digite exatamente 11 dígitos numéricos" value="<%= mecanico.cpfadm %>">
-                                        </div>
+                                      
                                         <div class="modal-footer">
                                             <button type="button" class="supplier-button2" data-bs-dismiss="modal">Cancelar</button>
                                             <button type="submit" class="button3" id="salvarEdicao">Salvar Alterações</button>
@@ -151,7 +148,7 @@
 
                         <div class="mb-3">
                             <label for="telefone_mecanico" class="form-label">Telefone:</label>
-                            <input type="text" class="form-control" id="telefone" maxlength="13" pattern="\d{13}" name="telefone_mecanico"
+                            <input type="text" class="form-control" id="telefone" maxlength="11" pattern="\d{11}" name="telefone_mecanico"
                                 title="Digite exatamente 13 dígitos numéricos" required>
                         </div>
 
@@ -172,7 +169,7 @@
 
                         <div class="mb-3">
                             <label for="cpf-editar" class="form-label">CPF do Administrador:</label>
-                            <input type="text" class="form-control" id="cpf_adm" name="cpf_adm" maxlength="11" pattern="\d{11}"
+                            <input type="text" class="form-control" id="cpfAdm" name="cpfAdm" maxlength="11" pattern="\d{11}"
                                 title="Digite exatamente 11 dígitos numéricos" required>
                         </div>
                     

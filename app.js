@@ -5,26 +5,11 @@ const ejs = require('ejs');
 const path = require('path');
 const { error } = require('console');
 const app = express();
-
-
-const port = process.env.PORT || 3001;
-
-
-const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
-
-const db = mysql.createPool({
-host: process.env.DB_HOST,
-user: process.env.DB_USERNAME,
-password: process.env.DB_PASSWORD,
-database: process.env.DB_DBNAME,
-waitForConnections: true,
-connectionLimit: 10,
-queueLimit: 0
-});
-
+const port = 3000;
 
 const session = require('express-session'); // Adicione o módulo express-session
 const res = require('express/lib/response');
+const { isReadable } = require('stream');
 
 app.use(session({
     secret: 'your-secret-key', // Substitua por uma chave secreta forte
@@ -32,9 +17,25 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
+const db = mysql.createConnection({
+    host:'localhost',
+    user:'root',
+    password:'',
+    database: 'autofix'
+});
 
+db.connect((error)=>{
+    if(error){
+        console.log('erro ao conectar com banco de dados');
+    } else{
+        console.log('conectado ao mysql');
+    }
+});
 
+app.use(bodyParser.urlencoded({extended: true}));
+app.listen(port, ()=> {
+    console.log(`Servidor rodando no endereço: http://localhost:${port}`);
+})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,11 +44,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
-//rotas
-app.get('/', (req, res) => {
-    res.render('index1');
-});
-        
+        //rotas
+        app.get('/', (req, res) => {
+            res.render('index1');
+        });
+
+    
 
             app.get('/home_mecanico', (req, res) => {
                 // Verifique se a sessão do mecânico está ativa
@@ -153,35 +155,38 @@ app.get('/', (req, res) => {
                 });
             });
 
-            app.post('/loginAdm', (req,res)=>{
-                const usuario = req.body.emailAdm
-                const senha = req.body.senhaAdm
-                const idoficina = req.body.id_oficina
+            app.post('/loginAdm', (req, res) => {
+                const usuario = req.body.emailAdm;
+                const senha = req.body.senhaAdm;
             
-                db.query('select senha, idoficina from administrador where email = ?', [usuario], (error,results)=>{
-                
-                    if(error){
-                        console.log('erro ao realizar consulta', error);
-                    }else{
-                        if(results.length > 0){
+                // Consulta apenas o CPF e senha com base no e-mail fornecido
+                db.query('SELECT cpf_adm, senha FROM administrador WHERE email = ?', [usuario], (error, results) => {
+                    if (error) {
+                        console.log('Erro ao realizar consulta', error);
+                        res.status(500).send('Erro no servidor');
+                    } else {
+                        if (results.length > 0) {
                             const passwordDB = results[0].senha;
-                            const idoficinaDB = results[0].idoficina;
-                            
-                            if(passwordDB == senha && idoficinaDB == idoficina ){
-                                console.log('login bem sucedido ')
-                                // Armazene o email na sessão
-                                req.session.emailAdm = usuario; 
-                                res.redirect('/home_adm')
-                            }else{
-                                console.log('email ou senha incorretos')
-                            }
+                            const cpf_adm = results[0].cpf_adm;
             
-                        }else{
-                            console.log('usuário não cadastrado')
+                            if (passwordDB === senha) {
+                                console.log('Login bem-sucedido');
+                                req.session.emailAdm = usuario;
+                                req.session.cpf_adm = cpf_adm; // Armazena o CPF do adm na sessão
+                                res.redirect('/home_adm');
+                            } else {
+                                console.log('Senha incorreta');
+                                res.status(401).send('Senha incorreta');
+                            }
+                        } else {
+                            console.log('Usuário não cadastrado');
+                            res.status(404).send('Usuário não encontrado');
                         }
                     }
-                })
+                });
             });
+            
+            
 
             // Rota para exibir o perfil do administrador
         app.get('/perfil_adm', (req, res) => {
@@ -479,17 +484,29 @@ app.get('/', (req, res) => {
             });
             //
 
-        //rota funcionario 
-        app.get('/funcionarios_adm', (req, res) => {
-            db.query('SELECT * FROM mecanico ORDER BY data_criacao DESC', (error, results) => {
-                if (error) {
-                    console.log('Erro ao buscar funcionario', error);
-                    res.status(500).send('Erro ao buscar funcionario');
-                } else {
-                    res.render('funcionarios_adm', { funcionarios: results });
-                }
-            });
-        });
+      
+// Rota para listar os funcionários do administrador
+// Rota para listar os funcionários do administrador
+app.get('/funcionarios_adm', (req, res) => {
+    if (!req.session.cpf_adm) {
+        return res.redirect('/loginAdm');
+    }
+
+    const cpf_adm = req.session.cpf_adm; // Recupera o CPF do administrador da sessão
+    console.log(cpf_adm);
+
+    // Consulta para buscar mecânicos associados ao administrador logado pelo CPF
+    db.query('SELECT * FROM mecanico WHERE cpfadm = ? ORDER BY data_criacao DESC', [cpf_adm], (error, results) => {
+        if (error) {
+            console.log('Erro ao buscar funcionários', error);
+            res.status(500).send('Erro ao buscar funcionários');
+        } else {
+            // Passa o CPF do administrador como `cpfAdm` para a view
+            res.render('funcionarios_adm', { funcionarios: results, cpfAdm: cpf_adm }); 
+        }
+    });
+});
+
 
         app.post('/adicionarFuncionario', (req, res) => {
             const cpf_mecanico = req.body.cpf_mecanico;
@@ -515,14 +532,14 @@ app.get('/', (req, res) => {
 
 
 
-        app.post('/editarFuncionario', (req, res) => {
+        app.post('/editarFuncionario/:cpfAdm', (req, res) => {
             const cpf_mecanico = req.body.cpf_mecanico; // CPF usado apenas no WHERE
             const nome = req.body.nome;
             const email = req.body.email;
             const telefone = req.body.telefone;
             const senha = req.body.senha;
             const idoficina = req.body.id_oficina;
-            const cpfadm = req.body.cpf_adm;
+            const cpfadm = req.params.cpf_adm;
 
 
 
@@ -952,7 +969,7 @@ JOIN
 JOIN 
     inspecao_manutencao im ON ie.id_inspecao_entrada = im.id_inspecao_entrada
 WHERE 
-    ie.cpfmecanico = '67382956145' -- Filtra pela condição do CPF do mecânico na inspeção de entrada
+    ie.cpfmecanico = ? -- Filtra pela condição do CPF do mecânico na inspeção de entrada
     AND im.status = 'aguardando_aprovacao'; -- Filtra apenas inspeções com status 'aguardando_aprovacao'
 
 
@@ -1076,11 +1093,11 @@ app.get('/definir_preco_orcamento/:id_inspecao_entrada/:id_inspecao_manutencao',
             }
     
             if (result.length > 0) {
-                const cpfAdm = result[0].cpf_adm; // Obtém o CPF do primeiro (e único) administrador
+                const cpf_adm = result[0].cpf_adm; // Obtém o CPF do primeiro (e único) administrador
     
                 // Insere um novo orçamento na tabela orcamento
                 const sqlInsert = 'INSERT INTO orcamento (valor_total, status, id_administrador, id_inspecao_manutencao) VALUES (?, ?, ?, ?)';
-                db.query(sqlInsert, [totalValue, 'aguardando_aprovacao', cpfAdm, idInspecaoManutencao], (err, result) => {
+                db.query(sqlInsert, [totalValue, 'aguardando_aprovacao', cpf_adm, idInspecaoManutencao], (err, result) => {
                     if (err) {
                         console.error('Erro ao inserir o orçamento:', err);
                         return res.status(500).send('Erro ao processar o orçamento'); // Responde com erro
@@ -1320,7 +1337,7 @@ WHERE
             }
     
             if (result.length > 0) {
-                const cpfAdm = result[0].cpf_adm;
+                const cpf_adm = result[0].cpf_adm;
     
                 // Atualiza o valor total e o status do orçamento para "aprovado"
                 const sqlUpdate = 'UPDATE orcamento SET valor_total = ?, status = "aprovado" WHERE id_inspecao_manutencao = ?';

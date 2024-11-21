@@ -45,6 +45,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 
+
     
 
             app.get('/home_mecanico', (req, res) => {
@@ -552,34 +553,51 @@ app.get('/funcionarios_adm', (req, res) => {
                     }
                 }
             );
-        });
+        })
+        
         app.post('/excluirFuncionario', (req, res) => {
-            const cpf_mecanico = req.body.cpf_mecanico;
-            const cpf_novo = req.body.cpf_novomec;
-
-            db.query('UPDATE inspecao_manutencao set cpfmecanico = ? where cpfmecanico = ?', [cpf_novo, cpf_mecanico], (error, results) => {
-                if(error) {
-                    console.log('erro fazer o update', error);
-                } else {
-                    console.log('Deu tudo certo');
-                }
-
-            
-
-            db.query('DELETE FROM mecanico WHERE cpf_mecanico = ?', [cpf_mecanico], (clienteError) => {
-                if (clienteError) {
-                    console.log('Erro ao excluir funcionario', clienteError);
-                    res.status(500).send('Erro ao excluir funcionario');
+            const cpf_mecanico = req.body.cpf_mecanico;  // CPF do mecânico que será excluído
+            const cpf_novo = req.body.cpf_novomec;  // CPF do novo mecânico que vai assumir as responsabilidades
+        
+            // Atualiza todas as tabelas que possuem a referência ao mecânico excluído
+            db.query('UPDATE inspecao_entrada SET cpfmecanico = ? WHERE cpfmecanico = ?', [cpf_novo, cpf_mecanico], (error) => {
+                if (error) {
+                    console.log('Erro ao atualizar inspecao_entrada', error);
+                    res.status(500).send('Erro ao atualizar inspeções de entrada');
                     return;
                 }
-
-                console.log('Funcionario excluído com sucesso');
-                // Redireciona para a página de clientes
-                res.redirect('/funcionarios_adm');
+        
+                db.query('UPDATE inspecao_manutencao SET cpfmecanico = ? WHERE cpfmecanico = ?', [cpf_novo, cpf_mecanico], (error) => {
+                    if (error) {
+                        console.log('Erro ao atualizar inspecao_manutencao', error);
+                        res.status(500).send('Erro ao atualizar inspeções de manutenção');
+                        return;
+                    }
+        
+                    db.query('UPDATE manutencao SET cpf_mecanico = ? WHERE cpf_mecanico = ?', [cpf_novo, cpf_mecanico], (error) => {
+                        if (error) {
+                            console.log('Erro ao atualizar manutencao', error);
+                            res.status(500).send('Erro ao atualizar manutenções');
+                            return;
+                        }
+        
+                        // Agora que todos os dados foram transferidos, podemos excluir o mecânico
+                        db.query('DELETE FROM mecanico WHERE cpf_mecanico = ?', [cpf_mecanico], (clienteError) => {
+                            if (clienteError) {
+                                console.log('Erro ao excluir funcionário', clienteError);
+                                res.status(500).send('Erro ao excluir funcionário');
+                                return;
+                            }
+        
+                            console.log('Funcionário excluído com sucesso');
+                            // Redireciona para a página de funcionários
+                            res.redirect('/funcionarios_adm');
+                        });
+                    });
+                });
             });
         });
-
-        });
+        
         
        
 

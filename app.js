@@ -7,24 +7,24 @@ const { error } = require('console');
 const app = express();
 
 
+
+
 const port = process.env.PORT || 3001;
-
-
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
 const db = mysql.createPool({
-host: process.env.DB_HOST,
-user: process.env.DB_USERNAME,
-password: process.env.DB_PASSWORD,
-database: process.env.DB_DBNAME,
-waitForConnections: true,
-connectionLimit: 10,
-queueLimit: 0
-});
-
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DBNAME,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+    });
 
 const session = require('express-session'); // Adicione o módulo express-session
 const res = require('express/lib/response');
+const { isReadable } = require('stream');
 
 app.use(session({
     secret: 'your-secret-key', // Substitua por uma chave secreta forte
@@ -32,9 +32,22 @@ app.use(session({
     saveUninitialized: true
 }));
 
+
 app.use(express.json()); // Isso é necessário para que req.body seja populado corretamente
 
 
+db.connect((error)=>{
+    if(error){
+        console.log('erro ao conectar com banco de dados');
+    } else{
+        console.log('conectado ao mysql');
+    }
+});
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.listen(port, ()=> {
+    console.log(`Servidor rodando no endereço: http://localhost:${port}`);
+})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,10 +56,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
 
-//rotas
-app.get('/', (req, res) => {
-    res.render('index1');
-});
+        //rotas
+        app.get('/', (req, res) => {
+            res.render('index1');
+        });
+
 
     
 
